@@ -21,3 +21,28 @@ export const FETCH_POSTS_QUERY = gql`
     }
   }
 `;
+
+export const FETCH_ITEMS_QUERY = gql`
+  {
+    getItems{
+    id
+    name
+    price
+    createdAt
+    username
+    description
+    reviews{
+      id
+      body
+      username
+      rating
+      createdAt
+    }
+    images{
+      id
+      src
+    }
+    reviewCount
+  }
+}
+`;

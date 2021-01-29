@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Card, Icon, Label, Image, Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import '../App.css';
 
 
@@ -12,7 +11,7 @@ import MyPopup from './MyPopup';
 
 
 function PostCard({
-    post: { body, createdAt, id, username, likeCount, commentCount, likes }
+    item: { id, name, price, username, reviewCount, bookmarkedBy }
 }) {
     const { user } = useContext(AuthContext);
 
@@ -27,21 +26,22 @@ function PostCard({
             </Card.Content>
 
             <Card.Content extra as={Link} to={`/posts/${id}`}>
-                <Card.Header style={{ fontSize: 14 }}>{body}</Card.Header>
+                <Card.Header style={{ fontSize: 14 }}>{name}</Card.Header>
                 <Card.Meta>
                     <span className='penjual'>{username}</span>
                 </Card.Meta>
                 <Card.Meta style={{ marginTop: 5 }}>
                     <Icon name='star' style={{ color: 'gold' }}></Icon>
-                    {`  `+likeCount+`/5`}
+                    4/5
                 </Card.Meta>
                 <Card.Description>
-                    Rp500.000
+                    Rp{price}
                 </Card.Description>
             </Card.Content>
 
             <Card.Content extra>
-                <BookmarkButton user={user} post={{ id, likes, likeCount }}></BookmarkButton>
+                {/* <BookmarkButton user={user} item={{ id, bookmarkedBy }}></BookmarkButton> */}
+                <Button onClick={()=>console.log(bookmarkedBy)}>test</Button>
             </Card.Content>
 
         </Card>

@@ -5,12 +5,12 @@ import { Grid, Transition } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import ShopCard from '../components/ShopCard';
 import FilterBar from '../components/FilterBar';
-import { FETCH_POSTS_QUERY } from '../util/graphql';
+import { FETCH_ITEMS_QUERY } from '../util/graphql';
 
 function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data } = useQuery(FETCH_POSTS_QUERY)
-  const { getPosts: posts } = data ? data : []
+  const { loading, data } = useQuery(FETCH_ITEMS_QUERY)
+  const { getItems: items } = data ? data : []
 
   // const {
   //   loading,
@@ -27,10 +27,10 @@ function Home() {
           <h1>Loading posts..</h1>
         ) : (
             <Transition.Group duration={1000}>
-              {posts &&
-                posts.map((post) => (
-                  <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-                    <ShopCard post={post} />
+              {items &&
+                items.map((item) => (
+                  <Grid.Column key={item.id} style={{ marginBottom: 20 }}>
+                    <ShopCard item={item} />
                   </Grid.Column>
                 ))}
             </Transition.Group>

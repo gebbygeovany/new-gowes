@@ -6,22 +6,23 @@ import { Icon, Label, Button, Popup } from 'semantic-ui-react'
 
 import MyPopup from './MyPopup';
 
-function BookmarkButton({ user, post: { id, likeCount, likes } }) {
-    const [liked, setLiked] = useState(false)
+function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
+    const [bookmarked, setBookmarked] = useState(false)
+    
     useEffect(() => {
-        if (user && likes.find(like => like.username === user.username)) {
-            setLiked(true)
+        if (user && bookmarkedBy.find(bookmark => bookmark.username === user.username)) {
+            setBookmarked(true)
         } else {
-            setLiked(false)
+            setBookmarked(false)
         }
-    }, [user, likes])
+    }, [user, bookmarkedBy])
 
-    const [likePost] = useMutation(LIKE_POST_MUTATION, {
-        variables: { postId: id }
+    const [bookmarkPost] = useMutation(BOOKMARK_ITEM_MUTATION, {
+        variables: { itemId: id }
     })
 
-    const likeButton = user ? (
-        liked ? (
+    const bookmarkButton = user ? (
+        bookmarked ? (
             <Button fluid color="teal">
                 <Icon name="bookmark" />
             </Button>
@@ -37,23 +38,23 @@ function BookmarkButton({ user, post: { id, likeCount, likes } }) {
         );
     return (
 
-        <MyPopup content={liked ? 'Remove Bookmark' : 'Bookmark'}>
-            <div as='div' onClick={user ? likePost : ''}>
-                {likeButton}
+        <MyPopup content={bookmarked ? 'Remove Bookmark' : 'Bookmark'}>
+            <div as='div' onClick={user ? bookmarkPost : ''}>
+                {bookmarkButton}
             </div>
         </MyPopup>
 
     )
 }
 
-const LIKE_POST_MUTATION = gql`
-    mutation likePost($postId:ID!){
-        likePost(postId: $postId){
+const BOOKMARK_ITEM_MUTATION = gql`
+    mutation bookmarkItem($itemId:ID!){
+        bookmarkItem(itemId: $itemId){
             id
-            likes{
-                id username
+            bookmarkedBy{
+                id
+                username
             }
-            likeCount
         }
     }
 `

@@ -29,8 +29,8 @@ function FilterBar(params) {
 
             <Menu.Item position='right'>
                 <Input
-                    action={{ type: 'submit', content: 'Go' }}
-                    placeholder='Navigate to...'
+                    action={{ type: 'submit', content: 'Cari' }}
+                    placeholder='Cari Barang...'
                 />
             </Menu.Item>
         </Menu>

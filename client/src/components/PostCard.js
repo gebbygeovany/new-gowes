@@ -30,6 +30,8 @@ function PostCard({
       </Card.Content>
       <Card.Content extra>
         <LikeButton user={user} post={{ id, likes, likeCount }} />
+        <Button onClick={()=>console.log(likes)}>test</Button>
+
         <MyPopup content="Comment On Post">
           <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
             <Button color="blue" basic>
