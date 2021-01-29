@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -33,48 +33,62 @@ function Register(props) {
     }
 
     return (
-        <div className="form-container">
-            <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
-                <h1>Register</h1>
-                <Form.Input
-                    label="Email"
-                    placeholder="Email"
-                    name="email"
-                    value={values.email}
-                    error={errors.email ? true : false}
-                    onChange={onChange}
-                ></Form.Input>
-                <Form.Input
-                    label="Username"
-                    placeholder="Username"
-                    name="username"
-                    value={values.username}
-                    error={errors.username ? true : false}
-                    onChange={onChange}
-                ></Form.Input>
-                <Form.Input
-                    label="Password"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={values.password}
-                    error={errors.password ? true : false}
-                    onChange={onChange}
-                ></Form.Input>
-                <Form.Input
-                    label="Confirm Password"
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    value={values.confirmPassword}
-                    error={errors.confirmPassword ? true : false}
-                    onChange={onChange}
-                ></Form.Input>
-                <Button type="submit" primary>
-                    Register
-                </Button>
-            </Form>
-            {Object.keys(errors).length > 0 && (
+        <Grid textAlign='center' style={{ height: '100vh', marginTop: 100 }}>
+            <Grid.Column style={{ maxWidth: 450 }}>
+                <Header color='standard' textAlign='center'>
+                    <span className="logoLogin">Register account</span>
+                </Header>
+                <Form size='large' onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
+                    <Segment style={{boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'}}>
+                        <Form.Input
+                            fluid
+                            icon='mail'
+                            iconPosition='left'
+                            placeholder='Email'
+                            name="email"
+                            value={values.email}
+                            error={errors.email ? true : false}
+                            onChange={onChange}
+                        />
+                        <Form.Input
+                            fluid
+                            icon='user'
+                            iconPosition='left'
+                            placeholder='Username'
+                            name="username"
+                            value={values.username}
+                            error={errors.username ? true : false}
+                            onChange={onChange}
+                        />
+                        <Form.Input
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='Password'
+                            type='password'
+                            name="password"
+                            value={values.password}
+                            error={errors.password ? true : false}
+                            onChange={onChange}
+                        />
+                        <Form.Input
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='Confirm Password'
+                            type='password'
+                            name="confirmPassword"
+                            value={values.confirmPassword}
+                            error={errors.confirmPassword ? true : false}
+                            onChange={onChange}
+                        />
+
+                        <Button color='secondary' fluid size='large'>
+                            Register
+                        </Button>
+                    </Segment>
+                </Form>
+                {Object.keys(errors).length > 0 && (
                 <div className='ui error message'>
                     <ul className="list">
                         {Object.values(errors).map(value => (
@@ -82,8 +96,9 @@ function Register(props) {
                         ))}
                     </ul>
                 </div>
-            )}
-        </div>
+                )}
+            </Grid.Column>
+        </Grid>
     )
 }
 

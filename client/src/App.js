@@ -18,7 +18,6 @@ import Event from './pages/Event'
 
 
 
-
 class App extends Component {
   render() {
     return (
@@ -26,6 +25,9 @@ class App extends Component {
         <Router >
           <NavBar></NavBar>
           <Container >
+            <br></br>
+            <br></br>
+            <br></br>
             <Route exact path='/' component={Home} />
             <Route exact path='/event' component={Event} />
             <AuthRoute exact path='/login' component={Login} />

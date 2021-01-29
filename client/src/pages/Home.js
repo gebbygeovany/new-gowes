@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { Grid, Transition } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/auth';
-import PostCard from '../components/PostCard';
-import PostForm from '../components/PostForm';
+import ShopCard from '../components/ShopCard';
+import FilterBar from '../components/FilterBar';
 import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 function Home() {
@@ -18,16 +18,11 @@ function Home() {
   // } = useQuery(FETCH_POSTS_QUERY);
 
   return (
-    <Grid columns={3}>
+    <Grid stackable columns={6}>
       <Grid.Row className="page-title">
-        <h1>Shop List</h1>
+        <FilterBar></FilterBar>
       </Grid.Row>
       <Grid.Row>
-        {user && (
-          <Grid.Column>
-            <PostForm />
-          </Grid.Column>
-        )}
         {loading ? (
           <h1>Loading posts..</h1>
         ) : (
@@ -35,7 +30,7 @@ function Home() {
               {posts &&
                 posts.map((post) => (
                   <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-                    <PostCard post={post} />
+                    <ShopCard post={post} />
                   </Grid.Column>
                 ))}
             </Transition.Group>

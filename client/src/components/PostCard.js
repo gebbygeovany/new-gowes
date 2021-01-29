@@ -15,7 +15,7 @@ function PostCard({
   const { user } = useContext(AuthContext);
 
   return (
-    <Card fluid>
+    <Card fluid style={{boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'}}>
       <Card.Content>
         <Image
           floated="right"
