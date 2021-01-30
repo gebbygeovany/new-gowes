@@ -69,7 +69,7 @@ module.exports = gql`
         getPost(postId: ID!): Post!
         getItems:[Item]
         getItem(itemId: ID!): Item!
-        # getBookmarks: [Item]
+        getBookmarks: [Item]
     }
     type Mutation {
         register(registerInput: RegisterInput): User!

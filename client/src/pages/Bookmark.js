@@ -5,12 +5,13 @@ import { Grid, Transition } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import ShopCard from '../components/ShopCard';
 import FilterBar from '../components/FilterBar';
-import { FETCH_ITEMS_QUERY } from '../util/graphql';
+import { FETCH_BOOKMARKS_QUERY } from '../util/graphql';
 
 function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data } = useQuery(FETCH_ITEMS_QUERY)
-  const { getItems: items } = data ? data : []
+  const { loading, data } = useQuery(FETCH_BOOKMARKS_QUERY)
+  const { getBookmarks: bookmarks } = data ? data : []
+  console.log(bookmarks.length)
 
   // const {
   //   loading,
@@ -26,10 +27,10 @@ function Home() {
           <h1>Loading posts..</h1>
         ) : (
             <Transition.Group duration={1000}>
-              {items &&
-                items.map((item) => (
-                  <Grid.Column key={item.id} style={{ marginBottom: 20 }}>
-                    <ShopCard item={item} />
+              {bookmarks &&
+                bookmarks.map((bookmark) => (
+                  <Grid.Column key={bookmark.id} style={{ marginBottom: 20 }}>
+                    <ShopCard bookmark={bookmark} />
                   </Grid.Column>
                 ))}
             </Transition.Group>

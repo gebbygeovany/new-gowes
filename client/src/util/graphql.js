@@ -51,3 +51,18 @@ export const FETCH_ITEMS_QUERY = gql`
   }
 }
 `;
+
+export const FETCH_BOOKMARKS_QUERY = gql`
+  {
+  getBookmarks{
+    id 
+    name 
+    price 
+    username 
+    bookmarkedBy{
+      id
+      username
+    }
+  }
+}
+`;
