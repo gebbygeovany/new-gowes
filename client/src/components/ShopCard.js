@@ -6,8 +6,7 @@ import '../App.css';
 
 import { AuthContext } from '../context/auth';
 import BookmarkButton from './BookmarkButton';
-import DeleteButton from './DeleteButton';
-import MyPopup from './MyPopup';
+
 
 
 function PostCard({item: { id, name, price, username,bookmarkedBy }}) {

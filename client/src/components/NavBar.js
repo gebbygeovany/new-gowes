@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { Menu, Dropdown, Button, Segment, Image } from 'semantic-ui-react'
+import { Menu, Dropdown, Button, Segment, Image, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { IoMdBicycle } from 'react-icons/io';
 
 
 import { AuthContext } from '../context/auth'
 
-function NavBar(params) {
+function NavBar() {
 
     const { user, logout } = useContext(AuthContext)
     const pathname = window.location.pathname
@@ -48,6 +48,30 @@ function NavBar(params) {
 
 
                     <Menu.Menu position='right'>
+                        <Menu.Item
+                            name='bookmark'
+                            active={activeItem === 'bookmark'}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to="/bookmark"
+                        >
+                            <Icon name="bookmark" centered></Icon>
+                        </Menu.Item>
+
+
+
+                        <Menu.Item
+                            name='cart'
+                            active={activeItem === 'cart'}
+                            onClick={handleItemClick}
+                            as={Link}
+                            to="/cart"
+                        >
+                            <Icon name="cart" centered></Icon>
+                        </Menu.Item>
+
+
+
                         <Menu.Item>
                             <Image circular src="https://react.semantic-ui.com/images/avatar/small/stevie.jpg" style={{ height: 30, marginRight: 0 }} verticalAlign='middle' />
                             <Dropdown item text={user.username} style={{ marginLeft: 0 }}>
@@ -59,6 +83,7 @@ function NavBar(params) {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Menu.Item>
+
                         <Menu.Item></Menu.Item>
                     </Menu.Menu>
                 </Menu>

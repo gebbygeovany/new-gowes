@@ -27,20 +27,20 @@ module.exports = {
                 throw new Error(err)
             }
         },
-        async getBookmarks(_,context) {
-            try {
-                const user = checkAuth(context)
-                const items = await Item.find().sort({ createdAt: -1 })
-                if (items.bookmarkedBy.find(bookmark => bookmark.username === user.username)) {
-                    await item.delete()
-                    return items
-                } else {
-                    throw new AuthenticationError('Action not allowed')
-                }
-            } catch (err) {
-                throw new Error(err)
-            }
-        },
+        // async getBookmarks(_,context) {
+        //     try {
+        //         const user = checkAuth(context)
+        //         const items = await Item.find().sort({ createdAt: -1 })
+        //         if (items.bookmarkedBy.find(bookmark => bookmark.username === user.username)) {
+        //             await item.delete()
+        //             return items
+        //         } else {
+        //             throw new AuthenticationError('Action not allowed')
+        //         }
+        //     } catch (err) {
+        //         throw new Error(err)
+        //     }
+        // },
     },
     Mutation: {
         async addItem(_, { name, price, description }, context) {

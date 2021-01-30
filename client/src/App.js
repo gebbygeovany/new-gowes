@@ -11,10 +11,13 @@ import AuthRoute from './util/AuthRoute'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Event from './pages/Event'
+import SinglePost from './pages/SinglePost'
+import Bookmark from './pages/Bookmark'
+import Cart from './pages/Cart'
+
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import SinglePost from './pages/SinglePost'
-import Event from './pages/Event'
 
 
 
@@ -30,6 +33,8 @@ class App extends Component {
             <br></br>
             <Route exact path='/' component={Home} />
             <Route exact path='/event' component={Event} />
+            <Route exact path='/bookmark' component={Bookmark} />
+            <Route exact path='/cart' component={Cart} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route exact path="/posts/:postId" component={SinglePost} />
