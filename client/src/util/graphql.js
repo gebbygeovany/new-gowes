@@ -43,6 +43,11 @@ export const FETCH_ITEMS_QUERY = gql`
       src
     }
     reviewCount
+    bookmarkedBy{
+      id
+      username
+      createdAt
+    }
   }
 }
 `;

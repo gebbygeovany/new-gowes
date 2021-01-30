@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
-import { Icon, Label, Button, Popup } from 'semantic-ui-react'
+import { Icon, Button } from 'semantic-ui-react'
 
 import MyPopup from './MyPopup';
 
@@ -54,6 +54,7 @@ const BOOKMARK_ITEM_MUTATION = gql`
             bookmarkedBy{
                 id
                 username
+                createdAt
             }
         }
     }

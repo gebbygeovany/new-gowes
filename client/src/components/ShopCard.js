@@ -10,9 +10,7 @@ import DeleteButton from './DeleteButton';
 import MyPopup from './MyPopup';
 
 
-function PostCard({
-    item: { id, name, price, username, reviewCount, bookmarkedBy }
-}) {
+function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
     const { user } = useContext(AuthContext);
 
     return (
@@ -40,8 +38,7 @@ function PostCard({
             </Card.Content>
 
             <Card.Content extra>
-                {/* <BookmarkButton user={user} item={{ id, bookmarkedBy }}></BookmarkButton> */}
-                <Button onClick={()=>console.log(bookmarkedBy)}>test</Button>
+                <BookmarkButton user={user} item={{ id, bookmarkedBy }}></BookmarkButton>
             </Card.Content>
 
         </Card>
