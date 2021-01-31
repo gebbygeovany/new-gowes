@@ -55,12 +55,32 @@ module.exports = gql`
     type User{
         id: ID!
         email: String!
+        phone: String!
+        address: String!
+        balance: Int!
         token: String!
+        buyer: Buyer!
+        seller: Seller!
+    }
+
+    type Buyer {
+        id: ID!
+        name: String
+        birthDate: String
+        avatar: String
+        createdAt: String
+    }
+
+    type Seller {
+        id: ID!
         username: String!
+        avatar: String!
+        description: String!
         createdAt: String!
     }
+
     input RegisterInput{
-        username: String!
+        name: String!
         password: String!
         confirmPassword: String!
         email: String!
