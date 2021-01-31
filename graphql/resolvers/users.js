@@ -20,14 +20,14 @@ function generateToken(user) {
 module.exports = {
     Mutation: {
 
-        async login(_, { username, password }) {
-            const { valid, errors } = validateLoginInput(username, password)
+        async login(_, { email, password }) {
+            const { valid, errors } = validateLoginInput(email, password)
 
             if (!valid) {
                 throw new UserInputError('Wrong Credentials', { errors })
             }
 
-            const user = await User.findOne({ username })
+            const user = await User.findOne({ email })
 
             if (!user) {
                 errors.general = 'User not found'
