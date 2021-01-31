@@ -51,21 +51,21 @@ module.exports = {
 
         },
 
-        async register(_, { registerInput: { username, password, confirmPassword, email } }, context, info) {
+        async register(_, { registerInput: { name, password, confirmPassword, email } }, context, info) {
             // Validate user data
             // Make Sure User Already exist
             // hash password and create auth token
 
-            const user = await User.findOne({ username })
+            const user = await User.findOne({ email })
             if (user) {
-                throw new UserInputError('username is taken', {
+                throw new UserInputError('Email is taken', {
                     errors: {
-                        username: 'This username is taken'
+                        username: 'This email is taken'
                     }
                 })
             }
 
-            const { valid, errors } = validateRegisterInput(username, password, confirmPassword, email)
+            const { valid, errors } = validateRegisterInput(name, password, confirmPassword, email)
             if (!valid) {
                 throw new UserInputError('Errors', { errors })
             }
@@ -73,10 +73,23 @@ module.exports = {
             password = await bcrypt.hash(password, 12)
 
             const newUser = new User({
-                email,
-                username,
-                password,
-                createdAt: new Date().toISOString()
+                email: email,
+                password: password,
+                phone:'',
+                address:'',
+                balance:0,
+                buyer: {
+                    name: name,
+                    birthDate: '',
+                    avatar: '',
+                    createdAt: new Date().toISOString()
+                },
+                seller: {
+                    username: '',
+                    avatar: '',
+                    description: '',
+                    createdAt: ''
+                }
             })
 
             const res = await newUser.save()
