@@ -15,6 +15,7 @@ import Event from './pages/Event'
 import SinglePost from './pages/SinglePost'
 import Bookmark from './pages/Bookmark'
 import Cart from './pages/Cart'
+import Profile from './pages/Profile'
 
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
@@ -38,6 +39,7 @@ class App extends Component {
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route exact path="/posts/:postId" component={SinglePost} />
+            <Route exact path="/profile" component={Profile} />
           </Container>
           <Footer></Footer>
         </Router>

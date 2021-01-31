@@ -79,7 +79,7 @@ function NavBar() {
                             <Image circular src="https://react.semantic-ui.com/images/avatar/small/stevie.jpg" style={{ height: 30, marginRight: 0 }} verticalAlign='middle' />
                             <Dropdown item text={user.username} style={{ marginLeft: 0 }}>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item>Profil</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
                                     <Dropdown.Item>Keranjang</Dropdown.Item>
                                     <Dropdown.Item>Transaksi</Dropdown.Item>
                                     <Dropdown.Item name='logout' onClick={logout}>Logout</Dropdown.Item>
