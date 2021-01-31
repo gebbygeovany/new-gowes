@@ -5,6 +5,8 @@ import { IoMdBicycle } from 'react-icons/io';
 
 
 import { AuthContext } from '../context/auth'
+import MyPopup from './MyPopup';
+
 
 function NavBar() {
 
@@ -18,6 +20,7 @@ function NavBar() {
 
     const navBar = user ? (
 
+        // logged in navbar
         <Segment inverted >
             <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
                 <Menu size="large" fluid fixed inverted secondary>
@@ -55,10 +58,10 @@ function NavBar() {
                             as={Link}
                             to="/bookmark"
                         >
-                            <Icon name="bookmark" centered></Icon>
+                            <MyPopup content="Bookmarks">
+                                <Icon name="bookmark" centered></Icon>
+                            </MyPopup>
                         </Menu.Item>
-
-
 
                         <Menu.Item
                             name='cart'
@@ -67,10 +70,10 @@ function NavBar() {
                             as={Link}
                             to="/cart"
                         >
-                            <Icon name="cart" centered></Icon>
+                            <MyPopup content="Cart">
+                                <Icon name="cart" centered></Icon>
+                            </MyPopup>
                         </Menu.Item>
-
-
 
                         <Menu.Item>
                             <Image circular src="https://react.semantic-ui.com/images/avatar/small/stevie.jpg" style={{ height: 30, marginRight: 0 }} verticalAlign='middle' />
@@ -91,6 +94,7 @@ function NavBar() {
 
         </Segment>
     ) : (
+        // guest navbar
             <Segment inverted>
                 <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
                     <Menu fluid inverted secondary size='large'>

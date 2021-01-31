@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Card, Icon, Label, Image, Popup } from 'semantic-ui-react';
+import {Card, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
@@ -14,7 +14,6 @@ function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
 
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
-
             <Card.Content style={{ padding: 0 }} as={Link} to={`/posts/${id}`}>
                 <Image
                     size="large"
@@ -37,7 +36,7 @@ function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
             </Card.Content>
 
             <Card.Content extra>
-                <BookmarkButton user={user} item={{ id, bookmarkedBy }}></BookmarkButton>
+                <BookmarkButton user={user} item={{ id, bookmarkedBy }} ></BookmarkButton>
             </Card.Content>
 
         </Card>
