@@ -18,6 +18,34 @@ function generateToken(user) {
 }
 
 module.exports = {
+    Query: {
+        async getUser(_, { userId }) {
+            try {
+                const user = await User.findById(userId)
+                if (user) {
+                    return user
+                } else {
+                    throw new Error('User not found')
+                }
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+
+        async getSeller(_, { sellerId }) {
+            console.log(sellerId)
+            try {
+                const user = await User.findOne({"seller.id": sellerId })
+                if (user) {
+                    return user
+                } else {
+                    throw new Error('Seller not found')
+                }
+            } catch (err) {
+                throw new Error(err)
+            }
+        }
+    },
     Mutation: {
 
         async login(_, { email, password }) {
