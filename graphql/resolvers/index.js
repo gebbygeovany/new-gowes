@@ -13,6 +13,7 @@ module.exports={
         // reviewCount: (parent)=>parent.revies.length,
     },
     Query:{
+        ...usersResolvers.Query,
         ...postsResolvers.Query,
         ...itemsResolvers.Query
     },
