@@ -23,6 +23,7 @@ module.exports = gql`
         images: [Images]!
         reviewCount: Int
         bookmarkedBy:[BookmarkedBy]!
+        user:User!
     }
     type Reviews{
         id: ID!
