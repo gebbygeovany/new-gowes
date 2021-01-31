@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { UserInputError } = require('apollo-server')
+const checkAuth = require('../../util/check-auth')
 
 const { SECRET_KEY } = require('../../config')
 const User = require('../../models/User')
-const { validateRegisterInput, validateLoginInput } = require('../../util/validators')
+const { validateRegisterInput, validateLoginInput, validateUserProfileInput } = require('../../util/validators')
 
 function generateToken(user) {
     return jwt.sign(
@@ -129,6 +130,41 @@ module.exports = {
                 id: res._id,
                 token
             }
+        },
+
+        async updateUserProfile(_, { userProfileInput: { name, email, phone, birthDate, avatar } }, context) {
+            const userCache = checkAuth(context)
+
+            const user = await User.findOne({ email })
+            if (user && user._id.toString() !== userCache.id) {
+                throw new UserInputError('Email is taken', {
+                    errors: {
+                        username: 'This email is taken'
+                    }
+                })
+            }
+
+            const { valid, errors } = validateUserProfileInput(name, email, phone)
+            if (!valid) {
+                throw new UserInputError('Errors', { errors })
+            }
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: userCache.id },
+                {
+                    email: email,
+                    phone: phone,
+                    "buyer.name": name,
+                    "buyer.birthDate": birthDate,
+                    "buyer.avatar": avatar
+                },
+                { new: true }
+                );
+            console.log(updatedUser._doc)
+            return {
+                ...updatedUser._doc,
+                id: updatedUser._id
+            };
         },
     }
 }
