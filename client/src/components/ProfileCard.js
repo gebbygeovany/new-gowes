@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Image, Grid, Button, Form } from 'semantic-ui-react';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks';
+import { storage } from '.././firebase';
 
 
 import { AuthContext } from '../context/auth';
@@ -18,7 +19,31 @@ function ProfileCard() {
         }
     })
     const { getUser: currentUser } = data ? data : []
+    const fileInputRef = React.createRef();
+    const [avatar, setAvatar] = useState('https://react.semantic-ui.com/images/avatar/large/molly.png');
 
+    const fileChange = e => {
+        const image = e.target.files[0]
+        if (image) {
+            const uploadTask = storage.ref(`images/${image.name}`).put(image);
+            uploadTask.on(
+                "state_changed",
+                snapshot => {},
+                error => {console.log(error)},
+                () => {
+                    storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        setAvatar(url);
+                        console.log(url);
+                    });
+                });
+        }
+    };
+    console.log("File chosen --->", avatar);
+    
     // console.log(currentUser.buyer.name)
 
     return (
@@ -32,9 +57,12 @@ function ProfileCard() {
                             <Grid stackable >
                                 <Grid.Column width={5}>
                                     <Card centered>
-                                        <Image src='https://react.semantic-ui.com/images/avatar/large/molly.png' wrapped ui={false} />
+                                        <Image src={avatar} wrapped ui={false} />
                                         <Card.Content extra>
-                                            <Button fluid>Change Avatar</Button>
+                                            <Form>
+                                                <Button fluid onClick={() => fileInputRef.current.click()}>Change Avatar</Button>
+                                                <input ref={fileInputRef} type="file" hidden onChange={fileChange}/>
+                                            </Form>
                                         </Card.Content>
                                     </Card>
                                 </Grid.Column>
