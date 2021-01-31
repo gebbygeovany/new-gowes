@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 
 
 module.exports = gql`
-    type Post{
+    type Post {
         id: ID!
         body: String!
         createdAt: String!
@@ -12,7 +12,8 @@ module.exports = gql`
         likeCount: Int!
         commentCount: Int!
     }
-    type Item{
+
+    type Item {
         id: ID!
         name:String!
         price: Int!
@@ -25,34 +26,40 @@ module.exports = gql`
         bookmarkedBy:[BookmarkedBy]
         user:User!
     }
-    type Reviews{
+
+    type Reviews {
         id: ID!
         body: String!
         createdAt: String!
         username: String!
         rating: Int!
     }
-    type Images{
+
+    type Images {
         id: ID!
         src: String!
     }
-    type Comment{
+
+    type Comment {
         id: ID!
         createdAt: String!
         username: String!
         body: String!
     }
-    type Like{
+
+    type Like {
         id: ID!
         createdAt: String!
         username: String!
     }
-    type BookmarkedBy{
+
+    type BookmarkedBy {
         id: ID!
         userId: ID!
         createdAt: String!
     }
-    type User{
+
+    type User {
         id: ID!
         email: String!
         phone: String!
@@ -79,13 +86,28 @@ module.exports = gql`
         createdAt: String!
     }
 
-    input RegisterInput{
+    input RegisterInput {
         name: String!
         password: String!
         confirmPassword: String!
         email: String!
     }
-    type Query{
+
+    input UserProfileInput {
+        avatar: String!
+        name: String!
+        email: String!
+        phone: String!
+        birthDate: String!
+    }
+
+    input ActivateSellerInput {
+        username: String!
+        avatar: String!
+        description: String!
+    }
+
+    type Query {
         getUser(userId: ID!): User!
         getSeller(sellerId: ID!): User
         getSellers: [User]
@@ -97,6 +119,8 @@ module.exports = gql`
     }
     type Mutation {
         register(registerInput: RegisterInput): User!
+        updateUserProfile(userProfileInput: UserProfileInput): User!
+        activateSeller(activateSellerInput: ActivateSellerInput): User!
         login(email: String!, password: String!): User!
         createPost(body: String!): Post!
         addItem(name: String!, price: Int!, description:String!): Item!
@@ -105,9 +129,9 @@ module.exports = gql`
         createComment(postId:ID!, body: String!): Post!
         deleteComment(postId: ID!, commentId: ID!): Post!
         likePost(postId: ID!): Post! 
-        bookmarkItem(itemId: ID!): Item! 
+        bookmarkItem(itemId: ID!): Item!
     }
-    type Subscription{
+    type Subscription {
         newPost: Post!
     }
 `
