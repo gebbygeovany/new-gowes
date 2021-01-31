@@ -47,3 +47,26 @@ module.exports.validateLoginInput = (email, password) => {
     valid: Object.keys(errors).length < 1
   };
 };
+
+module.exports.validateUserProfileInput = (name, email, phone) => {
+  const errors = {};
+  if (email.trim() === '') {
+    errors.email = 'Email must not be empty';
+  } else {
+    const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+    if (!email.match(regEx)) {
+      errors.email = 'Email must be a valid email address';
+    }
+  }
+  if (name.trim() === '') {
+    errors.name = 'Name must not be empty';
+  }
+  if (phone.trim().length < 11) {
+    errors.name = 'Phone number must is not valid';
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+};
