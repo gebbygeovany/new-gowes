@@ -12,7 +12,7 @@ function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
     const [bookmarked, setBookmarked] = useState(false)
 
     useEffect(() => {
-        if (user && bookmarkedBy.find(bookmark => bookmark.username === user.username)) {
+        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.id)) {
             setBookmarked(true)
         } else {
             setBookmarked(false)
@@ -85,7 +85,7 @@ const BOOKMARK_ITEM_MUTATION = gql`
             id
             bookmarkedBy{
                 id
-                username
+                userId
                 createdAt
             }
         }

@@ -45,7 +45,7 @@ export const FETCH_ITEMS_QUERY = gql`
     reviewCount
     bookmarkedBy{
       id
-      username
+      userId
       createdAt
     }
   }
@@ -61,7 +61,7 @@ export const FETCH_BOOKMARKS_QUERY = gql`
     username 
     bookmarkedBy{
       id
-      username
+      userId
     }
   }
 }

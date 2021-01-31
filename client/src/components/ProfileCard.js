@@ -6,6 +6,15 @@ import { Card, Image, Grid, Button, Form } from 'semantic-ui-react';
 
 function ProfileCard() {
 
+    // const { user } = useContext(AuthContext);
+
+    // const { data } = useQuery(FETCH_USER_QUERY, {
+    //     variables: {
+    //         userId: user.id
+    //     }
+    // })
+    // const { getUser } = data ? data : []
+
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content header='Profile Details' />
@@ -78,5 +87,21 @@ function ProfileCard() {
         </Card>
     )
 }
+// const FETCH_USER_QUERY = gql`
+//     query getUser($userId: ID!) {
+//         getUser(userId: $userId) {
+//             id
+//             email
+//             phone
+//             address
+//             balance
+//             buyer{
+//                 name
+//                 birthDate
+//                 avatar
+//             }
+//         }
+//     }
+// `
 
 export default ProfileCard
