@@ -12,7 +12,7 @@ function Login(props) {
     const [errors, setErrors] = useState({})
 
     const { onChange, onSubmit, values } = useForm(loginUserCallback, {
-        username: '',
+        email: '',
         password: '',
     })
 
@@ -41,12 +41,12 @@ function Login(props) {
                     <Segment style={{boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'}}>
                         <Form.Input
                             fluid
-                            icon='user'
+                            icon='mail'
                             iconPosition='left'
-                            placeholder='Username'
-                            name="username"
-                            value={values.username}
-                            error={errors.username ? true : false}
+                            placeholder='Email'
+                            name="email"
+                            value={values.email}
+                            error={errors.email ? true : false}
                             onChange={onChange}
                         />
                         <Form.Input
@@ -85,17 +85,15 @@ function Login(props) {
 
 const LOGIN_USER = gql`
   mutation login(
-    $username: String!
+    $email: String!
     $password: String!
   ) {
     login(
-        username: $username
+        email: $email
         password: $password
     ) {
       id
       email
-      username
-      createdAt
       token
     }
   }
