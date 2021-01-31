@@ -34,7 +34,7 @@ module.exports = {
                 const items = await Item.find({ 
                     "bookmarkedBy": {
                         $elemMatch: {
-                            username: user.username
+                            userId: user.id
                         }
                 }}).sort({ createdAt: -1 })
                 return items
