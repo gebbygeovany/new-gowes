@@ -21,7 +21,7 @@ const itemSchema= new Schema({
     ],
     bookmarkedBy:[
         {
-            username: String,
+            userId: {type: Schema.Types.ObjectId},
             createdAt: String,
         }
     ],
