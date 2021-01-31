@@ -22,7 +22,7 @@ module.exports = gql`
         reviews: [Reviews]!
         images: [Images]!
         reviewCount: Int
-        bookmarkedBy:[BookmarkedBy]!
+        bookmarkedBy:[BookmarkedBy]
         user:User!
     }
     type Reviews{
@@ -49,8 +49,8 @@ module.exports = gql`
     }
     type BookmarkedBy{
         id: ID!
+        userId: ID!
         createdAt: String!
-        username: String!
     }
     type User{
         id: ID!
