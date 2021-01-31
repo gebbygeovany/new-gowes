@@ -8,7 +8,7 @@ module.exports = {
     Query: {
         async getItems() {
             try {
-                const items = await Item.find().sort({ createdAt: -1 })
+                const items = await Item.find().sort({ createdAt: -1 }).populate('user');
                 return items
             } catch (err) {
                 throw new Error(err)
@@ -17,7 +17,7 @@ module.exports = {
 
         async getItem(_, { itemId }) {
             try {
-                const item = await Item.findById(itemId)
+                const item = await Item.findById(itemId).populate('user');
                 if (item) {
                     return item
                 } else {
