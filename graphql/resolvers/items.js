@@ -100,18 +100,18 @@ module.exports = {
         },
 
         async bookmarkItem(_, { itemId }, context) {
-            const { username } = checkAuth(context)
+            const { id } = checkAuth(context)
 
             const item = await Item.findById(itemId)
 
             if (item) {
-                if (item.bookmarkedBy.find(bookmark => bookmark.username === username)) {
+                if (item.bookmarkedBy.find(bookmark => bookmark.userId === id)) {
                     //Post already liked, unliked it
-                    item.bookmarkedBy = item.bookmarkedBy.filter(bookmark => bookmark.username !== username)
+                    item.bookmarkedBy = item.bookmarkedBy.filter(bookmark => bookmark.userId !== id)
                 } else {
                     //Post not liked
                     item.bookmarkedBy.push({
-                        username,
+                        userId: id,
                         createdAt: new Date().toDateString(),
                     })
                 }
