@@ -8,21 +8,31 @@ import { AuthContext } from '../context/auth'
 import MyPopup from './MyPopup';
 
 
-function NavBar() {
+function NavBar(props) {
 
     const { user, logout } = useContext(AuthContext)
     const pathname = window.location.pathname
     const path = pathname === '/' ? 'shop' : pathname.substr(1)
-
+    console.log(user)
     const [activeItem, setActiveItem] = useState(path)
+    // const [isDimmed, setDimmed] = useState(false)
 
-    const handleItemClick = (e, { name }) => setActiveItem(name)
+    const handleItemClick = (e, { name }) => {
+        console.log("handleItemClick was employed")
+        setActiveItem(name)
+    }
+
+    const handleItemHover = () => {
+        console.log("handleItemHover was employed")
+        // handleItemClick()
+        props.onDimmed()
+    }
 
     const navBar = user ? (
 
         // logged in navbar
-        <Segment inverted >
-            <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
+        <Segment inverted>
+            <div class="ui huge top inverted fixed menu " style={{ height: 80, zIndex: 1100 }}>
                 <Menu size="large" fluid fixed inverted secondary>
                     <Menu.Item></Menu.Item>
                     <Menu.Item
@@ -35,6 +45,8 @@ function NavBar() {
                         <div className="logo">Gowes</div>
                     </Menu.Item>
                     <Menu.Item
+                        onMouseEnter={handleItemHover}
+                        onMouseLeave={handleItemHover}
                         name='shop'
                         active={activeItem === 'shop'}
                         onClick={handleItemClick}
@@ -75,9 +87,12 @@ function NavBar() {
                             </MyPopup>
                         </Menu.Item>
 
-                        <Menu.Item>
+                        <Menu.Item
+                        // onMouseEnter={handleItemHover}
+                        // onMouseLeave={handleItemHover}
+                        >
                             <Image circular src="https://react.semantic-ui.com/images/avatar/small/stevie.jpg" style={{ height: 30, marginRight: 0 }} verticalAlign='middle' />
-                            <Dropdown item text={user.username} style={{ marginLeft: 0 }}>
+                            <Dropdown item text={user.name} style={{ marginLeft: 0 }}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
                                     <Dropdown.Item>Keranjang</Dropdown.Item>
