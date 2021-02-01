@@ -8,11 +8,12 @@ const User = require('../../models/User')
 const { validateRegisterInput, validateLoginInput, validateUserProfileInput } = require('../../util/validators')
 
 function generateToken(user) {
+    console.log(user.buyer);
     return jwt.sign(
         {
             id: user.id,
-            email: user.email,
-            username: user.seller.username
+            name: user.buyer.name,
+            email: user.email
         },
         SECRET_KEY,
         { expiresIn: '1h' })
@@ -69,7 +70,6 @@ module.exports = {
                 errors.general = 'Wrong password'
                 throw new UserInputError('Wrong password', { errors })
             }
-
             const token = generateToken(user)
 
             return {
