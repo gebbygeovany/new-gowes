@@ -19,19 +19,32 @@ import Profile from './pages/Profile'
 
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-
-
+import { Dimmer } from 'semantic-ui-react'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDimmed: false
+    };
+    // this.handleDimmed = this.handleDimmed.bind(this);
+   }
+
+  handleDimmed() {
+    console.log("handleDimmed on App was employed")
+    this.setState({ isDimmed: !this.state.isDimmed })
+  }
+
   render() {
     return (
       <AuthProvider>
         <Router >
-          <NavBar></NavBar>
+          <NavBar onDimmed={() => this.handleDimmed()}></NavBar>
           <Container >
             <br></br>
             <br></br>
             <br></br>
+            <Dimmer active={this.state.isDimmed} />
             <Route exact path='/' component={Home} />
             <Route exact path='/event' component={Event} />
             <Route exact path='/bookmark' component={Bookmark} />
