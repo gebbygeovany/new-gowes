@@ -37,7 +37,7 @@ module.exports = {
         async getSeller(_, { sellerId }) {
             console.log(sellerId)
             try {
-                const user = await User.findOne({"seller.id": sellerId })
+                const user = await User.findOne({ "seller.id": sellerId })
                 if (user) {
                     return user
                 } else {
@@ -104,9 +104,9 @@ module.exports = {
             const newUser = new User({
                 email: email,
                 password: password,
-                phone:'',
-                address:'',
-                balance:0,
+                phone: '',
+                address: '',
+                balance: 0,
                 buyer: {
                     name: name,
                     birthDate: '',
@@ -159,11 +159,13 @@ module.exports = {
                     "buyer.avatar": avatar
                 },
                 { new: true }
-                );
+            );
             console.log(updatedUser._doc)
+            const token = generateToken(user)
             return {
                 ...updatedUser._doc,
-                id: updatedUser._id
+                id: updatedUser._id,
+                token
             };
         },
     }
