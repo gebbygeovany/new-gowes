@@ -18,6 +18,7 @@ function Login(props) {
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         update(_, { data: { login: userData } }) {
+            userData.name = userData.buyer.name;
             context.login(userData)
             props.history.push('/')
         },
@@ -94,6 +95,9 @@ const LOGIN_USER = gql`
     ) {
       id
       email
+      buyer {
+          name
+      }
       token
     }
   }
