@@ -6,7 +6,7 @@ import ProfileCard from '../components/ProfileCard'
 
 
 
-function Profile() {
+function Profile(props) {
 
     return (
         <Grid stackable>
@@ -16,7 +16,7 @@ function Profile() {
             </Grid.Column>
             <Grid.Column width={13}>
                 <br></br>
-                <ProfileCard></ProfileCard>
+                <ProfileCard props={props}></ProfileCard>
             </Grid.Column>
         </Grid>
     )

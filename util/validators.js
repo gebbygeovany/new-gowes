@@ -50,6 +50,9 @@ module.exports.validateLoginInput = (email, password) => {
 
 module.exports.validateUserProfileInput = (name, email, phone) => {
   const errors = {};
+  if (name.trim() === '') {
+    errors.name = 'Name must not be empty';
+  }
   if (email.trim() === '') {
     errors.email = 'Email must not be empty';
   } else {
@@ -58,11 +61,9 @@ module.exports.validateUserProfileInput = (name, email, phone) => {
       errors.email = 'Email must be a valid email address';
     }
   }
-  if (name.trim() === '') {
-    errors.name = 'Name must not be empty';
-  }
+  
   if (phone.trim().length < 11) {
-    errors.name = 'Phone number must is not valid';
+    errors.phone = 'Phone number is not valid';
   }
 
   return {

@@ -97,7 +97,7 @@ function NavBar(props) {
                                     <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
                                     <Dropdown.Item>Keranjang</Dropdown.Item>
                                     <Dropdown.Item>Transaksi</Dropdown.Item>
-                                    <Dropdown.Item name='logout' onClick={logout}>Logout</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/" name='logout' onClick={logout}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Menu.Item>
