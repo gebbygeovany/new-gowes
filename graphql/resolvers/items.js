@@ -3,6 +3,7 @@ const { argsToArgsConfig } = require('graphql/type/definition')
 
 const Item = require('../../models/Item')
 const checkAuth = require('../../util/check-auth')
+const { validateAddItemInput } = require('../../util/validators')
 
 module.exports = {
     Query: {
@@ -44,24 +45,13 @@ module.exports = {
         },
     },
     Mutation: {
-        async addItem(_, { name, price, description }, context) {
+        async addItem(_, { addItemInput: { name, price, description } }, context) {
             const user = checkAuth(context)
             console.log(user)
 
-            if (description.trim() === '') {
-                throw new UserInputError('description must not be empty', {
-                    errors: {
-                        description: 'description must not be empty'
-                    }
-                })
-            }
-
-            if (name.trim() === '') {
-                throw new UserInputError('name must not be empty', {
-                    errors: {
-                        name: 'name must not be empty'
-                    }
-                })
+            const { valid, errors } = validateAddItemInput(name, description)
+            if (!valid) {
+                throw new UserInputError('Errors', { errors })
             }
 
             const newItem = new Item({
@@ -75,12 +65,31 @@ module.exports = {
 
             const item = await newItem.save()
 
-            // context.pubsub.publish('NEW_POST', {
-            //     newPost: post
-            // })
-
             return item
         },
+        
+        async updateItem(_, { itemId, addItemInput: { name, price, description } }, context) {
+            const { valid, errors } = validateAddItemInput(name, description)
+            if (!valid) {
+                throw new UserInputError('Errors', { errors })
+            }
+
+            const updatedItem = await Item.findOneAndUpdate(
+                { _id: itemId },
+                {
+                    name: name,
+                    price: price,
+                    description: description
+                },
+                { new: true }
+            );
+
+            return {
+                ...updatedItem._doc,
+                id: updatedItem._id
+            }
+        },
+
         async deleteItem(_, { itemId }, context) {
             const user = checkAuth(context)
 
@@ -95,8 +104,6 @@ module.exports = {
             } catch (err) {
                 throw new Error(err)
             }
-
-
         },
 
         async bookmarkItem(_, { itemId }, context) {
