@@ -101,7 +101,7 @@ module.exports = gql`
         birthDate: String!
     }
 
-    input ActivateSellerInput {
+    input SellerProfileInput {
         username: String!
         avatar: String!
         description: String!
@@ -125,8 +125,8 @@ module.exports = gql`
     }
     type Mutation {
         register(registerInput: RegisterInput): User!
-        updateUserProfile(userProfileInput: UserProfileInput): User!
-        activateSeller(activateSellerInput: ActivateSellerInput): User!
+        updateUserProfile(UpdateSellerInput: UserProfileInput): User!
+        updateSellerProfile(sellerProfileInput: SellerProfileInput): User!
         login(email: String!, password: String!): User!
         createPost(body: String!): Post!
         addItem(addItemInput: AddItemInput): Item!

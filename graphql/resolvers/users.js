@@ -168,7 +168,7 @@ module.exports = {
             };
         },
 
-        async activateSeller(_, { activateSellerInput: { username, avatar, description } }, context) {
+        async updateSellerProfile(_, { sellerProfileInput: { username, avatar, description } }, context) {
             const userCache = checkAuth(context)
             const { valid, errors } = validateActivateSellerInput(username)
             if (!valid) {

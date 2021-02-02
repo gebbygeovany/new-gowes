@@ -20,12 +20,22 @@ function ProfileCard(props) {
 
     const [isSaved, setSave] = useState(false)
 
+
     const { loading, data } = useQuery(FETCH_USER_QUERY, {
         variables: {
             userId: context.user.id
-        }, notifyOnNetworkStatusChange: true
+        }
     })
     const { getUser: currentUser } = data ? data : []
+
+    // const {
+    //     loading,
+    //     data: { getUser: currentUser }
+    // } = useQuery(FETCH_USER_QUERY, {
+    //     variables: {
+    //         userId: context.user.id
+    //     }
+    // });
 
     let userObj = {
         avatar: '',
@@ -37,124 +47,10 @@ function ProfileCard(props) {
 
     let { onChange, onSubmit, values } = useForm(updateUserProfile, userObj)
 
-    const formValueObj = () => {
-        values = {
-            avatar: currentUser.buyer.avatar,
-            name: currentUser.buyer.name,
-            email: currentUser.email,
-            phone: currentUser.phone,
-            birthDate: currentUser.buyer.birthDate
-        }
-        return (
-            <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }} className={loading ? "loading" : ""}>
-                <Card.Content header='Profile Details' />
-                <Card.Content>
-                    <Grid stackable >
-                        <Grid.Column width={5}>
-                            <Card centered>
-                                <Image src={avatar} wrapped ui={false} />
-                                <Card.Content extra>
-                                    <Form>
-                                        <Button fluid onClick={() => fileInputRef.current.click()}>Change Avatar</Button>
-                                        <input ref={fileInputRef} type="file" hidden onChange={fileChange} />
-                                    </Form>
-                                </Card.Content>
-                            </Card>
-                        </Grid.Column>
-                        <Grid.Column width={11}>
-                            <Form size='small' onSubmit={onSubmit} noValidate>
-                                <Form.Input
-                                    fluid
-                                    icon='user'
-                                    iconPosition='left'
-                                    placeholder='Name'
-                                    label='Name'
-                                    value={values.name}
-                                    name="name"
-                                    onChange={onChange}
-                                    error={errors.name ? true : false}
-                                />
-                                <Form.Input
-                                    fluid
-                                    icon='mail'
-                                    iconPosition='left'
-                                    placeholder='Email'
-                                    label='Email'
-                                    value={values.email}
-                                    name="email"
-                                    onChange={onChange}
-                                    error={errors.email ? true : false}
-
-                                />
-                                <Form.Input
-                                    fluid
-                                    icon='phone'
-                                    iconPosition='left'
-                                    placeholder='Phone Number'
-                                    label='Phone Number'
-                                    value={values.phone}
-                                    name="phone"
-                                    onChange={onChange}
-                                    error={errors.phone ? true : false}
-
-                                />
-                                <Form.Input
-                                    fluid
-                                    icon='calendar'
-                                    iconPosition='left'
-                                    placeholder='Birth Date'
-                                    label='Birth Date'
-                                    name="birthDate"
-                                    value={values.date}
-                                    type="date"
-                                    onChange={onChange}
-
-                                />
-                                <Form.Input
-                                    fluid
-                                    icon='map marker alternate'
-                                    iconPosition='left'
-                                    placeholder='Address'
-                                    label='Address'
-                                    name="address"
-                                    value={values.address}
-                                    onChange={onChange}
-
-                                />
-                                <Button color='teal' size='small'>
-                                    Save
-                                </Button>
-                            </Form>
-                            {showMessage()}
-                        </Grid.Column>
-                    </Grid>
-
-
-                </Card.Content>
-            </Card>
-        )
-    }
+    // console.log("user data", currentUser)
 
     const fileInputRef = React.createRef();
     const [avatar, setAvatar] = useState('https://react.semantic-ui.com/images/avatar/large/molly.png');
-
-    const [updateProfile, { }] = useMutation(UPDATE_PROFILE_MUTATION, {
-        update(_, { data: { updateUserProfile: userData } }) {
-            userData.name = userData.buyer.name;
-            context.login(userData)
-            setSave(true)
-            setErrors({})
-        },
-        onError(err) {
-            setErrors(err.graphQLErrors[0].extensions.exception.errors);
-            setSave(true)
-        },
-        variables: values
-    })
-
-    function updateUserProfile() {
-        updateProfile()
-    }
 
     const fileChange = e => {
         const image = e.target.files[0]
@@ -177,6 +73,30 @@ function ProfileCard(props) {
         }
     };
     console.log("File chosen --->", avatar);
+
+    const [updateProfile, { }] = useMutation(UPDATE_PROFILE_MUTATION, {
+        update(_, { data: { updateUserProfile: userData } }) {
+            userData.name = userData.buyer.name;
+            context.login(userData)
+            setSave(true)
+            setErrors({})
+        },
+        onError(err) {
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
+            setSave(true)
+        },
+        variables: values
+    })
+
+
+
+    function updateUserProfile() {
+        updateProfile()
+    }
+
+
+
+    // console.log(currentUser.buyer.name)
 
     const showMessage = () => {
         if (isSaved) {
@@ -206,7 +126,94 @@ function ProfileCard(props) {
         <>
             {loading ? (
                 <h1>Loading posts..</h1>
-            ) : formValueObj()}
+            ) : (
+                    <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }} className={loading ? "loading" : ""}>
+                        <Card.Content header='Profile Details' />
+                        <Card.Content>
+                            <Grid stackable >
+                                <Grid.Column width={5}>
+                                    <Card centered>
+                                        <Image src={avatar} wrapped ui={false} />
+                                        <Card.Content extra>
+                                            <Form>
+                                                <Button fluid onClick={() => fileInputRef.current.click()}>Change Avatar</Button>
+                                                <input ref={fileInputRef} type="file" hidden onChange={fileChange} />
+                                            </Form>
+                                        </Card.Content>
+                                    </Card>
+                                </Grid.Column>
+                                <Grid.Column width={11}>
+                                    <Form size='small' onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
+                                        <Form.Input
+                                            fluid
+                                            icon='user'
+                                            iconPosition='left'
+                                            placeholder='Name'
+                                            label='Name'
+                                            value={loading ? values.name : ''}
+                                            name="name"
+                                            onChange={onChange}
+                                            error={errors.name ? true : false}
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            icon='mail'
+                                            iconPosition='left'
+                                            placeholder='Email'
+                                            label='Email'
+                                            value={values.email}
+                                            name="email"
+                                            onChange={onChange}
+                                            error={errors.email ? true : false}
+
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            icon='phone'
+                                            iconPosition='left'
+                                            placeholder='Phone Number'
+                                            label='Phone Number'
+                                            value={values.phone}
+                                            name="phone"
+                                            onChange={onChange}
+                                            error={errors.phone ? true : false}
+
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            icon='calendar'
+                                            iconPosition='left'
+                                            placeholder='Birth Date'
+                                            label='Birth Date'
+                                            name="birthDate"
+                                            value={values.date}
+                                            type="date"
+                                            onChange={onChange}
+
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            icon='map marker alternate'
+                                            iconPosition='left'
+                                            placeholder='Address'
+                                            label='Address'
+                                            name="address"
+                                            value={values.address}
+                                            onChange={onChange}
+
+                                        />
+                                        <Button color='teal' size='small'>
+                                            Save
+                                        </Button>
+                                    </Form>
+                                    {showMessage()}
+                                </Grid.Column>
+                            </Grid>
+
+
+                        </Card.Content>
+                    </Card>
+                )}
         </>
     )
 }

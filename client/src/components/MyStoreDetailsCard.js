@@ -55,8 +55,6 @@ function MyStoreDetailsCard(props) {
                             <Form size='small'>
                                 <Form.Input
                                     fluid
-                                    icon='user'
-                                    iconPosition='left'
                                     placeholder='Store Name'
                                     label='Store Name'
                                 // value={loading ? values.name : ''}
@@ -66,7 +64,6 @@ function MyStoreDetailsCard(props) {
                                 />
                                 <Form.Input
                                     fluid
-                                    icon='mail'
                                     iconPosition='left'
                                     placeholder='Store Description'
                                     label='Description'
