@@ -106,6 +106,12 @@ module.exports = gql`
         avatar: String!
         description: String!
     }
+   
+    input AddItemInput {
+        name: String!
+        price: Int!
+        description: String!
+    }
 
     type Query {
         getUser(userId: ID!): User!
@@ -123,10 +129,11 @@ module.exports = gql`
         activateSeller(activateSellerInput: ActivateSellerInput): User!
         login(email: String!, password: String!): User!
         createPost(body: String!): Post!
-        addItem(name: String!, price: Int!, description:String!): Item!
-        deletePost(postId:ID!):String!
-        deleteItem(itemId:ID!):String!
-        createComment(postId:ID!, body: String!): Post!
+        addItem(addItemInput: AddItemInput): Item!
+        updateItem(itemId: ID!, addItemInput: AddItemInput): Item!
+        deletePost(postId: ID!):String!
+        deleteItem(itemId: ID!):String!
+        createComment(postId: ID!, body: String!): Post!
         deleteComment(postId: ID!, commentId: ID!): Post!
         likePost(postId: ID!): Post! 
         bookmarkItem(itemId: ID!): Item!
