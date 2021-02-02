@@ -45,8 +45,8 @@ function NavBar(props) {
                         <div className="logo">Gowes</div>
                     </Menu.Item>
                     <Menu.Item
-                        onMouseEnter={handleItemHover}
-                        onMouseLeave={handleItemHover}
+                        // onMouseEnter={handleItemHover}
+                        // onMouseLeave={handleItemHover}
                         name='shop'
                         active={activeItem === 'shop'}
                         onClick={handleItemClick}
