@@ -82,3 +82,17 @@ module.exports.validateActivateSellerInput = (username) => {
     valid: Object.keys(errors).length < 1
   };
 };
+
+module.exports.validateAddItemInput = (name, description) => {
+  const errors = {};
+  if (name.trim() === '') {
+    errors.name = 'Name must not be empty';
+  }
+  if (description.trim() === '') {
+    errors.description = 'Description must not be empty';
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+};
