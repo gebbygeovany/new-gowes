@@ -71,3 +71,14 @@ module.exports.validateUserProfileInput = (name, email, phone) => {
     valid: Object.keys(errors).length < 1
   };
 };
+
+module.exports.validateActivateSellerInput = (username) => {
+  const errors = {};
+  if (username.trim() === '') {
+    errors.username = 'Username must not be empty';
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+};
