@@ -14,7 +14,7 @@ function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
 
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
-            <Card.Content style={{ padding: 0 }} as={Link} to={`/posts/${id}`}>
+            <Card.Content style={{ padding: 0 }} as={Link} to={`/items/${id}`}>
                 <Image
                     size="large"
                     src="https://react.semantic-ui.com/images/avatar/large/molly.png"
