@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Card, Image, Grid, Button, Form } from 'semantic-ui-react';
+import { Card, Image, Grid, Button, Form, TextArea } from 'semantic-ui-react';
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { storage } from '.././firebase';
@@ -20,22 +20,12 @@ function ProfileCard(props) {
 
     const [isSaved, setSave] = useState(false)
 
-
     const { loading, data } = useQuery(FETCH_USER_QUERY, {
         variables: {
             userId: context.user.id
         }
     })
     const { getUser: currentUser } = data ? data : []
-
-    // const {
-    //     loading,
-    //     data: { getUser: currentUser }
-    // } = useQuery(FETCH_USER_QUERY, {
-    //     variables: {
-    //         userId: context.user.id
-    //     }
-    // });
 
     let userObj = {
         avatar: '',
@@ -122,6 +112,11 @@ function ProfileCard(props) {
         }
     }
 
+    const options = [
+        { key: 'bandung', text: 'Bandung', value: 'bandung' },
+        { key: 'jakarta', text: 'Jakarta', value: 'jakarta' },
+        { key: 'Malang', text: 'Malang', value: 'Malang' },
+    ]
     return (
         <>
             {loading ? (
@@ -191,15 +186,38 @@ function ProfileCard(props) {
                                             onChange={onChange}
 
                                         />
-                                        <Form.Input
+                                        <Form.Select
                                             fluid
-                                            icon='map marker alternate'
-                                            iconPosition='left'
-                                            placeholder='Address'
+                                            placeholder='City'
                                             label='Address'
-                                            name="address"
+                                            name="city"
                                             value={values.address}
                                             onChange={onChange}
+                                            options={options}
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            placeholder='Districts'
+                                            name="districts"
+                                            value={values.address}
+                                            onChange={onChange}
+
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            placeholder='Postal Code'
+                                            name="postalCode"
+                                            value={values.address}
+                                            onChange={onChange}
+
+                                        />
+                                        <Form.Input
+                                            fluid
+                                            placeholder='Address Details'
+                                            name="addressDetails"
+                                            value={values.address}
+                                            onChange={onChange}
+                                            control={TextArea}
 
                                         />
                                         <Button color='teal' size='small'>
