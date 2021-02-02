@@ -197,7 +197,6 @@ module.exports = {
                 { new: true }
             );
             const token = generateToken(user)
-            console.log(activateSeller._doc)
             return {
                 ...activateSeller._doc,
                 id: activateSeller._id,
