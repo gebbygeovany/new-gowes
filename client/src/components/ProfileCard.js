@@ -89,8 +89,8 @@ function ProfileCard(props) {
     })
 
 
-
     function updateUserProfile() {
+        values.avatar = avatar
         updateProfile()
     }
 
@@ -133,7 +133,7 @@ function ProfileCard(props) {
                             <Grid stackable >
                                 <Grid.Column width={5}>
                                     <Card centered>
-                                        <Image src={avatar} wrapped ui={false} />
+                                        <Image src={loading ? avatar : currentUser.buyer.avatar} wrapped ui={false} />
                                         <Card.Content extra>
                                             <Form>
                                                 <Button fluid onClick={() => fileInputRef.current.click()}>Change Avatar</Button>
@@ -150,7 +150,7 @@ function ProfileCard(props) {
                                             iconPosition='left'
                                             placeholder='Name'
                                             label='Name'
-                                            value={loading ? values.name : ''}
+                                            value={values.name}
                                             name="name"
                                             onChange={onChange}
                                             error={errors.name ? true : false}
