@@ -5,7 +5,7 @@ const checkAuth = require('../../util/check-auth')
 
 const { SECRET_KEY } = require('../../config')
 const User = require('../../models/User')
-const { validateRegisterInput, validateLoginInput, validateUserProfileInput } = require('../../util/validators')
+const { validateRegisterInput, validateLoginInput, validateUserProfileInput, validateActivateSellerInput } = require('../../util/validators')
 
 function generateToken(user) {
     console.log(user.buyer);
@@ -160,11 +160,47 @@ module.exports = {
                 },
                 { new: true }
             );
-            console.log(updatedUser._doc)
             const token = generateToken(user)
             return {
                 ...updatedUser._doc,
                 id: updatedUser._id,
+                token
+            };
+        },
+
+        async activateSeller(_, { activateSellerInput: { username, avatar, description } }, context) {
+            const userCache = checkAuth(context)
+            const { valid, errors } = validateActivateSellerInput(username)
+            if (!valid) {
+                throw new UserInputError('Errors', { errors })
+            }
+
+            const usernameExists = await User.findOne({ "seller.username": username.trim() })
+            if (usernameExists && usernameExists._id.toString() !== userCache.id) {
+                throw new UserInputError('Username is taken', {
+                    errors: {
+                        username: 'This username is taken'
+                    }
+                })
+            }
+
+            const user = await User.findById(userCache.id)
+            
+            const activateSeller = await User.findOneAndUpdate(
+                { _id: userCache.id },
+                {
+                    "seller.username": username,
+                    "seller.description": description,
+                    "seller.avatar": avatar,
+                    "seller.createdAt": new Date().toISOString()
+                },
+                { new: true }
+            );
+            const token = generateToken(user)
+            console.log(activateSeller._doc)
+            return {
+                ...activateSeller._doc,
+                id: activateSeller._id,
                 token
             };
         },
