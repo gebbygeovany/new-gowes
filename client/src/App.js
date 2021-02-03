@@ -43,7 +43,8 @@ class App extends Component {
     return (
       <AuthProvider>
         <Router >
-          <NavBar onDimmed={() => this.handleDimmed()}></NavBar>
+          <NavBar onDimmed={() => this.handleDimmed()}/>
+          <Container>
             <br></br>
             <br></br>
             <br></br>
@@ -60,7 +61,8 @@ class App extends Component {
             <Route exact path="/editMyStoreDetailsCard" component={EditMyStoreDetailsCard} />
             <Route exact path="/editProfileCard" component={EditProfileCard} />
             <Route exact path="/items/:itemId" component={ItemDetail} />
-          <Footer></Footer>
+            </Container>
+          <Footer/>
         </Router>
       </AuthProvider>
     );
