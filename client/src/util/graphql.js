@@ -31,12 +31,10 @@ export const FETCH_ITEMS_QUERY = gql`
     createdAt
     username
     description
-    reviews{
-      id
-      body
-      username
-      rating
-      createdAt
+    user {
+      seller {
+        username
+      }
     }
     images{
       id
