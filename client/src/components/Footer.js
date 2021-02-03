@@ -7,8 +7,10 @@ import {
 
 
 function Footer() {
+    
+
     return (
-        <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }} attached='bottom'>
+        <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '4em 0em' }} attached='bottom'>
             <Container textAlign='center'>
                 <div className="logo">Gowes</div>
                 <br></br>
