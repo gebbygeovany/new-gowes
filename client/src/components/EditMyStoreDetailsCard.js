@@ -112,7 +112,7 @@ function EditMyStoreDetailsCard(props) {
             ) : (
 
                     <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
-                        <Card.Content header='Edit My Store Detail' />
+                        <Card.Content header='My Store Detail Form' />
                         <Card.Content>
                             <Grid stackable >
                                 <Grid.Column width={5}>

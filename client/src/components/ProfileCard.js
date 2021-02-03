@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Card, Image, Grid, Button, Form, TextArea, Icon } from 'semantic-ui-react';
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { storage } from '.././firebase';
-import { useForm } from '../util/hooks'
 import { Link } from 'react-router-dom';
 
 
