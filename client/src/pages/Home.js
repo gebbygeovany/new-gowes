@@ -12,11 +12,6 @@ function Home() {
   const { loading, data } = useQuery(FETCH_ITEMS_QUERY)
   const { getItems: items } = data ? data : []
 
-  // const {
-  //   loading,
-  //   data: { getPosts: posts }
-  // } = useQuery(FETCH_POSTS_QUERY);
-
   return (
     <Grid stackable columns={6}>
       <Grid.Row className="page-title">
