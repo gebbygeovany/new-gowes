@@ -21,7 +21,6 @@ function MyStoreDetailsCard(props) {
 
     const [avatar] = useState('https://react.semantic-ui.com/images/avatar/large/molly.png');
 
-
     return (
         <>
             {loading || currentUser.seller.username === "" ? (

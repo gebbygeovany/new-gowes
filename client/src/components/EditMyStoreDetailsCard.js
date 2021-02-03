@@ -65,7 +65,7 @@ function EditMyStoreDetailsCard(props) {
             context.login(sellerData)
             setSave(true)
             setErrors({})
-            props.history.push('/myStore')
+            props.history.push('/myStore/myStoreDetailsCard')
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
