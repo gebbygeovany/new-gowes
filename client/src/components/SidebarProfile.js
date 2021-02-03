@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function SidebarProfile() {
 
     const pathname = window.location.pathname
-    const path = pathname === '/' ? 'shop' : pathname.substr(1)
+    const path = pathname === '/' ? 'profile' : pathname.substr(1)
 
     const [activeItem, setActiveItem] = useState(path)
 
@@ -19,15 +19,15 @@ function SidebarProfile() {
                 name='profile'
                 active={activeItem === 'profile'}
                 onClick={handleItemClick}
-                // as={Link}
-                // to="/"
+                as={Link}
+                to="/profile/profileCard"
             />
             <Menu.Item
                 name='orders'
                 active={activeItem === 'orders'}
                 onClick={handleItemClick}
-                // as={Link}
-                // to="/"
+                as={Link}
+                to="/profile/myOrders"
             />
             <Menu.Item
                 name='bookmarked'

@@ -3,10 +3,20 @@ import { Grid} from 'semantic-ui-react';
 
 import SidebarProfile from '../components/SidebarProfile'
 import ProfileCard from '../components/ProfileCard'
+import MyStoreDetailsCard from '../components/MyStoreDetailsCard'
 
 
 
 function Profile(props) {
+    const sidebarPosition = props.match.params.position;
+
+    var contentToShow
+
+    if(sidebarPosition==='profileCard'){
+        contentToShow =  <ProfileCard props={props}></ProfileCard>
+    }else if (sidebarPosition==='myOrders'){
+        contentToShow =  <MyStoreDetailsCard props={props}></MyStoreDetailsCard>
+    }
 
     return (
         <Grid stackable>
@@ -16,7 +26,7 @@ function Profile(props) {
             </Grid.Column>
             <Grid.Column width={13}>
                 <br></br>
-                <ProfileCard props={props}></ProfileCard>
+                {contentToShow}
             </Grid.Column>
         </Grid>
     )

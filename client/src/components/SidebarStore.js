@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function SidebarStore() {
 
     const pathname = window.location.pathname
-    const path = pathname === '/' ? 'shop' : pathname.substr(1)
+    const path = pathname === '/' ? 'mystore' : pathname.substr(1)
 
     const [activeItem, setActiveItem] = useState(path)
 
@@ -19,22 +19,22 @@ function SidebarStore() {
                 name='My Store'
                 active={activeItem === 'My Store'}
                 onClick={handleItemClick}
-                // as={Link}
-                // to="/"
+                as={Link}
+                to="/mystore/myStoreDetailsCard"
             />
             <Menu.Item
                 name='Items'
                 active={activeItem === 'Items'}
                 onClick={handleItemClick}
-                // as={Link}
-                // to="/"
+                as={Link}
+                to="/mystore/myItemsList"
             />
             <Menu.Item
                 name='Sales'
                 active={activeItem === 'Sales'}
                 onClick={handleItemClick}
-                // as={Link}
-                // to="/bookmark"
+                as={Link}
+                to="/mystore/salesList"
             />
         </Menu>
     )

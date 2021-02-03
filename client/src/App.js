@@ -55,8 +55,8 @@ class App extends Component {
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route exact path="/posts/:postId" component={SinglePost} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/myStore" component={MyStore} />
+            <Route exact path="/profile/:position" component={Profile} />
+            <Route exact path="/myStore/:position" component={MyStore} />
             <Route exact path="/editMyStoreDetailsCard" component={EditMyStoreDetailsCard} />
             <Route exact path="/editProfileCard" component={EditProfileCard} />
             <Route exact path="/items/:itemId" component={ItemDetail} />

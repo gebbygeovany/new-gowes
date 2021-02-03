@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Card, Image, Grid, Button, Form, TextArea, Icon } from 'semantic-ui-react';
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks';
-import { Link,withRouter  } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 
 import { AuthContext } from '../context/auth';
@@ -21,13 +21,19 @@ function MyStoreDetailsCard(props) {
 
     const [avatar] = useState('https://react.semantic-ui.com/images/avatar/large/molly.png');
 
-
     return (
         <>
-            {loading ? (
-                <h1>Loading posts..</h1>
+            {loading || currentUser.seller.username === "" ? (
+                <>
+                <Card fluid>
+                    <Card.Content header='My Store' />
+                    <Card.Content extra>
+                        <Button fluid color="teal"name='user' as={Link} to="/editMyStoreDetailsCard">Activate My Store</Button> 
+                    </Card.Content>
+                </Card>
+                <br></br><br></br><br></br><br></br><br></br>
+                </>
             ) : (
-
                     <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
                         <Card.Content header='My Store Detail' />
                         <Card.Content>

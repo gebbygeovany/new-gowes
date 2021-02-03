@@ -70,7 +70,7 @@ function EditProfileCard(props) {
             context.login(userData)
             setSave(true)
             setErrors({})
-            props.history.push('/profile')
+            props.history.push('/profile/profileCard')
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
