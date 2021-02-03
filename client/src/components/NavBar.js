@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Menu, Dropdown, Button, Segment, Image, Icon } from 'semantic-ui-react'
+import { Menu, Dropdown, Button, Segment, Image, Icon, Sticky } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { IoMdBicycle } from 'react-icons/io';
 
@@ -31,8 +31,8 @@ function NavBar(props) {
     const navBar = user ? (
 
         // logged in navbar
-        <Segment inverted>
-            <div class="ui huge top inverted fixed menu " style={{ height: 80, zIndex: 1100 }}>
+        <Sticky>
+        <Segment inverted style={{ height: 80, zIndex: 1100 }}>
                 <Menu size="large" fluid fixed inverted secondary>
                     <Menu.Item></Menu.Item>
                     <Menu.Item
@@ -105,10 +105,10 @@ function NavBar(props) {
                         <Menu.Item></Menu.Item>
                     </Menu.Menu>
                 </Menu>
-            </div>
-
         </Segment>
-    ) : (
+        </Sticky>
+   
+   ) : (
         // guest navbar
             <Segment inverted>
                 <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
