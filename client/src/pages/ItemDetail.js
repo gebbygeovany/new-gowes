@@ -28,7 +28,7 @@ function ItemDetail(props) {
                 <Container>
                   <ItemDetailCard item={item}/>
                   <Rail position='left'>
-                    <ItemImagesCard contextRef={contextRef}/>
+                    <ItemImagesCard images={item.images} contextRef={contextRef}/>
                   </Rail>
                   <Rail position='right'>
                     <ItemTransactionCard item={item} contextRef={contextRef}/>

@@ -56,9 +56,9 @@ export const FETCH_ITEM_QUERY = gql`
         name
         price
         stock
+        weight
         createdAt
         description
-        
         images{
             id
             downloadUrl

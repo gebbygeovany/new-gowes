@@ -35,12 +35,13 @@ module.exports = gql`
         height: String!
     }
 
-    type Reviews {
+    type Review {
         id: ID!
+        score: Int!
         body: String!
+        user: User!
+        images: [Image]!
         createdAt: String!
-        username: String!
-        rating: Int!
     }
 
     type Image {
@@ -146,6 +147,7 @@ module.exports = gql`
         getItem(itemId: ID!): Item!
         getItems: [Item]
         getSellerItems(userId: ID!): [Item]
+        getItemReviews(itemId: ID!): [Review]
         getBookmarks: [Item]
     }
     type Mutation {
