@@ -12,7 +12,7 @@ function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
     const [bookmarked, setBookmarked] = useState(false)
 
     useEffect(() => {
-        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.id)) {
+        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.user.id)) {
             setBookmarked(true)
         } else {
             setBookmarked(false)

@@ -83,7 +83,6 @@ export const FETCH_BOOKMARKS_QUERY = gql`
     id 
     name 
     price 
-    username 
     bookmarkedBy{
       id
       userId
