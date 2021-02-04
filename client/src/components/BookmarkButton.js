@@ -10,7 +10,6 @@ import { FETCH_BOOKMARKS_QUERY } from '../util/graphql';
 
 function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
     const [bookmarked, setBookmarked] = useState(false)
-    console.log(user)
 
     useEffect(() => {
         if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.id)) {
