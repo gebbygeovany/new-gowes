@@ -1,180 +1,103 @@
-import React, { useContext, useState, useRef } from 'react';
-import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import moment from 'moment';
-import { Button, Card, Form, Grid, Image, Icon, Label, Transition } from 'semantic-ui-react';
-
-import { AuthContext } from '../context/auth';
-import LikeButton from '../components/LikeButton';
-import DeleteButton from '../components/DeleteButton';
-import MyPopup from '../components/MyPopup';
+import React from 'react';
+import { FETCH_ITEM_QUERY } from '../util/graphql';
+import { useQuery } from '@apollo/react-hooks';
+import { Label, Button, Card, Item, Grid, Image, Icon, Ref, Container, Rail, Sticky } from 'semantic-ui-react';
+import ItemTransactionCard from '../components/ItemTransactionCard'
+import ItemDetailCard from '../components/ItemDetailCard'
+import ItemImagesCard from '../components/ItemImagesCard'
 
 function ItemDetail(props) {
-    const itemId = props.match.params.itemId;
-    const { user } = useContext(AuthContext);
-    const commentInputRef = useRef(null);
-
-    const [comment, setComment] = useState('');
-
-    const { data } = useQuery(FETCH_ITEM_QUERY, {
-        variables: {
-            itemId: itemId
-        }
-    })
-    const { getItem: item } = data ? data : []
-
-    const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
-        update() {
-            setComment('');
-            commentInputRef.current.blur();
-        },
-        variables: {
-            postId: itemId,
-            body: comment
-        }
-    });
-
-    function deletePostCallback() {
-        props.history.push('/');
+  const itemId = props.match.params.itemId;
+  const contextRef = React.createRef();
+  const { data } = useQuery(FETCH_ITEM_QUERY, {
+    variables: {
+      itemId: itemId
     }
+  })
+  const { getItem: item } = data ? data : []
 
-    let postMarkup;
-    if (!item) {
-        postMarkup = <p>Loading post..</p>;
-    } else {
-        const { id, name, description, username, reviews, likes, likeCount, reviewCount, createdAt } = item;
 
-        postMarkup = (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column width={2}>
-                        <Image
-                            src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-                            size="small"
-                            float="right"
-                        />
-                    </Grid.Column>
-                    <Grid.Column width={10}>
-                        <Card fluid>
-                            <Card.Content>
-                                <Card.Header>{name}</Card.Header>
-                                <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
-                                <Card.Description>{description}</Card.Description>
-                            </Card.Content>
-                            <hr />
-                            <Card.Content extra>
-                                <LikeButton user={user} post={{ id, likeCount, likes }} />
-                                <MyPopup content="Comment On Post">
-                                    <Button
-                                        as="div"
-                                        labelPosition="right"
-                                        onClick={() => console.log('Comment on post')}
-                                    >
-                                        <Button basic color="blue">
-                                            <Icon name="comments" />
-                                        </Button>
-                                        <Label basic color="blue" pointing="left">
-                                            {reviewCount}
-                                        </Label>
-                                    </Button>
-                                </MyPopup>
-                                {user && user.username === username && (
-                                    <DeleteButton postId={id} callback={deletePostCallback} />
-                                )}
-                            </Card.Content>
-                        </Card>
-                        {user && (
-                            <Card fluid>
-                                <Card.Content>
-                                    <p>Post a comment</p>
-                                    <Form>
-                                        <div className="ui action input fluid">
-                                            <input
-                                                type="text"
-                                                placeholder="Comment.."
-                                                name="comment"
-                                                value={comment}
-                                                onChange={(event) => setComment(event.target.value)}
-                                                ref={commentInputRef}
-                                            />
-                                            <button
-                                                type="submit"
-                                                className="ui button teal"
-                                                disabled={comment.trim() === ''}
-                                                onClick={submitComment}
-                                            >
-                                                Submit
-                                            </button>
-                                        </div>
-                                    </Form>
-                                </Card.Content>
-                            </Card>
-                        )}
-                        <Transition.Group duration={600}>
-                            {reviews.map((review) => (
-                                <Card fluid key={review.id}>
-                                    <Card.Content>
-                                        {user && user.username === review.username && (
-                                            <DeleteButton postId={id} commentId={review.id} />
-                                        )}
-                                        <Card.Header>{review.username}</Card.Header>
-                                        <Card.Meta>{moment(review.createdAt).fromNow()}</Card.Meta>
-                                        <Card.Description>{review.body}</Card.Description>
-                                    </Card.Content>
-                                </Card>
-                            ))}
-                        </Transition.Group>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        );
-    }
-    return postMarkup;
+  let postMarkup = (<p>Loading item..</p>);
+  if (item) {
+    postMarkup = (
+      <Grid>
+        <Grid.Row>
+          <Grid centered columns={2}>
+            <Grid.Column>
+              <Ref innerRef={contextRef}>
+                <Container>
+                  <ItemDetailCard item={item}/>
+                  <Rail position='left'>
+                    <ItemImagesCard contextRef={contextRef}/>
+                  </Rail>
+                  <Rail position='right'>
+                    <ItemTransactionCard item={item} contextRef={contextRef}/>
+                  </Rail>
+                </Container>
+            </Ref>
+            </Grid.Column>
+          </Grid>
+        </Grid.Row>
+        <Grid.Row>
+          <Item.Group divided>
+          <Item>
+            <Item.Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+            <Item.Content>
+              <Item.Header as='a'>12 Years a Slave</Item.Header>
+              <Item.Meta>
+                <span className='cinema'>Union Square 14</span>
+              </Item.Meta>
+              <Item.Description>{"paragraph"}</Item.Description>
+              <Item.Extra>
+                <Label>IMAX</Label>
+                <Label icon='globe' content='Additional Languages' />
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+
+          <Item>
+            <Item.Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+            <Item.Content>
+              <Item.Header as='a'>My Neighbor Totoro</Item.Header>
+              <Item.Meta>
+                <span className='cinema'>IFC Cinema</span>
+              </Item.Meta>
+              <Item.Description>{"paragraph"}</Item.Description>
+              <Item.Extra>
+                <Button primary floated='right'>
+                  Buy tickets
+                  <Icon name='right chevron' />
+                </Button>
+                <Label>Limited</Label>
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+
+          <Item>
+            <Item.Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+            <Item.Content>
+              <Item.Header as='a'>Watchmen</Item.Header>
+              <Item.Meta>
+                <span className='cinema'>IFC</span>
+              </Item.Meta>
+              <Item.Description>{"paragraph"}</Item.Description>
+              <Item.Extra>
+                <Button primary floated='right'>
+                  Buy tickets
+                  <Icon name='right chevron' />
+                </Button>
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+        </Item.Group>
+        </Grid.Row>
+      </Grid>
+    );
+  }
+  return postMarkup;
 }
-
-const SUBMIT_COMMENT_MUTATION = gql`
-  mutation($postId: ID!, $body: String!) {
-    createComment(postId: $postId, body: $body) {
-      id
-      comments {
-        id
-        body
-        createdAt
-        username
-      }
-      commentCount
-    }
-  }
-`;
-
-const FETCH_ITEM_QUERY = gql`
-  query($itemId: ID!) {
-    getItem(itemId: $itemId) {
-        id
-        name
-        price
-        createdAt
-        username
-        description
-        reviews{
-            id
-            body
-            username
-            rating
-            createdAt
-        }
-        images{
-            id
-            src
-        }
-        reviewCount
-        bookmarkedBy{
-            id
-            userId
-            createdAt
-        }
-    }
-  }
-`;
 
 export default ItemDetail;

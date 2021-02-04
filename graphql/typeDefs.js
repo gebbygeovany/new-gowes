@@ -17,14 +17,22 @@ module.exports = gql`
         id: ID!
         name:String!
         price: Int!
-        createdAt: String!
-        username: String!
+        stock: Int!
+        category: String!
+        condition: String!
+        weight: String!
         description: String!
-        reviews: [Reviews]!
-        images: [Images]!
-        reviewCount: Int
-        bookmarkedBy:[BookmarkedBy]
+        dimension: Dimension!
         user:User!
+        images: [Image]!
+        bookmarkedBy:[BookmarkedBy]
+        createdAt: String!
+    }
+
+    type Dimension {
+        length: String!,
+        width: String!,
+        height: String!
     }
 
     type Reviews {
@@ -35,9 +43,9 @@ module.exports = gql`
         rating: Int!
     }
 
-    type Images {
+    type Image {
         id: ID!
-        src: String!
+        downloadUrl: String!
     }
 
     type Comment {
@@ -108,9 +116,25 @@ module.exports = gql`
     }
    
     input AddItemInput {
-        name: String!
-        price: Int!
-        description: String!
+        name: String!,
+        price: Int!,
+        stock: Int!,
+        category: String!,
+        condition: String!,
+        weight: String!,
+        description: String!,
+        dimension: DimensionInput!,
+        images: [ImageInput]!
+    }
+
+    input ImageInput {
+        downloadUrl: String!
+    }
+
+    input DimensionInput {
+        length: String!,
+        width: String!,
+        height: String!
     }
 
     type Query {

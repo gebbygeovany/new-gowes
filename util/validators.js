@@ -83,10 +83,28 @@ module.exports.validateActivateSellerInput = (username) => {
   };
 };
 
-module.exports.validateAddItemInput = (name, description) => {
+module.exports.validateAddItemInput = (name, price, stock, category, condition, weight, description, dimension, images) => {
   const errors = {};
   if (name.trim() === '') {
     errors.name = 'Name must not be empty';
+  }
+  if (price === 0) {
+    errors.price = 'Price must not be 0';
+  }
+  if (stock === 0) {
+    errors.stock = 'Stock must not be 0';
+  }
+  if (category.trim() === '') {
+    errors.category = 'Category must not be empty';
+  }
+  if (condition.trim() === '') {
+    errors.condition = 'Condition must not be empty';
+  }
+  if (weight.trim() === '') {
+    errors.weight = 'Weight must not be empty';
+  }
+  if (images.length === 0) {
+    errors.images = 'There must be at least one image';
   }
   if (description.trim() === '') {
     errors.description = 'Description must not be empty';

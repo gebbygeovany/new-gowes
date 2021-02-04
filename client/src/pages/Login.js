@@ -35,7 +35,7 @@ function Login(props) {
     return (
         <Grid textAlign='center' style={{ height: '100vh', marginTop: 100 }}>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header color='standard' textAlign='center'>
+                <Header textAlign='center'>
                     <span className="logoLogin">Login to your account</span>
                 </Header>
                 <Form size='large' onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
@@ -62,7 +62,7 @@ function Login(props) {
                             onChange={onChange}
                         />
 
-                        <Button color='secondary' fluid size='large'>
+                        <Button secondary fluid size='large'>
                             Login
                         </Button>
                     </Segment>

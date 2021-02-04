@@ -13,17 +13,13 @@ function NavBar(props) {
     const { user, logout } = useContext(AuthContext)
     const pathname = window.location.pathname
     const path = pathname === '/' ? 'shop' : pathname.substr(1)
-    console.log(user)
     const [activeItem, setActiveItem] = useState(path)
-    // const [isDimmed, setDimmed] = useState(false)
 
     const handleItemClick = (e, { name }) => {
-        console.log("handleItemClick was employed")
         setActiveItem(name)
     }
 
     const handleItemHover = () => {
-        console.log("handleItemHover was employed")
         // handleItemClick()
         props.onDimmed()
     }
@@ -31,9 +27,9 @@ function NavBar(props) {
     const navBar = user ? (
 
         // logged in navbar
-        <Segment inverted>
-            <div class="ui huge top inverted fixed menu " style={{ height: 80, zIndex: 1100 }}>
-                <Menu size="large" fluid fixed inverted secondary>
+        <Segment>
+            <div className="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
+                <Menu size="large" fluid inverted secondary>
                     <Menu.Item></Menu.Item>
                     <Menu.Item
                         active={activeItem === 'home'}
@@ -71,7 +67,7 @@ function NavBar(props) {
                             to="/bookmark"
                         >
                             <MyPopup content="Bookmarks">
-                                <Icon name="bookmark" centered></Icon>
+                                <Icon name="bookmark" centered="true"></Icon>
                             </MyPopup>
                         </Menu.Item>
 
@@ -83,7 +79,7 @@ function NavBar(props) {
                             to="/cart"
                         >
                             <MyPopup content="Cart">
-                                <Icon name="cart" centered></Icon>
+                                <Icon name="cart" centered="true"></Icon>
                             </MyPopup>
                         </Menu.Item>
 
@@ -106,12 +102,12 @@ function NavBar(props) {
                     </Menu.Menu>
                 </Menu>
             </div>
-
         </Segment>
-    ) : (
+   
+   ) : (
         // guest navbar
             <Segment inverted>
-                <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
+                <div className="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
                     <Menu fluid inverted secondary size='large'>
                         <Menu.Item></Menu.Item>
                         <Menu.Item
