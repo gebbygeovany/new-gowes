@@ -55,6 +55,7 @@ export const FETCH_ITEM_QUERY = gql`
         id
         name
         price
+        stock
         createdAt
         description
         

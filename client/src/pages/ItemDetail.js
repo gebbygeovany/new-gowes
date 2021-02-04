@@ -31,7 +31,7 @@ function ItemDetail(props) {
                     <ItemImagesCard contextRef={contextRef}/>
                   </Rail>
                   <Rail position='right'>
-                    <ItemTransactionCard contextRef={contextRef}/>
+                    <ItemTransactionCard item={item} contextRef={contextRef}/>
                   </Rail>
                 </Container>
             </Ref>
