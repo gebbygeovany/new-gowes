@@ -18,6 +18,8 @@ import Cart from './pages/Cart'
 import Profile from './pages/Profile'
 import MyStore from './pages/MyStore'
 import ItemDetail from './pages/ItemDetail'
+import AddItem from './pages/AddItem'
+
 import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
 
@@ -61,6 +63,7 @@ class App extends Component {
             <Route exact path="/editMyStoreDetailsCard" component={EditMyStoreDetailsCard} />
             <Route exact path="/editProfileCard" component={EditProfileCard} />
             <Route exact path="/items/:itemId" component={ItemDetail} />
+            <Route exact path="/addItem" component={AddItem} />
           </Container>
           <Footer></Footer>
         </Router>
