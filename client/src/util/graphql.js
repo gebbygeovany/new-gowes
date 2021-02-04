@@ -74,6 +74,24 @@ export const FETCH_ITEM_QUERY = gql`
             }
         }
     }
+
+    getItemReviews(itemId:$itemId){
+      id
+      score
+      body
+      user{
+        id
+        email
+      }
+      item {
+        id
+        name
+      }
+      images{
+        downloadUrl
+      }
+      createdAt
+    }
   }
 `;
 
