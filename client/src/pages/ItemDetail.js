@@ -60,11 +60,11 @@ function ItemDetail(props) {
         postMarkup = (
             <Grid>
                 <Grid.Row>
-                <Grid centered columns={3}>
+                <Grid centered columns={2}>
                 <Grid.Column>
                 <Ref innerRef={contextRef}>
                     <Container>
-                    <Container>
+                        <Container>
                         <Header as='h2'>{name}</Header>
                         <List horizontal>
                             <List.Item>Terjual 10</List.Item>
@@ -118,7 +118,7 @@ function ItemDetail(props) {
                         </Container>
                         <Divider />
                     </Container>
-                    <Rail position='left'>
+                        <Rail position='left'>
                         <Sticky context={contextRef} offset={130}>
                             <Image src='https://react.semantic-ui.com/images/wireframe/image.png' style={{ marginBottom: 4 }}/>
                             <Swiper
@@ -143,7 +143,7 @@ function ItemDetail(props) {
                         </Sticky>
                     </Rail>
 
-                    <Rail position='right'>
+                        <Rail position='right'>
                         <Sticky context={contextRef} offset={130}>
                             <Card>
                                 <Card.Content>
