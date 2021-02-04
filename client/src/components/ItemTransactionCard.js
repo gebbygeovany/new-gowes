@@ -40,6 +40,9 @@ function ItemTransactionCard({ contextRef, item }) {
                                 <Header as="h3">{`Rp${item.price * amountItem}`}</Header>
                             </List.Content>
                         </List.Item>
+                        <List.Item>
+                            
+                        </List.Item>
                     </List>
                 </Card.Content>
                 <Card.Content extra>
