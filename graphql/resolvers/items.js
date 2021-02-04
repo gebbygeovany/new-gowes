@@ -45,7 +45,7 @@ module.exports = {
                         $elemMatch: {
                             userId: user.id
                         }
-                }}).sort({ createdAt: -1 })
+                }}).sort({ createdAt: -1 }).populate('user')
                 return items
             } catch (err) {
                 throw new Error(err)
