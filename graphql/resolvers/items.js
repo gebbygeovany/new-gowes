@@ -7,15 +7,6 @@ const { validateAddItemInput } = require('../../util/validators')
 
 module.exports = {
     Query: {
-        async getItems() {
-            try {
-                const items = await Item.find().sort({ createdAt: -1 }).populate('user');
-                return items
-            } catch (err) {
-                throw new Error(err)
-            }
-        },
-
         async getItem(_, { itemId }) {
             try {
                 const item = await Item.findById(itemId).populate('user');
@@ -28,6 +19,23 @@ module.exports = {
                 throw new Error(err)
             }
         },
+        async getItems() {
+            try {
+                const items = await Item.find().sort({ createdAt: -1 }).populate('user');
+                return items
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+        async getSellerItems(_, { userId }) {
+            try {
+                const items = await Item.find({ user: userId }).sort({ createdAt: -1 }).populate('user');
+                return items
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+
         async getBookmarks(_,{},context) {
             try {
                 const user = checkAuth(context)
