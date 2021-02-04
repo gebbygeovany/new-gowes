@@ -9,8 +9,8 @@ import BookmarkButton from './BookmarkButton';
 
 
 
-function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
-    const { user } = useContext(AuthContext);
+function PostCard({item: { id, name, price, user, bookmarkedBy }}) {
+    const { userCache } = useContext(AuthContext);
 
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
@@ -24,7 +24,7 @@ function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
             <Card.Content extra as={Link} to={`/posts/${id}`}>
                 <Card.Header style={{ fontSize: 14 }}>{name}</Card.Header>
                 <Card.Meta>
-                    <span className='penjual'>{username}</span>
+                    <span className='penjual'>{user.seller.username}</span>
                 </Card.Meta>
                 <Card.Meta style={{ marginTop: 5 }}>
                     <Icon name='star' style={{ color: 'gold' }}></Icon>
@@ -36,7 +36,7 @@ function PostCard({item: { id, name, price, username,bookmarkedBy }}) {
             </Card.Content>
 
             <Card.Content extra>
-                <BookmarkButton user={user} item={{ id, bookmarkedBy }} ></BookmarkButton>
+                <BookmarkButton user={userCache} item={{ id, bookmarkedBy }} ></BookmarkButton>
             </Card.Content>
 
         </Card>
