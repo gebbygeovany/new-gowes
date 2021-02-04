@@ -143,8 +143,9 @@ module.exports = gql`
         getSellers: [User]
         getPosts: [Post]
         getPost(postId: ID!): Post!
-        getItems: [Item]
         getItem(itemId: ID!): Item!
+        getItems: [Item]
+        getSellerItems(userId: ID!): [Item]
         getBookmarks: [Item]
     }
     type Mutation {
