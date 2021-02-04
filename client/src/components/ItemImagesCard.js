@@ -6,7 +6,7 @@ import 'swiper/swiper.scss';
 function ItemImagesCard({ contextRef, images }) {
     const [selectedImage, setSelectedImage] = useState(images[0].downloadUrl)
     return (
-        <Sticky context={contextRef} offset={130}>
+      <Sticky context={contextRef} offset={130}>
         <Image src={selectedImage} style={{ marginBottom: 6, width: 250, height: 250 }}/>
         <Swiper
           spaceBetween={6}
@@ -15,7 +15,7 @@ function ItemImagesCard({ contextRef, images }) {
           onSwiper={(swiper) => console.log(swiper)}>
             {images.map((image, index) => (
               <SwiperSlide key={index} virtualIndex={index}>
-                <Image onClick={() => {setSelectedImage(image.downloadUrl)}} src={ image.downloadUrl } style={{ width: 60, height: 60 }}/>
+                <Image href={`#image/${image.id}`} onClick={() => {setSelectedImage(image.downloadUrl)}} src={ image.downloadUrl } style={{ width: 60, height: 60 }}/>
             </SwiperSlide>
             )) }
         </Swiper>
