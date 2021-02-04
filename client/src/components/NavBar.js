@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Menu, Dropdown, Button, Segment, Image, Icon, Sticky } from 'semantic-ui-react'
+import { Menu, Dropdown, Button, Segment, Image, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { IoMdBicycle } from 'react-icons/io';
 
@@ -13,17 +13,13 @@ function NavBar(props) {
     const { user, logout } = useContext(AuthContext)
     const pathname = window.location.pathname
     const path = pathname === '/' ? 'shop' : pathname.substr(1)
-    console.log(user)
     const [activeItem, setActiveItem] = useState(path)
-    // const [isDimmed, setDimmed] = useState(false)
 
     const handleItemClick = (e, { name }) => {
-        console.log("handleItemClick was employed")
         setActiveItem(name)
     }
 
     const handleItemHover = () => {
-        console.log("handleItemHover was employed")
         // handleItemClick()
         props.onDimmed()
     }
