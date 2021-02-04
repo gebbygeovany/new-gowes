@@ -40,6 +40,7 @@ module.exports = gql`
         score: Int!
         body: String!
         user: User!
+        item: Item!
         images: [Image]!
         createdAt: String!
     }
@@ -148,6 +149,7 @@ module.exports = gql`
         getItems: [Item]
         getSellerItems(userId: ID!): [Item]
         getItemReviews(itemId: ID!): [Review]
+        getUserReviews(userId: ID!): [Review]
         getBookmarks: [Item]
     }
     type Mutation {
