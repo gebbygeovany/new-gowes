@@ -100,8 +100,8 @@ module.exports.validateAddItemInput = (name, price, stock, category, condition, 
   if (condition.trim() === '') {
     errors.condition = 'Condition must not be empty';
   }
-  if (weight.trim() === '') {
-    errors.weight = 'Weight must not be empty';
+  if (weight === 0) {
+    errors.weight = 'Weight must not be 0';
   }
   if (images.length === 0) {
     errors.images = 'There must be at least one image';

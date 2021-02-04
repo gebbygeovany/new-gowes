@@ -20,7 +20,7 @@ module.exports = gql`
         stock: Int!
         category: String!
         condition: String!
-        weight: String!
+        weight: Int!
         description: String!
         dimension: Dimension!
         user:User!
@@ -121,7 +121,7 @@ module.exports = gql`
         stock: Int!,
         category: String!,
         condition: String!,
-        weight: String!,
+        weight: Int!,
         description: String!,
         dimension: DimensionInput!,
         images: [ImageInput]!
