@@ -20,7 +20,7 @@ module.exports = gql`
         stock: Int!
         category: String!
         condition: String!
-        weight: String!
+        weight: Int!
         description: String!
         dimension: Dimension!
         user:User!
@@ -121,7 +121,7 @@ module.exports = gql`
         stock: Int!,
         category: String!,
         condition: String!,
-        weight: String!,
+        weight: Int!,
         description: String!,
         dimension: DimensionInput!,
         images: [ImageInput]!
@@ -143,8 +143,9 @@ module.exports = gql`
         getSellers: [User]
         getPosts: [Post]
         getPost(postId: ID!): Post!
-        getItems: [Item]
         getItem(itemId: ID!): Item!
+        getItems: [Item]
+        getSellerItems(userId: ID!): [Item]
         getBookmarks: [Item]
     }
     type Mutation {

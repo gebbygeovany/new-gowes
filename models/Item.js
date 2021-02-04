@@ -6,7 +6,7 @@ const itemSchema= new Schema({
     stock: Number,
     category: String,
     condition: String,
-    weight: String,
+    weight: Number,
     description: String,
     dimension: {
         length: String,
