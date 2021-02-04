@@ -25,6 +25,7 @@ import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
+import ChatFloatingButton from './components/ChatFloatingButton'
 import { Dimmer } from 'semantic-ui-react'
 
 class App extends Component {
@@ -65,6 +66,7 @@ class App extends Component {
             <Route exact path="/items/:itemId" component={ItemDetail} />
             <Route exact path="/addItem" component={AddItem} />
           </Container>
+          <ChatFloatingButton />
           <Footer />
         </Router>
       </AuthProvider>
