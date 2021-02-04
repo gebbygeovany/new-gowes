@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
@@ -18,9 +19,10 @@ import Cart from './pages/Cart'
 import Profile from './pages/Profile'
 import MyStore from './pages/MyStore'
 import ItemDetail from './pages/ItemDetail'
+import AddItem from './pages/AddItem'
+
 import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
-
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import { Dimmer } from 'semantic-ui-react'
@@ -32,7 +34,7 @@ class App extends Component {
       isDimmed: false
     };
     // this.handleDimmed = this.handleDimmed.bind(this);
-   }
+  }
 
   handleDimmed() {
     console.log("handleDimmed on App was employed")
@@ -43,7 +45,7 @@ class App extends Component {
     return (
       <AuthProvider>
         <Router >
-          <NavBar onDimmed={() => this.handleDimmed()}/>
+          <NavBar onDimmed={() => this.handleDimmed()} />
           <Container>
             <br></br>
             <br></br>
@@ -61,8 +63,9 @@ class App extends Component {
             <Route exact path="/editMyStoreDetailsCard" component={EditMyStoreDetailsCard} />
             <Route exact path="/editProfileCard" component={EditProfileCard} />
             <Route exact path="/items/:itemId" component={ItemDetail} />
-            </Container>
-          <Footer/>
+            <Route exact path="/addItem" component={AddItem} />
+          </Container>
+          <Footer />
         </Router>
       </AuthProvider>
     );
