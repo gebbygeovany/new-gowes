@@ -97,14 +97,27 @@ export const FETCH_ITEM_QUERY = gql`
 
 export const FETCH_BOOKMARKS_QUERY = gql`
   {
-  getBookmarks{
-    id 
-    name 
-    price 
-    bookmarkedBy{
+    getBookmarks{
       id
-      userId
-    }
+      name
+      price
+      createdAt
+      description
+      
+      images{
+        id
+        downloadUrl
+      }
+      bookmarkedBy{
+        id
+        userId
+        createdAt
+      }
+      user{
+        seller{
+          username
+        }
+      }
   }
 }
 `;
