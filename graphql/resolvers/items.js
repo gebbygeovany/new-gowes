@@ -45,21 +45,26 @@ module.exports = {
         },
     },
     Mutation: {
-        async addItem(_, { addItemInput: { name, price, description } }, context) {
+        async addItem(_, { addItemInput: { name, price, stock, category, condition, weight, description, dimension, images } }, context) {
             const user = checkAuth(context)
             console.log(user)
 
-            const { valid, errors } = validateAddItemInput(name, description)
+            const { valid, errors } = validateAddItemInput(name, price, stock, category, condition, weight, description, dimension, images, description)
             if (!valid) {
                 throw new UserInputError('Errors', { errors })
             }
 
             const newItem = new Item({
-                name,
-                price,
-                description,
+                name: name,
+                price: price,
+                stock: stock,
+                category: category,
+                condition: condition,
+                weight: weight,
+                description: description,
+                dimension: dimension,
                 user: user.id,
-                username: user.username,
+                images: images,
                 createdAt: new Date().toISOString()
             })
 
