@@ -31,8 +31,8 @@ function NavBar(props) {
     const navBar = user ? (
 
         // logged in navbar
-        <Sticky>
-        <Segment inverted style={{ height: 80, zIndex: 1100 }}>
+        <Segment>
+            <div class="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
                 <Menu size="large" fluid fixed inverted secondary>
                     <Menu.Item></Menu.Item>
                     <Menu.Item
@@ -105,13 +105,13 @@ function NavBar(props) {
                         <Menu.Item></Menu.Item>
                     </Menu.Menu>
                 </Menu>
+            </div>
         </Segment>
-        </Sticky>
    
    ) : (
         // guest navbar
             <Segment inverted>
-                <div class="ui huge top inverted fixed menu " style={{ height: 80 }}>
+                <div class="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
                     <Menu fluid inverted secondary size='large'>
                         <Menu.Item></Menu.Item>
                         <Menu.Item
