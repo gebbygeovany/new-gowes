@@ -3,20 +3,23 @@ const {model, Schema} = require('mongoose')
 const itemSchema= new Schema({
     name : String,
     price: Number,
-    username: String,
+    stock: Number,
+    category: String,
+    condition: String,
+    weight: String,
     description: String,
-    createdAt: String,
-    reviews: [
-        {
-            body : String,
-            username: String,
-            createdAt: String,
-            rating: Number
-        },
-    ],
+    dimension: {
+        length: String,
+        width: String,
+        height: String
+    }, 
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },    
     images: [
         {
-            src: String,
+            downloadUrl: String,
         },
     ],
     bookmarkedBy:[
@@ -25,10 +28,7 @@ const itemSchema= new Schema({
             createdAt: String,
         }
     ],
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    createdAt: String
 })
 
 module.exports = model('Item', itemSchema)
