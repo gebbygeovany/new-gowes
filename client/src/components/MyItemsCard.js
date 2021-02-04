@@ -5,7 +5,7 @@ import '../App.css';
 
 import { AuthContext } from '../context/auth';
 
-function MyItemsCard() {
+function MyItemsCard({item: { name, price, stock }}) {
     const { user } = useContext(AuthContext);
 
     return (
@@ -22,7 +22,7 @@ function MyItemsCard() {
                     />
                 </Grid.Column>
                 <Grid.Column width={2} verticalAlign='middle'>
-                    <h4>Sempak Baja</h4>
+                    <h4>{name}</h4>
                 </Grid.Column>
                 <Grid.Column width={3} verticalAlign='middle' textAlign='center'>
                     <h4>4</h4>

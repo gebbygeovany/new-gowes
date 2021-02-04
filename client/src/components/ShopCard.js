@@ -36,7 +36,7 @@ function PostCard({item: { id, name, price, user, bookmarkedBy }}) {
             </Card.Content>
 
             <Card.Content extra>
-                <BookmarkButton user={user} item={{ id, bookmarkedBy }} ></BookmarkButton>
+                <BookmarkButton user={userCache} item={{ id, bookmarkedBy }} ></BookmarkButton>
             </Card.Content>
 
         </Card>

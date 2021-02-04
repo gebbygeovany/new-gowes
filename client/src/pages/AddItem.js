@@ -1,19 +1,49 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Card, Image, Grid, Button, Form, TextArea, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
+import { AuthContext } from '../context/auth'
+import { useForm } from '../util/hooks'
 
-function AddItem(params) {
+function AddItem(props) {
+
+    const context = useContext(AuthContext)
+    const [errors, setErrors] = useState({})
 
     const category = [
-        { key: 'm', text: 'Category 1', value: 'male' },
-        { key: 'f', text: 'Category 2', value: 'female' },
-        { key: 'o', text: 'Category 3', value: 'other' },
+        { key: 'Sparepart', text: 'Sparepart', value: 'sparepart' },
+        { key: 'Accessories', text: 'Accessories', value: 'accessories' },
+        { key: 'Apparel', text: 'Apparel', value: 'apparel' },
     ]
     const condition = [
-        { key: 'm', text: 'New', value: 'male' },
-        { key: 'f', text: 'Used', value: 'female' },
+        { key: 'new', text: 'New', value: 'new' },
+        { key: 'used', text: 'Used', value: 'used' },
     ]
+
+    const { onChange, onSubmit, values } = useForm(registerUser, {
+        name: '',
+        password: '',
+        confirmPassword: '',
+        email: '',
+    })
+
+    const [addUser, { loading }] = useMutation(ADD_ITEM_MUTATION, {
+        update(_, { data: { register: userData } }) {
+            context.login(userData)
+            props.history.push('/')
+        },
+        onError(err) {
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
+        },
+        variables: values
+    })
+
+    function registerUser() {
+        addUser()
+    }
+
+
 
     return (
         <Grid centered stackable>
@@ -54,13 +84,13 @@ function AddItem(params) {
                 <Card fluid>
                     <Card.Content header='Item Details' />
                     <Card.Content extra>
-                        <Form size='small' noValidate>
+                        <Form size='small' onSubmit={onSubmit} noValidate className={loading ? "loading" : ""} noValidate>
                             <Form.Input
                                 fluid
                                 placeholder='Item Name'
                                 label='Item Name'
-                                // value={currentUser.seller.username}
-                                name="itemName"
+                                value={values.name}
+                                name="name"
                             />
                             <Form.Group inline widths='equal'>
                                 <Form.Select
@@ -68,7 +98,8 @@ function AddItem(params) {
                                     placeholder='Category'
                                     label='Category'
                                     options={category}
-                                    // value={currentUser.seller.username}
+                                    value={values.category}
+                                    onChange={onChange}
                                     name="category"
                                 />
                                 <Form.Select
@@ -76,7 +107,7 @@ function AddItem(params) {
                                     placeholder='Condition'
                                     label='Condition'
                                     options={condition}
-                                    // value={currentUser.seller.username}
+                                    value={values.condition}
                                     name="condition"
                                 />
                             </Form.Group>
@@ -86,7 +117,7 @@ function AddItem(params) {
                                 placeholder='Store Description'
                                 label='Description'
                                 control={TextArea}
-                                // value={currentUser.seller.description}
+                                value={values.description}
                                 name="description"
                             />
                             <Form.Group inline widths='equal'>
@@ -94,15 +125,15 @@ function AddItem(params) {
                                     fluid
                                     placeholder='Rp'
                                     label='Price'
-                                    // value={currentUser.seller.username}
+                                    value={values.price}
                                     name="price"
                                 />
                                 <Form.Input
                                     fluid
                                     placeholder='Amount Item'
                                     label='Amount Item'
-                                    // value={currentUser.seller.username}
-                                    name="amuntItem"
+                                    value={values.stock}
+                                    name="stock"
                                 />
                             </Form.Group>
                             <Form.Group inline widths='equal'>
@@ -110,28 +141,28 @@ function AddItem(params) {
                                     fluid
                                     placeholder='kg'
                                     label='Weight'
-                                    // value={currentUser.seller.username}
+                                    value={values.weight}
                                     name="weight"
                                 />
                                 <Form.Input
                                     fluid
                                     placeholder='cm'
                                     label='Length'
-                                    // value={currentUser.seller.username}
+                                    value={values.length}
                                     name="length"
                                 />
                                 <Form.Input
                                     fluid
                                     placeholder='cm'
                                     label='Width'
-                                    // value={currentUser.seller.username}
+                                    value={values.width}
                                     name="width"
                                 />
                                 <Form.Input
                                     fluid
                                     placeholder='cm'
                                     label='Height'
-                                    // value={currentUser.seller.username}
+                                    value={values.height}
                                     name="height"
                                 />
                             </Form.Group>
@@ -139,8 +170,6 @@ function AddItem(params) {
                                 fluid
                                 color='teal'
                                 size='small'
-                                as={Link}
-                                to="/editMyStoreDetailsCard"
                             >
                                 Save Item
                             </Button>
@@ -151,5 +180,58 @@ function AddItem(params) {
         </Grid>
     )
 }
+
+const ADD_ITEM_MUTATION = gql`
+  mutation register(
+    $name: String!
+    $price: String!
+    $stock: String!
+    $category: String!
+    $condition: String!
+    $category: String!
+    $weight: String!
+    $description: String!
+    $length: String!
+    $width: String!
+    $height: String!
+  ) {
+    addItem(addItemInput:{
+        name:"Stang Sepeda BMX",
+        price:435000,
+        stock: 2,
+        category: "Komponen Sepeda",
+        condition: "Bekas",
+        weight: "1 kg",
+        description:"Warna merah"
+        dimension: {
+            length: "100 cm",
+            width: "10 cm",
+            height: "100 cm"
+        },
+        images: [{
+            downloadUrl:""
+        }]
+    }){
+        id
+        name
+        price
+        stock
+        category
+        condition
+        weight
+        description
+        dimension {
+        length
+        width
+        height
+        }
+        images {
+        downloadUrl
+        }
+        createdAt
+    }
+    }
+  
+`
 
 export default AddItem
