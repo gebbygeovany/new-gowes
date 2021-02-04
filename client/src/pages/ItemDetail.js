@@ -1,14 +1,10 @@
 import React, { useContext, useState, useRef } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import moment from 'moment';
-import { Label, Button, Card, Item, Grid, Image, Icon, Ref, Segment, List, Container, Header, Rail, Sticky, Divider } from 'semantic-ui-react';
+import { Label, Button, Card, Item, Grid, Image, Icon, Ref, List, Container, Header, Rail, Sticky, Divider } from 'semantic-ui-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import { AuthContext } from '../context/auth';
-import LikeButton from '../components/LikeButton';
-import DeleteButton from '../components/DeleteButton';
-import MyPopup from '../components/MyPopup';
 
 function ItemDetail(props) {
     const itemId = props.match.params.itemId;
@@ -38,6 +34,7 @@ function ItemDetail(props) {
     function deletePostCallback() {
         props.history.push('/');
     }
+
     let objs = [
         {id: 1, name:"john"},
         {id: 2, name:"john"},
@@ -51,12 +48,9 @@ function ItemDetail(props) {
         objs = [...objs, objs]
     }
 
-    let postMarkup;
-    if (!item) {
-        postMarkup = <p>Loading post..</p>;
-    } else {
-        const { id, name, description, price, reviews, likes, likeCount, reviewCount, createdAt } = item;
-
+    let postMarkup = (<p>Loading post..</p>);
+    if (item) {
+        const { name, price} = item;
         postMarkup = (
             <Grid>
                 <Grid.Row>
@@ -127,13 +121,8 @@ function ItemDetail(props) {
                             onSlideChange={() => console.log('slide change')}
                             onSwiper={(swiper) => console.log(swiper)}>
                             {objs.map((obj, index) => (
-                                <SwiperSlide virtualIndex={index}>
+                                <SwiperSlide key={index} virtualIndex={index}>
                                 <Card>
-                                    {(isActive) => {
-                                        if (isActive) {
-                                            console.log("current active slide: ", index)
-                                        }
-                                    }}
                                     <Image src='https://react.semantic-ui.com/images/wireframe/image.png' size='small' />
                                 </Card>
                             </SwiperSlide>
@@ -236,8 +225,6 @@ function ItemDetail(props) {
 
                 </Grid.Row>
             </Grid>
-           
-            
         );
     }
     return postMarkup;
@@ -265,22 +252,21 @@ const FETCH_ITEM_QUERY = gql`
         name
         price
         createdAt
-        username
         description
-        user {
-            seller {
-                username
-            }
-        }
+        
         images{
             id
-            src
+            downloadUrl
         }
-        reviewCount
         bookmarkedBy{
             id
             userId
             createdAt
+        }
+        user{
+            seller{
+            username
+            }
         }
     }
   }

@@ -32,8 +32,8 @@ function NavBar(props) {
 
         // logged in navbar
         <Segment>
-            <div class="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
-                <Menu size="large" fluid fixed inverted secondary>
+            <div className="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
+                <Menu size="large" fluid inverted secondary>
                     <Menu.Item></Menu.Item>
                     <Menu.Item
                         active={activeItem === 'home'}
@@ -71,7 +71,7 @@ function NavBar(props) {
                             to="/bookmark"
                         >
                             <MyPopup content="Bookmarks">
-                                <Icon name="bookmark" centered></Icon>
+                                <Icon name="bookmark" centered="true"></Icon>
                             </MyPopup>
                         </Menu.Item>
 
@@ -83,7 +83,7 @@ function NavBar(props) {
                             to="/cart"
                         >
                             <MyPopup content="Cart">
-                                <Icon name="cart" centered></Icon>
+                                <Icon name="cart" centered="true"></Icon>
                             </MyPopup>
                         </Menu.Item>
 
@@ -111,7 +111,7 @@ function NavBar(props) {
    ) : (
         // guest navbar
             <Segment inverted>
-                <div class="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
+                <div className="ui huge top inverted fixed menu " style={{ height: 80,zIndex: 1100 }}>
                     <Menu fluid inverted secondary size='large'>
                         <Menu.Item></Menu.Item>
                         <Menu.Item
