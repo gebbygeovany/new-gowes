@@ -2,6 +2,7 @@ const postsResolvers = require('./posts')
 const usersResolvers = require('./users')
 const commentsResolvers = require('./comments')
 const itemsResolvers = require('./items')
+const reviewsResolvers = require('./reviews')
 
 
 module.exports={
@@ -15,7 +16,8 @@ module.exports={
     Query:{
         ...usersResolvers.Query,
         ...postsResolvers.Query,
-        ...itemsResolvers.Query
+        ...itemsResolvers.Query,
+        ...reviewsResolvers.Query
     },
     Mutation:{
         ...usersResolvers.Mutation,
