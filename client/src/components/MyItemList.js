@@ -48,7 +48,7 @@ function MyItemList(props) {
                             <Grid.Column width={2} verticalAlign='middle' >
                                 <h4>Item Name</h4>
                             </Grid.Column>
-                            <Grid.Column width={3} verticalAlign='middle' textAlign='center'>
+                            <Grid.Column width={3} verticalAlign='middle' c>
                                 <h4>Remaining Stock</h4>
                             </Grid.Column>
                             <Grid.Column width={3} verticalAlign='middle' textAlign='center'>

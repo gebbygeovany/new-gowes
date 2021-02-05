@@ -8,42 +8,80 @@ import { useForm } from '../util/hooks'
 
 function AddItem(props) {
 
-    const context = useContext(AuthContext)
     const [errors, setErrors] = useState({})
 
-    const category = [
-        { key: 'Sparepart', text: 'Sparepart', value: 'sparepart' },
-        { key: 'Accessories', text: 'Accessories', value: 'accessories' },
-        { key: 'Apparel', text: 'Apparel', value: 'apparel' },
-    ]
-    const condition = [
-        { key: 'new', text: 'New', value: 'new' },
-        { key: 'used', text: 'Used', value: 'used' },
-    ]
+    const [isSaved, setSave] = useState(false)
 
-    const { onChange, onSubmit, values } = useForm(registerUser, {
+    const { onChange, onSubmit, values } = useForm(addItem, {
         name: '',
-        password: '',
-        confirmPassword: '',
-        email: '',
+        price: 0,
+        stock: 0,
+        category: '',
+        condition: '',
+        weight: 0,
+        description: '',
+        length: 0,
+        width: 0,
+        height: 0
     })
 
-    const [addUser, { loading }] = useMutation(ADD_ITEM_MUTATION, {
-        update(_, { data: { register: userData } }) {
-            context.login(userData)
-            props.history.push('/')
+    const [submitItem, { loading }] = useMutation(ADD_ITEM_MUTATION, {
+        update(_, { data: { addItem: items } }) {
+            // context.login(items)
+            setSave(true)
+            setErrors({})
+            props.history.push('/mystore/myItemsList')
+            console.log("data", addItem)
+
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
+            console.log(err.graphQLErrors[0])
+            setSave(true)
         },
         variables: values
     })
 
-    function registerUser() {
-        addUser()
+    function addItem() {
+        values.price = parseInt(values.price)
+        values.stock = parseInt(values.stock)
+        values.weight = parseInt(values.weight)
+        values.length = parseInt(values.length)
+        values.width = parseInt(values.width)
+        values.height = parseInt(values.height)
+        submitItem()
+    }
+    console.log(values)
+
+    const showMessage = () => {
+        if (isSaved) {
+            console.log(errors)
+            if (Object.keys(errors).length > 0) {
+                return (<div className='ui error message'>
+                    <ul className="list">
+                        {Object.values(errors).map(value => (<li key={value}>{value}</li>))}
+                    </ul>
+                </div>)
+            } else {
+                return (
+                    <div className='ui positive message'>
+                        <ul className="list">
+                            Updated
+                        </ul>
+                    </div>
+                )
+            }
+
+        } else {
+            return <div></div>
+        }
     }
 
-
+    const options = [
+        { key: 'm', text: 'Male', value: 'male' },
+        { key: 'f', text: 'Female', value: 'female' },
+        { key: 'o', text: 'Other', value: 'other' },
+    ]
 
     return (
         <Grid centered stackable>
@@ -91,34 +129,45 @@ function AddItem(props) {
                                 label='Item Name'
                                 value={values.name}
                                 name="name"
+                                onChange={onChange}
                             />
-                            <Form.Group inline widths='equal'>
-                                <Form.Select
+                            <Form.Group inline>
+                                <Form.Field
                                     fluid
                                     placeholder='Category'
                                     label='Category'
-                                    options={category}
-                                    value={values.category}
                                     onChange={onChange}
                                     name="category"
-                                />
-                                <Form.Select
+                                    control='select'
+                                    value={values.category}
+                                >
+                                    <option value='male'>Sparepart</option>
+                                    <option value='female'>Accessories</option>
+                                    <option value='male'>Apparel</option>
+                                </Form.Field>
+                                <Form.Field
                                     fluid
                                     placeholder='Condition'
                                     label='Condition'
-                                    options={condition}
-                                    value={values.condition}
+                                    onChange={onChange}
                                     name="condition"
-                                />
+                                    control='select'
+                                    value={values.condition}
+                                >
+                                    <option value='new'>New</option>
+                                    <option value='used'>Used</option>
+                                </Form.Field>
                             </Form.Group>
                             <Form.Input
                                 fluid
                                 iconPosition='left'
-                                placeholder='Store Description'
+                                placeholder='Item Description'
                                 label='Description'
                                 control={TextArea}
                                 value={values.description}
                                 name="description"
+                                onChange={onChange}
+
                             />
                             <Form.Group inline widths='equal'>
                                 <Form.Input
@@ -127,6 +176,9 @@ function AddItem(props) {
                                     label='Price'
                                     value={values.price}
                                     name="price"
+                                    type="number"
+                                    onChange={onChange}
+                                    min={1}
                                 />
                                 <Form.Input
                                     fluid
@@ -134,6 +186,10 @@ function AddItem(props) {
                                     label='Amount Item'
                                     value={values.stock}
                                     name="stock"
+                                    type="number"
+                                    onChange={onChange}
+                                    max={100}
+                                    min={1}
                                 />
                             </Form.Group>
                             <Form.Group inline widths='equal'>
@@ -141,8 +197,13 @@ function AddItem(props) {
                                     fluid
                                     placeholder='kg'
                                     label='Weight'
-                                    value={values.weight}
+                                    value={parseInt(values.weight)}
                                     name="weight"
+                                    type="number"
+                                    onChange={onChange}
+                                    max={10}
+                                    min={1}
+
                                 />
                                 <Form.Input
                                     fluid
@@ -150,6 +211,10 @@ function AddItem(props) {
                                     label='Length'
                                     value={values.length}
                                     name="length"
+                                    type="number"
+                                    onChange={onChange}
+                                    max={1000}
+                                    min={1}
                                 />
                                 <Form.Input
                                     fluid
@@ -157,6 +222,10 @@ function AddItem(props) {
                                     label='Width'
                                     value={values.width}
                                     name="width"
+                                    type="number"
+                                    max={1000}
+                                    min={1}
+                                    onChange={onChange}
                                 />
                                 <Form.Input
                                     fluid
@@ -164,6 +233,10 @@ function AddItem(props) {
                                     label='Height'
                                     value={values.height}
                                     name="height"
+                                    type="number"
+                                    onChange={onChange}
+                                    max={1000}
+                                    min={1}
                                 />
                             </Form.Group>
                             <Button
@@ -174,6 +247,7 @@ function AddItem(props) {
                                 Save Item
                             </Button>
                         </Form>
+                        {showMessage()}
                     </Card.Content>
                 </Card>
             </Grid.Column>
@@ -182,31 +256,30 @@ function AddItem(props) {
 }
 
 const ADD_ITEM_MUTATION = gql`
-  mutation register(
+  mutation addItem(
     $name: String!
-    $price: String!
-    $stock: String!
+    $price: Int!
+    $stock: Int!
     $category: String!
     $condition: String!
-    $category: String!
-    $weight: String!
+    $weight: Int!
     $description: String!
-    $length: String!
-    $width: String!
-    $height: String!
+    $length: Int!
+    $width: Int!
+    $height: Int!
   ) {
     addItem(addItemInput:{
-        name:"Stang Sepeda BMX",
-        price:435000,
-        stock: 2,
-        category: "Komponen Sepeda",
-        condition: "Bekas",
-        weight: "1 kg",
-        description:"Warna merah"
+        name: $name,
+        price: $price,
+        stock: $stock,
+        category: $category,
+        condition: $condition,
+        weight: $weight,
+        description: $description
         dimension: {
-            length: "100 cm",
-            width: "10 cm",
-            height: "100 cm"
+            length: $length,
+            width: $width
+            height: $height
         },
         images: [{
             downloadUrl:""
@@ -221,12 +294,12 @@ const ADD_ITEM_MUTATION = gql`
         weight
         description
         dimension {
-        length
-        width
-        height
+            length
+            width
+            height
         }
         images {
-        downloadUrl
+            downloadUrl
         }
         createdAt
     }
