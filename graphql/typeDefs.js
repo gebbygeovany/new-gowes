@@ -30,9 +30,9 @@ module.exports = gql`
     }
 
     type Dimension {
-        length: String!,
-        width: String!,
-        height: String!
+        length: Int!,
+        width: Int!,
+        height: Int!
     }
 
     type Review {
@@ -134,9 +134,9 @@ module.exports = gql`
     }
 
     input DimensionInput {
-        length: String!,
-        width: String!,
-        height: String!
+        length: Int!,
+        width: Int!,
+        height: Int!
     }
 
     type Query {

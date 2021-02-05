@@ -9,9 +9,9 @@ const itemSchema= new Schema({
     weight: Number,
     description: String,
     dimension: {
-        length: String,
-        width: String,
-        height: String
+        length: Number,
+        width: Number,
+        height: Number
     }, 
     user: {
         type: Schema.Types.ObjectId,

@@ -103,6 +103,15 @@ module.exports.validateAddItemInput = (name, price, stock, category, condition, 
   if (weight === 0) {
     errors.weight = 'Weight must not be 0';
   }
+  if (dimension.length === 0) {
+    errors.lengthDimension = 'Length must not be 0';
+  }
+  if (dimension.width === 0) {
+    errors.widthDimension = 'Width must not be 0';
+  }
+  if (dimension.height === 0) {
+    errors.heightDimension = 'Height must not be 0';
+  }
   if (images.length === 0) {
     errors.images = 'There must be at least one image';
   }
