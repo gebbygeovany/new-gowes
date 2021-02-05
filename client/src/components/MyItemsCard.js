@@ -31,7 +31,7 @@ function MyItemsCard({item: { name, price, stock }}) {
                     <h4>100</h4>
                 </Grid.Column>
                 <Grid.Column width={3} verticalAlign='middle' textAlign='center'>
-                    <h4>10.000</h4>
+                    <h4>{price}</h4>
                 </Grid.Column>
                 <Grid.Column width={2} verticalAlign='middle' textAlign='center'>
                     <Icon name='star' style={{ color: 'gold' }}></Icon>

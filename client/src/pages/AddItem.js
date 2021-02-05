@@ -8,13 +8,10 @@ import { useForm } from '../util/hooks'
 
 function AddItem(props) {
 
-    const context = useContext(AuthContext)
-
     const [errors, setErrors] = useState({})
 
     const [isSaved, setSave] = useState(false)
 
-    
     const { onChange, onSubmit, values } = useForm(addItem, {
         name: '',
         price: 0,
@@ -30,13 +27,15 @@ function AddItem(props) {
 
     const [submitItem, { loading }] = useMutation(ADD_ITEM_MUTATION, {
         update(_, { data: { addItem: items } }) {
-            context.login(items)
+            // context.login(items)
             setSave(true)
             setErrors({})
             props.history.push('/mystore/myItemsList')
+            console.log("data", addItem)
+
         },
         onError(err) {
-            // setErrors(err.graphQLErrors[0].extensions.exception.errors);
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
             console.log(err.graphQLErrors[0])
             setSave(true)
         },
@@ -44,6 +43,12 @@ function AddItem(props) {
     })
 
     function addItem() {
+        values.price = parseInt(values.price)
+        values.stock = parseInt(values.stock)
+        values.weight = parseInt(values.weight)
+        values.length = parseInt(values.length)
+        values.width = parseInt(values.width)
+        values.height = parseInt(values.height)
         submitItem()
     }
     console.log(values)
@@ -72,9 +77,11 @@ function AddItem(props) {
         }
     }
 
-
-
-
+    const options = [
+        { key: 'm', text: 'Male', value: 'male' },
+        { key: 'f', text: 'Female', value: 'female' },
+        { key: 'o', text: 'Other', value: 'other' },
+    ]
 
     return (
         <Grid centered stackable>
@@ -124,29 +131,37 @@ function AddItem(props) {
                                 name="name"
                                 onChange={onChange}
                             />
-                            <Form.Group inline widths='equal'>
-                                <Form.Input
+                            <Form.Group inline>
+                                <Form.Field
                                     fluid
                                     placeholder='Category'
                                     label='Category'
-                                    value={values.category}
                                     onChange={onChange}
                                     name="category"
-                                />
-                                <Form.Input
+                                    control='select'
+                                    value={values.category}
+                                >
+                                    <option value='male'>Sparepart</option>
+                                    <option value='female'>Accessories</option>
+                                    <option value='male'>Apparel</option>
+                                </Form.Field>
+                                <Form.Field
                                     fluid
                                     placeholder='Condition'
                                     label='Condition'
-                                    value={values.condition}
-                                    name="condition"
                                     onChange={onChange}
-
-                                />
+                                    name="condition"
+                                    control='select'
+                                    value={values.condition}
+                                >
+                                    <option value='new'>New</option>
+                                    <option value='used'>Used</option>
+                                </Form.Field>
                             </Form.Group>
                             <Form.Input
                                 fluid
                                 iconPosition='left'
-                                placeholder='Store Description'
+                                placeholder='Item Description'
                                 label='Description'
                                 control={TextArea}
                                 value={values.description}
@@ -163,7 +178,7 @@ function AddItem(props) {
                                     name="price"
                                     type="number"
                                     onChange={onChange}
-
+                                    min={1}
                                 />
                                 <Form.Input
                                     fluid
@@ -173,7 +188,8 @@ function AddItem(props) {
                                     name="stock"
                                     type="number"
                                     onChange={onChange}
-
+                                    max={100}
+                                    min={1}
                                 />
                             </Form.Group>
                             <Form.Group inline widths='equal'>
@@ -181,10 +197,12 @@ function AddItem(props) {
                                     fluid
                                     placeholder='kg'
                                     label='Weight'
-                                    value={values.weight}
+                                    value={parseInt(values.weight)}
                                     name="weight"
                                     type="number"
                                     onChange={onChange}
+                                    max={10}
+                                    min={1}
 
                                 />
                                 <Form.Input
@@ -195,7 +213,8 @@ function AddItem(props) {
                                     name="length"
                                     type="number"
                                     onChange={onChange}
-
+                                    max={1000}
+                                    min={1}
                                 />
                                 <Form.Input
                                     fluid
@@ -204,8 +223,9 @@ function AddItem(props) {
                                     value={values.width}
                                     name="width"
                                     type="number"
+                                    max={1000}
+                                    min={1}
                                     onChange={onChange}
-
                                 />
                                 <Form.Input
                                     fluid
@@ -215,7 +235,8 @@ function AddItem(props) {
                                     name="height"
                                     type="number"
                                     onChange={onChange}
-
+                                    max={1000}
+                                    min={1}
                                 />
                             </Form.Group>
                             <Button
@@ -237,7 +258,7 @@ function AddItem(props) {
 const ADD_ITEM_MUTATION = gql`
   mutation addItem(
     $name: String!
-    $price: int!
+    $price: Int!
     $stock: Int!
     $category: String!
     $condition: String!
@@ -261,7 +282,7 @@ const ADD_ITEM_MUTATION = gql`
             height: $height
         },
         images: [{
-            downloadUrl:"aa"
+            downloadUrl:""
         }]
     }){
         id
@@ -273,12 +294,12 @@ const ADD_ITEM_MUTATION = gql`
         weight
         description
         dimension {
-        length
-        width
-        height
+            length
+            width
+            height
         }
         images {
-        downloadUrl
+            downloadUrl
         }
         createdAt
     }
