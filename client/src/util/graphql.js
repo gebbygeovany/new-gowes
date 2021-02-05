@@ -82,6 +82,9 @@ export const FETCH_ITEM_QUERY = gql`
       user{
         id
         email
+        buyer {
+          avatar
+        }
       }
       item {
         id

@@ -1,27 +1,31 @@
 import React from 'react';
-import { Item, Button, Icon, Label } from 'semantic-ui-react';
+import { Item, Container, Rating, Label, List, Image } from 'semantic-ui-react';
 import 'swiper/swiper.scss';
 
 function ItemReviewsCard({ reviews }) {
     return (
+      <Container>
       <Item.Group divided>
         {reviews.map((review, index) => (
           <Item>
-            <Item.Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+            <Item.Image size="small" src={review.user.buyer.avatar} />
             <Item.Content>
-              <Item.Header as='a'>12 Years a Slave</Item.Header>
+              <Item.Header as='a'><Rating disabled maxRating={5} defaultRating={review.score} icon='star' size='mini' /></Item.Header>
               <Item.Meta>
-                <span className='cinema'>Union Square 14</span>
+                <span className='cinema'>{review.body}</span>
               </Item.Meta>
-              <Item.Description>{"paragraph"}</Item.Description>
-              <Item.Extra>
-                <Label>IMAX</Label>
-                <Label icon='globe' content='Additional Languages' />
-              </Item.Extra>
+              <List horizontal>
+                {review.images.map((image, index) => (
+                  <Image src={ image.downloadUrl } style={{ width: 60, height: 60 }}/>
+                )) }
+              </List>
             </Item.Content>
           </Item>
         )) }
       </Item.Group>
+
+      </Container>
+    
     )
 }
 export default ItemReviewsCard

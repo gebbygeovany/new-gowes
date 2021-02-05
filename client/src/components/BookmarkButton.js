@@ -8,11 +8,15 @@ import MyPopup from './MyPopup';
 import { FETCH_BOOKMARKS_QUERY } from '../util/graphql';
 
 
-function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
+function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
     const [bookmarked, setBookmarked] = useState(false)
 
     useEffect(() => {
+<<<<<<< HEAD
         if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.user)) {
+=======
+        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.id)) {
+>>>>>>> d4e69dc26c4484bff2194a1176c5bcf026738204
             setBookmarked(true)
         } else {
             setBookmarked(false)

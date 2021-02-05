@@ -10,6 +10,7 @@ import ItemReviewsCard from '../components/ItemReviewsCard'
 function ItemDetail(props) {
   const itemId = props.match.params.itemId;
   const contextRef = React.createRef();
+  const imageContextRef = React.createRef();
   const { data: itemData, data: reviewData } = useQuery(FETCH_ITEM_QUERY, {
     variables: {
       itemId: itemId
@@ -21,28 +22,34 @@ function ItemDetail(props) {
   let postMarkup = (<p>Loading item..</p>);
   if (item) {
     postMarkup = (
+      <Ref innerRef={contextRef}>
       <Grid>
-        <Grid.Row>
-          <Grid centered columns={2}>
-            <Grid.Column>
-              <Ref innerRef={contextRef}>
-                <Container>
-                  <ItemDetailCard item={item}/>
-                  <Rail position='left'>
-                    <ItemImagesCard images={item.images} contextRef={contextRef}/>
-                  </Rail>
-                  <Rail position='right'>
-                    <ItemTransactionCard item={item} contextRef={contextRef}/>
-                  </Rail>
-                </Container>
-            </Ref>
+        <Grid.Column width={12}>
+          <Grid.Row style={{marginBottom: 30}}>
+            <Ref innerRef={imageContextRef}>
+            <Grid>
+            <Grid.Column width={6}>
+              <Rail attached internal position='left'>
+                <ItemImagesCard contextRef={imageContextRef} images={item.images} />
+              </Rail>
+            </Grid.Column>
+            <Grid.Column width={10} style={{paddingTop: 50}}>
+              <ItemDetailCard item={item}/>
             </Grid.Column>
           </Grid>
-        </Grid.Row>
-        <Grid.Row>
-          <ItemReviewsCard reviews={reviews}/>
-        </Grid.Row>
+          </Ref>
+          </Grid.Row>
+          <Grid.Row>
+            <ItemReviewsCard  reviews={reviews}/>
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Rail attached internal position='right'>
+            <ItemTransactionCard contextRef={contextRef} item={item} />
+          </Rail>
+        </Grid.Column>
       </Grid>
+      </Ref>
     );
   }
   return postMarkup;
