@@ -8,15 +8,11 @@ import MyPopup from './MyPopup';
 import { FETCH_BOOKMARKS_QUERY } from '../util/graphql';
 
 
-function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
+function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
     const [bookmarked, setBookmarked] = useState(false)
 
     useEffect(() => {
-<<<<<<< HEAD
-        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.user)) {
-=======
-        if (user && bookmarkedBy.find(bookmark => bookmark.userId === user.id)) {
->>>>>>> d4e69dc26c4484bff2194a1176c5bcf026738204
+        if (user.user && bookmarkedBy.find(bookmark => bookmark.userId === user.user.id)) {
             setBookmarked(true)
         } else {
             setBookmarked(false)
@@ -25,6 +21,10 @@ function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
 
     const [errors, setErrors] = useState({})
 
+    if (user.user) {
+        console.log(user.user.id)
+
+    }
 
     const [bookmarkPost] = useMutation(BOOKMARK_ITEM_MUTATION, {
         variables: { itemId: id },
@@ -33,14 +33,14 @@ function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
                 query: FETCH_BOOKMARKS_QUERY
             })
 
-            if(!bookmarked){
+            if (!bookmarked) {
                 proxy.writeQuery({
                     query: FETCH_BOOKMARKS_QUERY,
                     data: {
                         getBookmarks: [result.data.bookmarkItem, ...data.getBookmarks]
                     }
                 })
-            }else{
+            } else {
                 proxy.writeQuery({
                     query: FETCH_BOOKMARKS_QUERY,
                     data: {
@@ -48,9 +48,9 @@ function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
                     },
                 })
             }
-           
-            
-            
+
+
+
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -59,16 +59,16 @@ function BookmarkButton({ user: { user }, item: { id, bookmarkedBy } }) {
 
     const bookmarkButton = user.user ? (
         bookmarked ? (
-            <Button fluid color="teal">
+            <Button fluid color="secondary">
                 <Icon name="bookmark" />
             </Button>
         ) : (
-                <Button fluid color="teal" basic>
+                <Button fluid color="secondary" basic>
                     <Icon name="bookmark" />
                 </Button>
             )
     ) : (
-            <Button fluid as={Link} to="/login" color="teal" basic>
+            <Button fluid as={Link} to="/login" color="secondary" basic>
                 <Icon name="bookmark" />
             </Button>
         );
