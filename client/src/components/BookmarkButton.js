@@ -59,16 +59,16 @@ function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
 
     const bookmarkButton = user.user ? (
         bookmarked ? (
-            <Button fluid color="secondary">
-                <Icon name="bookmark" />
+            <Button fluid color="teal">
+                <Icon name="bookmark outline" />
             </Button>
         ) : (
-                <Button fluid color="secondary" basic>
-                    <Icon name="bookmark" />
+                <Button fluid color="teal" basic>
+                    <Icon color='#fff' name="bookmark" />
                 </Button>
             )
     ) : (
-            <Button fluid as={Link} to="/login" color="secondary" basic>
+            <Button fluid as={Link} to="/login" color="teal" basic>
                 <Icon name="bookmark" />
             </Button>
         );
