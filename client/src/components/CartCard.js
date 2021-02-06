@@ -10,7 +10,7 @@ function CartCard() {
     // toggle = () => this.setState((prevState) => ({ checked: !prevState.checked }))
 
     return (
-        <Card fluid>
+        <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content>
                 <Checkbox
                     label='Seller Name'

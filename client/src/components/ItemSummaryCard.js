@@ -4,7 +4,7 @@ import { Card, Sticky, Grid, Divider, Button } from 'semantic-ui-react';
 function ItemSummaryCard({ contextRef }) {
     return (
         <Sticky context={contextRef} offset={130}>
-            <Card>
+            <Card style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
                 <Card.Content header="Shoping Summary" />
                 <Card.Content>
                     <Grid stackable>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Grid, Transition } from 'semantic-ui-react';
+import { Grid, Transition, Message } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/auth';
 import ShopCard from '../components/ShopCard';
@@ -11,22 +11,34 @@ function Home() {
   const { loading, data } = useQuery(FETCH_BOOKMARKS_QUERY)
   const { getBookmarks: bookmarks } = data ? data : []
 
+  console.log(bookmarks)
   return (
     <Grid stackable columns={6}>
-      <Grid.Row className="page-title">
-      </Grid.Row>
+      <Grid.Column width={16}></Grid.Column>
+      <Grid.Column width={16}><h1>Bookmarked Items</h1></Grid.Column>
       <Grid.Row>
-        {loading ? (
-          <h1>Loading posts..</h1>
+        {loading || bookmarks==0? (
+          <>
+          <Message
+            error
+            icon='bookmark'
+            header='You dont have any bookmarked items'
+            content='add bookmark on your favorite item'
+            style={{marginBottom:109}}
+          />
+          <Grid></Grid>
+          </>
         ) : (
-            <Transition.Group duration={700}>
-              {bookmarks &&
-                bookmarks.map((bookmark) => (
-                  <Grid.Column key={bookmark.id} style={{ marginBottom: 20 }}>
-                    <ShopCard item={bookmark}/>
-                  </Grid.Column>
-                ))}
-            </Transition.Group>
+            <>
+              <Transition.Group duration={700}>
+                {bookmarks &&
+                  bookmarks.map((bookmark) => (
+                    <Grid.Column key={bookmark.id} style={{ marginBottom: 20 }}>
+                      <ShopCard item={bookmark} />
+                    </Grid.Column>
+                  ))}
+              </Transition.Group>
+            </>
           )}
       </Grid.Row>
     </Grid>
