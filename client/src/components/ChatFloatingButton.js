@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { Icon, Transition, Segment, Card, Container } from 'semantic-ui-react';
+import { Icon, Transition, Segment, Grid, Container } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
+import ChatFloatingCard from './ChatFloatingCard';
 
 function ChatFloatingButton() {
     const [ visible, setVisible ] = useState(true)
     const toggleVisibility = () => {setVisible(!visible)}
     const { user } = useContext(AuthContext);
     
-
     const style = {
+        cursor: 'pointer',
         borderRadius: 26,
         margin: 0,
         top: 'auto',
@@ -24,7 +25,9 @@ function ChatFloatingButton() {
     };
 
     const cardStyle = {
-        borderRadius: 26,
+        width:560,
+        height:390,
+        borderRadius: 12,
         margin: 0,
         top: 'auto',
         right: 80,
@@ -41,19 +44,15 @@ function ChatFloatingButton() {
         chatFloatingMarkup = ( 
             <Container>
                 <Transition visible={visible} animation='scale' duration={500}>
-                    <Segment onClick={toggleVisibility} href="#" floated="right" raised="true" style={style}>
+                    <Segment onClick={toggleVisibility} floated="right" raised="true" style={style}>
                         <Icon color="teal" size="large" name="discussions"/>
                         <span style={spanStyle}>Chat</span>
                     </Segment>
                 </Transition>
                 <Transition visible={!visible} animation='scale' duration={500}>
-                <Card onClick={toggleVisibility} href="#" style={cardStyle}>
-                    <Card.Content header='About Amy' />
-                    <Card.Content description="just description" />
-                    <Card.Content extra>
-                    <Icon name='user' />4 Friends
-                    </Card.Content>
-                </Card>
+                    <Segment onClick={toggleVisibility} style={cardStyle}>
+                        <ChatFloatingCard />
+                    </Segment>
                 </Transition>
             </Container>
             )
