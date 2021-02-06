@@ -1,48 +1,29 @@
-import React, { useContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { Grid, Transition } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Ref } from 'semantic-ui-react';
 
-import { AuthContext } from '../context/auth';
-import PostCard from '../components/PostCard';
-import PostForm from '../components/PostForm';
-import { FETCH_POSTS_QUERY } from '../util/graphql';
+import CartCard from '../components/CartCard';
+import ItemSummaryCard from '../components/ItemSummaryCard';
 
 function Cart() {
-  const { user } = useContext(AuthContext);
-  const { loading, data } = useQuery(FETCH_POSTS_QUERY)
-  const { getPosts: posts } = data ? data : []
+  const contextRef = React.createRef();
 
-  // const {
-  //   loading,
-  //   data: { getPosts: posts }
-  // } = useQuery(FETCH_POSTS_QUERY);
+  let postMarkup = (
+    <Ref innerRef={contextRef}>
 
-  return (
-    <Grid columns={3}>
-      <Grid.Row className="page-title">
-        <h1>Cart List</h1>
-      </Grid.Row>
-      <Grid.Row>
-        {user && (
-          <Grid.Column>
-            <PostForm />
-          </Grid.Column>
-        )}
-        {loading ? (
-          <h1>Loading posts..</h1>
-        ) : (
-            <Transition.Group duration={1000}>
-              {posts &&
-                posts.map((post) => (
-                  <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-                    <PostCard post={post} />
-                  </Grid.Column>
-                ))}
-            </Transition.Group>
-          )}
-      </Grid.Row>
-    </Grid>
-  );
+      <Grid stackable>
+        <Grid.Column width={16}></Grid.Column>
+        <Grid.Column width={16}><h1>Cart</h1></Grid.Column>
+        <Grid.Column width={12}>
+          <CartCard></CartCard>
+          <CartCard></CartCard>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <ItemSummaryCard contextRef={contextRef} ></ItemSummaryCard>
+        </Grid.Column>
+      </Grid>
+    </Ref>
+  )
+  return postMarkup
 }
 
 export default Cart;
