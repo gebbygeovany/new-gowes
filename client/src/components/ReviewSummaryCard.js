@@ -68,7 +68,7 @@ function ReviewSummaryCard({ item }) {
                     <List>
                         {rateStars.map((rate, index) => (
                         <List.Item>
-                            <ProgressBar key={index} bgcolor={"#03AC0E"} completed={rate.amountReviewers / totalReviewer * 100}/>
+                            <ProgressBar key={index} bgcolor={"#00B5AD"} completed={rate.amountReviewers / totalReviewer * 100}/>
                             {/* <Progress size="tiny" percent={rate.amountReviewers / totalReviewer * 100} success style={progressStyle}/> */}
                         </List.Item>
                         ))}
