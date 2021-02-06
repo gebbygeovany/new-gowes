@@ -1,11 +1,12 @@
 import React from 'react';
 import { FETCH_ITEM_QUERY } from '../util/graphql';
 import { useQuery } from '@apollo/react-hooks';
-import { Grid, Ref, Container, Rail } from 'semantic-ui-react';
+import { Grid, Ref, Rail } from 'semantic-ui-react';
 import ItemTransactionCard from '../components/ItemTransactionCard'
 import ItemDetailCard from '../components/ItemDetailCard'
 import ItemImagesCard from '../components/ItemImagesCard'
 import ItemReviewsCard from '../components/ItemReviewsCard'
+import ReviewSummaryCard from '../components/ReviewSummaryCard'
 
 function ItemDetail(props) {
   const itemId = props.match.params.itemId;
@@ -38,6 +39,9 @@ function ItemDetail(props) {
             </Grid.Column>
           </Grid>
           </Ref>
+          </Grid.Row>
+          <Grid.Row style={{marginBottom:30}}>
+              <ReviewSummaryCard/>
           </Grid.Row>
           <Grid.Row>
             <ItemReviewsCard  reviews={reviews}/>
