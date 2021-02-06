@@ -10,14 +10,15 @@ function ItemCartCard() {
     return (
         <>
             <Card.Content>
-                <Grid container>
+                <Grid doubling>
                     <Grid.Column width={1} verticalAlign='middle'>
                         <Checkbox
                         // onChange={this.toggle}
                         // checked={this.state.checked}
                         />
                     </Grid.Column>
-                    <Grid.Column width={2} >
+                            
+                    <Grid.Column width={2} verticalAlign="middle" style={{padding:5}} >
                         <Image
                             fluid
                             centered
