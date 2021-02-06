@@ -96,6 +96,20 @@ module.exports = gql`
         createdAt: String!
     }
 
+    type Chat {
+        id: ID!
+        lastText: String!
+        users: [User]!
+        sentAt: String!
+    }
+
+    type Message {
+        id: ID!
+        content: String!
+        images: [Image]
+        sentAt: String!
+    }
+
     input RegisterInput {
         name: String!
         password: String!
@@ -130,7 +144,7 @@ module.exports = gql`
     }
 
     input ImageInput {
-        downloadUrl: String!
+        downloadUrl: String
     }
 
     input DimensionInput {
@@ -151,6 +165,8 @@ module.exports = gql`
         getItemReviews(itemId: ID!): [Review]
         getUserReviews(userId: ID!): [Review]
         getBookmarks: [Item]
+        getChats: [Chat]
+        getMessages(chatId: ID!): [Message]
     }
     type Mutation {
         register(registerInput: RegisterInput): User!
@@ -166,8 +182,10 @@ module.exports = gql`
         deleteComment(postId: ID!, commentId: ID!): Post!
         likePost(postId: ID!): Post! 
         bookmarkItem(itemId: ID!): Item!
+        addMessage(chatId: ID, receiverUserId: ID!, content: String, images: [ImageInput]): Message
     }
     type Subscription {
         newPost: Post!
+        newMessage: Message!
     }
 `
