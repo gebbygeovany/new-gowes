@@ -29,6 +29,15 @@ module.exports = gql`
         createdAt: String!
     }
 
+    type Cart {
+        id: ID!
+        item: Item!
+        user: User!
+        note: String!
+        amountItem: Int!
+        createdAt: String!
+    }
+
     type Dimension {
         length: Int!,
         width: Int!,
@@ -167,6 +176,7 @@ module.exports = gql`
         getBookmarks: [Item]
         getChats: [Chat]
         getMessages(chatId: ID!): [Message]
+        getUserCartItems: [Cart]
     }
     type Mutation {
         register(registerInput: RegisterInput): User!
@@ -183,6 +193,8 @@ module.exports = gql`
         likePost(postId: ID!): Post! 
         bookmarkItem(itemId: ID!): Item!
         addMessage(chatId: ID, receiverUserId: ID!, content: String, images: [ImageInput]): Message
+        addCartItem(itemId: ID!, note: String!, amountItem: Int!): Cart!
+        deleteCartItem(cartId: ID!): String!
     }
     type Subscription {
         newPost: Post!

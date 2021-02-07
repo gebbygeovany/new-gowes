@@ -123,3 +123,15 @@ module.exports.validateAddItemInput = (name, price, stock, category, condition, 
     valid: Object.keys(errors).length < 1
   };
 };
+
+
+module.exports.validateAddCartItemInput = (amountItem) => {
+  const errors = {};
+  if (amountItem === 0) {
+    errors.amountItem = 'Price must not be 0';
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1
+  };
+};
