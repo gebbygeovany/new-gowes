@@ -1,29 +1,34 @@
 import React, { useState } from 'react';
 import { Card, Grid, Form, Checkbox, Image, Button, Icon, List, Input } from 'semantic-ui-react';
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks'
 
+import { FETCH_USER_CART_QUERY } from '../util/graphql';
 
-function ItemCartCard({id, item} ) {
+function ItemCartCard({ item }) {
 
-    // state = { checked: false }
-    // toggle = () => this.setState((prevState) => ({ checked: !prevState.checked }))
-    const [amountItem, setAmountItem] = useState(1)
+    const [amountItem, setAmountItem] = useState(item.amountItem)
     const [errors, setErrors] = useState({})
 
-    console.log(item.id)
+    console.log(item.item.stock)
 
     console.log(item.name)
 
-    // const [deleteItemCart] = useMutation(DELETE_CART_ITEM_MUTATION, {
-    //     update(_, { data: { deleteCartItem } }) {
-    //         console.log("deleted")
-    //     },
-    //     onError(err) {
-    //         setErrors(err.graphQLErrors[0].extensions.exception.errors);
-    //     },
-    //     variables: { cartId: id }
-    // })
-
-   
+    const [deleteItemCart] = useMutation(DELETE_CART_ITEM_MUTATION, {
+        update(proxy, result) {
+            // TODO: remove post cache
+            const data = proxy.readQuery({
+                query: FETCH_USER_CART_QUERY
+            })
+            proxy.writeQuery({
+                query: FETCH_USER_CART_QUERY,
+                data: {
+                    getUserCartItems: data.getUserCartItems.filter(cart => cart.id !== item.id)
+                }
+            })
+        },
+        variables: { cartId: item.id }
+    })
 
 
     return (
@@ -48,9 +53,9 @@ function ItemCartCard({id, item} ) {
                         />
                     </Grid.Column>
                     <Grid.Column width={13} style={{ marginTop: 5 }}>
-                        <Grid.Row><h4>{item.name}</h4></Grid.Row>
+                        <Grid.Row><h4>{item.item.name}</h4></Grid.Row>
                         <Grid.Row style={{ marginTop: 5 }}>
-                            <h4 style={{ color: 'teal' }}>Rp{item.price}</h4>
+                            <h4 style={{ color: 'teal' }}>Rp{item.item.price}</h4>
                         </Grid.Row>
                         <Grid.Row style={{ marginTop: 5 }}>
                             <Grid>
@@ -68,12 +73,13 @@ function ItemCartCard({id, item} ) {
                                     </Form>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
-                                    <Icon  size="large" color="grey" name="trash" style={{ marginRight: 40 }}></Icon>
+                                    <Icon onClick={deleteItemCart} size="large" color="grey" name="trash" style={{ marginRight: 40 }}></Icon>
                                     <List horizontal>
                                         <List.Item>
                                             <Button
                                                 onClick={() => { setAmountItem(amountItem - 1) }}
                                                 disabled={amountItem === 1}
+                                                disabled={amountItem <= 1}
                                                 size="mini"
                                                 secondary icon="minus"
                                             />
@@ -90,6 +96,7 @@ function ItemCartCard({id, item} ) {
                                                 onClick={() => { setAmountItem(amountItem + 1) }}
                                                 size="mini"
                                                 secondary icon="plus"
+                                                disabled={amountItem >= item.item.stock}
                                             />
                                         </List.Item>
                                         {/* <List.Item>{`Stok  ${item.stock}`}</List.Item> */}
@@ -103,5 +110,9 @@ function ItemCartCard({id, item} ) {
         </>
     );
 }
-
+const DELETE_CART_ITEM_MUTATION = gql`
+    mutation deleteCartItem($cartId:ID!){
+        deleteCartItem(cartId: $cartId)
+    }
+`
 export default ItemCartCard;

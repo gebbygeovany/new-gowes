@@ -7,31 +7,18 @@ import { FETCH_USER_CART_QUERY } from '../util/graphql';
 import ItemCartCard from '../components/ItemCartCard';
 
 
-function CartCard({ cartItem: { id, item } }) {
+function CartCard({ cartItem }) {
 
-    const [deleteItemCart] = useMutation(DELETE_CART_ITEM_MUTATION, {
-        update(proxy, result) {
-            // TODO: remove post cache
-            const data = proxy.readQuery({
-                query: FETCH_USER_CART_QUERY
-            })
-            proxy.writeQuery({
-                query: FETCH_USER_CART_QUERY,
-                data: {
-                    getUserCartItems: data.getUserCartItems.filter(c => c.id !== id)
-                }
-            })
-        },
-        variables: { cartId: id }
-    })
+    console.log(cartItem)
 
-    console.log(id)
+    
+    // console.log(id)
 
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content>
                 <Checkbox
-                    label={item.user.seller.username}
+                    label={cartItem[0].item.user.seller.username}
                     style={{ fontWeight: 1000 }}
                 // onChange={this.toggle}
                 // checked={this.state.checked}
@@ -40,10 +27,13 @@ function CartCard({ cartItem: { id, item } }) {
                     color="grey"
                     name="remove circle"
                     style={{ float: "right" }}
-                    onClick={deleteItemCart}
+                // onClick={deleteItemCart}
                 />
             </Card.Content>
-            <ItemCartCard item={id, item}></ItemCartCard>
+            {cartItem &&
+                cartItem.map((item) => (
+                    <ItemCartCard item={item}></ItemCartCard>
+                ))}
         </Card>
     );
 }

@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import { FETCH_USER_CART_QUERY } from '../util/graphql';
 
 
-function ItemTransactionCard({ contextRef, item }) {
+function ItemTransactionCard({ contextRef, item, cartItem }) {
     const [amountItem, setAmountItem] = useState(1)
     const [visible, setVisible] = useState(false)
     const [errors, setErrors] = useState({})

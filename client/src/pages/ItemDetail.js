@@ -12,13 +12,16 @@ function ItemDetail(props) {
   const itemId = props.match.params.itemId;
   const contextRef = React.createRef();
   const imageContextRef = React.createRef();
-  const { data: itemData, data: reviewData } = useQuery(FETCH_ITEM_QUERY, {
+  const {data: itemData, data: reviewData, data: userCartData } = useQuery(FETCH_ITEM_QUERY, {
     variables: {
       itemId: itemId
     }
   })
   const { getItem: item } = itemData ? itemData : []
   const { getItemReviews: reviews } = reviewData ? reviewData : []
+  // const { getUserCartItem: cartItem } = userCartData ? userCartData : []
+
+  // console.log(cartItem)
 
   let postMarkup = (<p>Loading item..</p>);
   if (item) {
