@@ -124,3 +124,33 @@ export const FETCH_BOOKMARKS_QUERY = gql`
   }
 }
 `;
+
+export const FETCH_USER_CART_QUERY = gql`
+  {
+    getUserCartItems {
+    id
+    item {
+      id
+      name
+      price
+      user{
+        seller{
+          username
+        }
+      }
+    }
+    user {
+      id
+      buyer {
+        name
+      }
+      seller{
+        username
+      }
+    }
+    note
+    amountItem
+    createdAt
+  }
+}
+`;
