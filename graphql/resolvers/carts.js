@@ -9,7 +9,7 @@ module.exports = {
         async getUserCartItems(_, __, context) {
             try {
                 const user = checkAuth(context)
-                const cart = await Cart.find({ user: user.id}).populate('user').populate('item');
+                const cart = await Cart.find({ user: user.id}).populate('user').populate({path: 'item', populate: { path: 'user' }});
                 if (cart) {
                     return cart
                 } else {
