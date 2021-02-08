@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
 import { Card, Grid, Form, Checkbox, Image, Button, Icon, List, Input } from 'semantic-ui-react';
 
-function ItemCartCard() {
+
+function ItemCartCard({id, item} ) {
 
     // state = { checked: false }
     // toggle = () => this.setState((prevState) => ({ checked: !prevState.checked }))
     const [amountItem, setAmountItem] = useState(1)
+    const [errors, setErrors] = useState({})
+
+    console.log(item.id)
+
+    console.log(item.name)
+
+    // const [deleteItemCart] = useMutation(DELETE_CART_ITEM_MUTATION, {
+    //     update(_, { data: { deleteCartItem } }) {
+    //         console.log("deleted")
+    //     },
+    //     onError(err) {
+    //         setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    //     },
+    //     variables: { cartId: id }
+    // })
+
+   
+
 
     return (
         <>
@@ -17,8 +36,8 @@ function ItemCartCard() {
                         // checked={this.state.checked}
                         />
                     </Grid.Column>
-                            
-                    <Grid.Column width={2} verticalAlign="middle" style={{padding:5}} >
+
+                    <Grid.Column width={2} verticalAlign="middle" style={{ padding: 5 }} >
                         <Image
                             fluid
                             centered
@@ -29,9 +48,9 @@ function ItemCartCard() {
                         />
                     </Grid.Column>
                     <Grid.Column width={13} style={{ marginTop: 5 }}>
-                        <Grid.Row><h4>Item Name</h4></Grid.Row>
+                        <Grid.Row><h4>{item.name}</h4></Grid.Row>
                         <Grid.Row style={{ marginTop: 5 }}>
-                            <h4 style={{ color: 'teal' }}>Rp50.000</h4>
+                            <h4 style={{ color: 'teal' }}>Rp{item.price}</h4>
                         </Grid.Row>
                         <Grid.Row style={{ marginTop: 5 }}>
                             <Grid>
@@ -49,7 +68,7 @@ function ItemCartCard() {
                                     </Form>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
-                                    <Icon size="large" color="grey" name="trash" style={{ marginRight: 40 }}></Icon>
+                                    <Icon  size="large" color="grey" name="trash" style={{ marginRight: 40 }}></Icon>
                                     <List horizontal>
                                         <List.Item>
                                             <Button

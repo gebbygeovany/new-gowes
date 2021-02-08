@@ -1,14 +1,51 @@
 import React, { useState } from 'react';
 import { Card, Button, Icon, List, Sticky, Header, Input, Message } from 'semantic-ui-react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag'
+
+import { FETCH_USER_CART_QUERY } from '../util/graphql';
+
 
 function ItemTransactionCard({ contextRef, item }) {
     const [amountItem, setAmountItem] = useState(1)
     const [visible, setVisible] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const handleDismiss = () => { setVisible(false) }
-    const handleClick = () => { setVisible(true) }
 
     console.log(visible)
+
+    // const [addToCart] = useMutation(ADD_TO_CART_MUTATION, {
+    //     update(_, { data: { addCartItem } }) {
+    //         setVisible(true)
+    //     },
+    //     onError(err) {
+    //         setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    //     },
+    //     variables: { itemId: item.id, amountItem: amountItem }
+    // })
+
+    const [addToCart] = useMutation(ADD_TO_CART_MUTATION, {
+        variables: { itemId: item.id, amountItem: amountItem },
+        update(proxy, result) {
+            const data = proxy.readQuery({
+                query: FETCH_USER_CART_QUERY
+            })
+            proxy.writeQuery({
+                query: FETCH_USER_CART_QUERY,
+                data: {
+                    getUserCartItems: [result.data.addCartItem, ...data.getUserCartItems]
+                }
+            })
+            setVisible(true)
+        },
+        onError(err) {
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
+            console.log(err.graphQLErrors[0])
+        },
+    })
+    console.log(item.id)
+    console.log(amountItem)
 
     return (
         <>
@@ -71,7 +108,7 @@ function ItemTransactionCard({ contextRef, item }) {
                                     Checkout Now!
                             </Button.Content>
                             </Button>
-                            <Button color="teal" animated='vertical' onClick={handleClick} >
+                            <Button color="teal" animated='vertical' onClick={addToCart} >
                                 <Button.Content visible>
                                     <Icon name="cart arrow down" />
                                 </Button.Content>
@@ -100,11 +137,23 @@ function ItemTransactionCard({ contextRef, item }) {
                         content='Open cart menu for details.'
                         style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}
                     />
-            ) : (<div></div>)
+                ) : (<div></div>)
                 }
 
             </Sticky>
         </>
     )
 }
+
+const ADD_TO_CART_MUTATION = gql`
+    mutation addCartItem($itemId:ID!, $amountItem: Int!){
+        addCartItem(itemId: $itemId, note:"", amountItem:$amountItem)  {
+            note
+            amountItem
+            createdAt
+        }
+    }
+`
+
+
 export default ItemTransactionCard
