@@ -1,5 +1,5 @@
 import React from 'react';
-import { FETCH_ITEM_QUERY } from '../util/graphql';
+import { FETCH_ITEM_QUERY, FETCH_CART_QUERY } from '../util/graphql';
 import { useQuery } from '@apollo/react-hooks';
 import { Grid, Ref, Rail } from 'semantic-ui-react';
 import ItemTransactionCard from '../components/ItemTransactionCard'
@@ -12,16 +12,23 @@ function ItemDetail(props) {
   const itemId = props.match.params.itemId;
   const contextRef = React.createRef();
   const imageContextRef = React.createRef();
-  const {data: itemData, data: reviewData, data: userCartData } = useQuery(FETCH_ITEM_QUERY, {
+  const {loading, data: itemData, data: reviewData } = useQuery(FETCH_ITEM_QUERY, {
     variables: {
       itemId: itemId
     }
   })
   const { getItem: item } = itemData ? itemData : []
   const { getItemReviews: reviews } = reviewData ? reviewData : []
-  // const { getUserCartItem: cartItem } = userCartData ? userCartData : []
 
-  // console.log(cartItem)
+
+  const { data: userCartData } = useQuery(FETCH_CART_QUERY, {
+    variables: {
+      itemId: itemId
+    }
+  })
+  const {getUserCartItem: cartItem} = userCartData ? userCartData : []
+
+  console.log(cartItem)
 
   let postMarkup = (<p>Loading item..</p>);
   if (item) {
@@ -52,7 +59,7 @@ function ItemDetail(props) {
         </Grid.Column>
         <Grid.Column width={4}>
           <Rail attached internal position='right'>
-            <ItemTransactionCard contextRef={contextRef} item={item} />
+            <ItemTransactionCard contextRef={contextRef} item={item} cartItem={cartItem} />
           </Rail>
         </Grid.Column>
       </Grid>

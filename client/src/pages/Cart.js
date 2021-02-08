@@ -31,7 +31,7 @@ function Cart() {
     </>
   )
   if (!loading) {
-    if (cartItems !== 0) {
+    if (cartItems.length !== 0) {
       let group = cartItems.reduce((r, a) => {
         // console.log("a", a);
         // console.log('r', r);

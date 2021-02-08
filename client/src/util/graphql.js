@@ -96,7 +96,7 @@ export const FETCH_ITEM_QUERY = gql`
       createdAt
     }
 
-  #   getUserCartItem(itemId: $itemid) {
+  #   getUserCartItem(itemId: $itemId) {
   #   id
   #   createdAt
   #   amountItem
@@ -107,10 +107,26 @@ export const FETCH_ITEM_QUERY = gql`
   #       }
   #     }
   #   }
-    
   # }
   
   }
+`;
+
+export const FETCH_CART_QUERY = gql`
+  query($itemId: ID!){
+    getUserCartItem(itemId: $itemId) {
+    id
+    createdAt
+    amountItem
+    item{
+      user{
+        seller {
+          username
+        }
+      }
+    }
+  }
+}
 `;
 
 export const FETCH_BOOKMARKS_QUERY = gql`

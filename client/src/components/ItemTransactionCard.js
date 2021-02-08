@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Button, Icon, List, Sticky, Header, Input, Message } from 'semantic-ui-react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
+import { FETCH_CART_QUERY } from '../util/graphql';
+
 
 import { FETCH_USER_CART_QUERY } from '../util/graphql';
 
@@ -10,20 +12,14 @@ function ItemTransactionCard({ contextRef, item, cartItem }) {
     const [amountItem, setAmountItem] = useState(1)
     const [visible, setVisible] = useState(false)
     const [errors, setErrors] = useState({})
-
+    let inCartAmount = 0
+    if (cartItem) {
+        inCartAmount = cartItem.amountItem
+    }
+    console.log(inCartAmount)
     const handleDismiss = () => { setVisible(false) }
 
     console.log(visible)
-
-    // const [addToCart] = useMutation(ADD_TO_CART_MUTATION, {
-    //     update(_, { data: { addCartItem } }) {
-    //         setVisible(true)
-    //     },
-    //     onError(err) {
-    //         setErrors(err.graphQLErrors[0].extensions.exception.errors);
-    //     },
-    //     variables: { itemId: item.id, amountItem: amountItem }
-    // })
 
     const [addToCart] = useMutation(ADD_TO_CART_MUTATION, {
         variables: { itemId: item.id, amountItem: amountItem },
@@ -44,6 +40,23 @@ function ItemTransactionCard({ contextRef, item, cartItem }) {
             console.log(err.graphQLErrors[0])
         },
     })
+
+    const [getCartItem, { data: userCartData }] = useLazyQuery(FETCH_CART_QUERY, {
+        variables: {
+            itemId: item.id
+        }
+    })
+    const { getUserCartItem: userCartItem } = userCartData ? userCartData : []
+
+    if (userCartItem) {
+        inCartAmount = userCartItem.amountItem
+    }
+
+    function addItemToCart() {
+        getCartItem()
+        addToCart()
+    }
+
     console.log(item.id)
     console.log(amountItem)
 
@@ -79,7 +92,7 @@ function ItemTransactionCard({ contextRef, item, cartItem }) {
                                     <List.Item>
                                         <Button
                                             onClick={() => { setAmountItem(amountItem + 1) }}
-                                            disabled={amountItem >= item.stock}
+                                            disabled={inCartAmount + amountItem >= item.stock}
                                             size="mini"
                                             circular
                                             icon="plus" />
@@ -108,7 +121,7 @@ function ItemTransactionCard({ contextRef, item, cartItem }) {
                                     Checkout Now!
                             </Button.Content>
                             </Button>
-                            <Button color="teal" animated='vertical' onClick={addToCart} >
+                            <Button color="teal" animated='vertical' onClick={addItemToCart} disabled={inCartAmount + amountItem >= item.stock}>
                                 <Button.Content visible>
                                     <Icon name="cart arrow down" />
                                 </Button.Content>
