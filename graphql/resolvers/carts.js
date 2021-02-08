@@ -9,7 +9,11 @@ module.exports = {
         async getUserCartItems(_, __, context) {
             try {
                 const user = checkAuth(context)
+<<<<<<< HEAD
                 const cart = await Cart.find({ user: user.id}).sort({ createdAt: -1 }).populate('item').populate('user');
+=======
+                const cart = await Cart.find({ user: user.id}).populate('user').populate({path: 'item', populate: { path: 'user' }});
+>>>>>>> 96f9be09b93afa77be99a2b16e8a776dfe3a23a9
                 if (cart) {
                     return cart
                 } else {
