@@ -177,6 +177,7 @@ module.exports = gql`
         getChats: [Chat]
         getMessages(chatId: ID!): [Message]
         getUserCartItems: [Cart]
+        getUserCartItem(itemId: ID!): Cart
     }
     type Mutation {
         register(registerInput: RegisterInput): User!

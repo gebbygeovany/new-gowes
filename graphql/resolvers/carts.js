@@ -9,11 +9,24 @@ module.exports = {
         async getUserCartItems(_, __, context) {
             try {
                 const user = checkAuth(context)
-                const cart = await Cart.find({ user: user.id}).populate('user').populate({path: 'item', populate: { path: 'user' }});
+                const cart = await Cart.find({ user: user.id}).populate('user').populate({path: 'item', populate: { path: 'user', options: { sort: { 'seller.username': -1 } } }});
                 if (cart) {
                     return cart
                 } else {
                     throw new Error('User cart items not found')
+                }
+            } catch (err) {
+                throw new Error(err)
+            }
+        },
+        async getUserCartItem(_, { itemId }, context) {
+            try {
+                const user = checkAuth(context)
+                const cart = await Cart.findOne({ item: itemId, user: user.id}).populate('user').populate({path: 'item', populate: { path: 'user', options: { sort: { 'seller.username': -1 } } }});
+                if (cart) {
+                    return cart
+                } else {
+                    throw new Error('User cart item not found')
                 }
             } catch (err) {
                 throw new Error(err)
