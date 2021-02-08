@@ -31,7 +31,7 @@ function CartCard({ cartItem: { id, item } }) {
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content>
                 <Checkbox
-                    label={id}
+                    label={item.user.seller.username}
                     style={{ fontWeight: 1000 }}
                 // onChange={this.toggle}
                 // checked={this.state.checked}

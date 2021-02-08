@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Ref,Message } from 'semantic-ui-react';
+import { Grid, Ref, Message, Transition } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 
 import CartCard from '../components/CartCard';
@@ -16,19 +16,22 @@ function Cart() {
 
   return (
     <>
+      <br></br>
+      <Grid.Column width={16}><h1>Cart</h1></Grid.Column>
       {loading || cartItems == 0 ? (
-        <Message
-          error
-          icon='cart'
-          header='You dont have items in cart'
-          content='add items to cart'
-          style={{ marginBottom: 257 }}
-        />
+        <>
+          <Message
+            error
+            icon='cart'
+            header='You dont have items in cart'
+            content='add items to cart'
+            style={{ marginBottom: 202 }}
+          />
+        </>
       ) : (
           <Ref innerRef={contextRef}>
             <Grid stackable>
               <Grid.Column width={16}></Grid.Column>
-              <Grid.Column width={16}><h1>Cart</h1></Grid.Column>
               <Grid.Column width={12} >
                 {cartItems &&
                   cartItems.map((cartItem) => (

@@ -133,11 +133,19 @@ export const FETCH_USER_CART_QUERY = gql`
       id
       name
       price
+      user{
+        seller{
+          username
+        }
+      }
     }
     user {
       id
       buyer {
         name
+      }
+      seller{
+        username
       }
     }
     note
