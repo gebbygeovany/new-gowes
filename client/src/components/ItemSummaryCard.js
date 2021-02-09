@@ -5,7 +5,7 @@ function ItemSummaryCard({ contextRef }) {
     return (
         <Sticky context={contextRef} offset={130}>
             <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
-                <Card.Content header="Shoping Summary" />
+                <Card.Content header="Shopping Summary" />
                 <Card.Content>
                     <List divided verticalAlign='middle'>
                         <List.Item>
