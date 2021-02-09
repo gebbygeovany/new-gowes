@@ -1,9 +1,6 @@
 import React from 'react';
-import { Card, Grid, Icon, Checkbox } from 'semantic-ui-react';
+import { Card, Checkbox } from 'semantic-ui-react';
 import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
-
-import { FETCH_USER_CART_QUERY } from '../util/graphql';
 import ItemCartCard from '../components/ItemCartCard';
 
 
@@ -20,14 +17,6 @@ function CartCard({ cartItem }) {
                 <Checkbox
                     label={cartItem[0].item.user.seller.username}
                     style={{ fontWeight: 1000 }}
-                // onChange={this.toggle}
-                // checked={this.state.checked}
-                />
-                <Icon
-                    color="grey"
-                    name="remove circle"
-                    style={{ float: "right" }}
-                // onClick={deleteItemCart}
                 />
             </Card.Content>
             {cartItem &&
