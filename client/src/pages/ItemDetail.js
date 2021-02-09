@@ -21,15 +21,6 @@ function ItemDetail(props) {
   const { getItemReviews: reviews } = reviewData ? reviewData : []
 
 
-  // const { data: userCartData } = useQuery(FETCH_CART_QUERY, {
-  //   variables: {
-  //     itemId: itemId
-  //   }
-  // })
-  // const {getUserCartItem: cartItem} = userCartData ? userCartData : []
-
-  // console.log(cartItem)
-
   let postMarkup = (<p>Loading item..</p>);
   if (item) {
     postMarkup = (

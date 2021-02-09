@@ -9,9 +9,11 @@ import { FETCH_ITEMS_QUERY } from '../util/graphql';
 
 function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data } = useQuery(FETCH_ITEMS_QUERY)
+  const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY,)
   const { getItems: items } = data ? data : []
 
+  
+  console.log(items)
   return (
     <Grid stackable columns={6}>
       <Grid.Row className="page-title">
