@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FETCH_ITEM_QUERY, FETCH_CART_QUERY } from '../util/graphql';
 import { useQuery } from '@apollo/react-hooks';
 import { Grid, Ref, Rail } from 'semantic-ui-react';
+
+
 import ItemTransactionCard from '../components/ItemTransactionCard'
 import ItemDetailCard from '../components/ItemDetailCard'
 import ItemImagesCard from '../components/ItemImagesCard'
 import ItemReviewsCard from '../components/ItemReviewsCard'
 import ReviewSummaryCard from '../components/ReviewSummaryCard'
+import { AuthContext } from '../context/auth';
 
 function ItemDetail(props) {
   const itemId = props.match.params.itemId;
+  const context = useContext(AuthContext);
   const contextRef = React.createRef();
   const imageContextRef = React.createRef();
   const { loading, data: itemData, data: reviewData } = useQuery(FETCH_ITEM_QUERY, {
@@ -47,7 +51,11 @@ function ItemDetail(props) {
             </Grid.Row>
           </Grid.Column>
           <Grid.Column width={4}>
-            <ItemTransactionCard contextRef={contextRef} item={item} />
+            {context.user && context.user.id !== item.user.id ? (
+              <ItemTransactionCard contextRef={contextRef} item={item} />
+            ) : (
+                <div></div>
+              )}
           </Grid.Column>
         </Grid>
       </Ref>

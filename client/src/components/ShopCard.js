@@ -11,6 +11,8 @@ import BookmarkButton from './BookmarkButton';
 
 function PostCard({item: { id, name, price, user, bookmarkedBy }}) {
     const userCache = useContext(AuthContext);
+    
+    console.log(userCache.user)
 
     return (
         <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
