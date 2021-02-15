@@ -12,7 +12,8 @@ function NavBar(props) {
 
     const { user, logout } = useContext(AuthContext)
     const pathname = window.location.pathname
-    const path = pathname === '/' ? 'shop' : pathname.substr(1)
+    const path = pathname === '/' ? 'profile' : pathname.substr(1)
+
     const [activeItem, setActiveItem] = useState(path)
 
     const handleItemClick = (e, { name }) => {

@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
+import { Dimmer } from 'semantic-ui-react'
+
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
@@ -26,7 +28,6 @@ import EditProfileCard from './components/EditProfileCard'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import ChatFloatingButton from './components/ChatFloatingButton'
-import { Dimmer } from 'semantic-ui-react'
 
 class App extends Component {
   constructor(props) {

@@ -23,7 +23,7 @@ function PostCard({item: { id, name, price, user, bookmarkedBy }}) {
                 />
             </Card.Content>
 
-            <Card.Content extra as={Link} to={`/posts/${id}`}>
+            <Card.Content extra>
                 <Card.Header style={{ fontSize: 14 }}>{name}</Card.Header>
                 <Card.Meta>
                     <span className='penjual'>{user.seller.username}</span>

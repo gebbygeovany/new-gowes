@@ -66,7 +66,7 @@ function ItemTransactionCard({ props, contextRef, item }) {
         // refetch()
         addToCart()
         setVisible(true)
-        window.location.href='/cart'
+        window.location.href='/shop'
     }
 
     let itemMarkup = (

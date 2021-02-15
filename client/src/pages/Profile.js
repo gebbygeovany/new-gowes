@@ -3,7 +3,7 @@ import { Grid, Ref } from 'semantic-ui-react';
 
 import SidebarProfile from '../components/SidebarProfile'
 import ProfileCard from '../components/ProfileCard'
-import MyStoreDetailsCard from '../components/MyStoreDetailsCard'
+import MyOrders from '../components/MyOrders'
 
 
 
@@ -16,7 +16,7 @@ function Profile(props) {
     if (sidebarPosition === 'profileCard') {
         contentToShow = <ProfileCard props={props}></ProfileCard>
     } else if (sidebarPosition === 'myOrders') {
-        contentToShow = <MyStoreDetailsCard props={props}></MyStoreDetailsCard>
+        contentToShow = <MyOrders props={props}></MyOrders>
     }
 
     return (
