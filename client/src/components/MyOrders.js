@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Grid, Segment } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { Link, useHistory } from 'react-router-dom'
 
-import NavBarMyOrders from './NavBarMyOrders'
 import CardMyOrders from './CardMyOrders'
 
 function MyOrders(props) {
 
     const [activeItem, setActiveItem] = useState("all")
-    const history = useHistory();
 
 
     const handleItemClick = (e, { name }) => {
@@ -19,13 +17,11 @@ function MyOrders(props) {
 
     contentToShow = <CardMyOrders filter={activeItem}></CardMyOrders>
     
-    
-
     return (
         <>
             <Grid stackable>
                 <Grid.Row>
-                    <Grid columns={7} stackable>
+                    <Grid columns={7} stackable centered>
                         <Grid.Column>
                             <Button
                                 name='all'
@@ -64,14 +60,14 @@ function MyOrders(props) {
                         </Grid.Column>
                         <Grid.Column>
                             <Button
-                                name='order proceed'
+                                name='order processed'
                                 onClick={handleItemClick}
-                                color={activeItem === "order proceed" ? "teal" : ""}
+                                color={activeItem === "order processed" ? "teal" : ""}
                                 size="tiny"
                                 fluid
                                 style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}
                             >
-                                Order Proceed
+                                Order Processed
                             </Button>
                         </Grid.Column>
                         <Grid.Column>
@@ -111,6 +107,7 @@ function MyOrders(props) {
                     </Grid>
                 </Grid.Row>
                 <Grid.Row>
+                    {contentToShow}
                     {contentToShow}
                 </Grid.Row>
             </Grid>
