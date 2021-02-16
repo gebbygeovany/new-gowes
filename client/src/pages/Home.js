@@ -12,7 +12,7 @@ function Home() {
   const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY,)
   const { getItems: items } = data ? data : []
 
-  
+
   console.log(items)
   return (
     <Grid stackable columns={6}>
@@ -20,9 +20,8 @@ function Home() {
         <FilterBar></FilterBar>
       </Grid.Row>
       <Grid.Row>
-        {loading ? (
-          <h1>Loading posts..</h1>
-        ) : (
+        {!loading ? (
+          <>
             <Transition.Group duration={1000}>
               {items &&
                 items.map((item) => (
@@ -31,6 +30,9 @@ function Home() {
                   </Grid.Column>
                 ))}
             </Transition.Group>
+          </>
+        ) : (
+            <h1>Loading posts..</h1>
           )}
       </Grid.Row>
     </Grid>
