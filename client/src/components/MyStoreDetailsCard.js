@@ -25,13 +25,13 @@ function MyStoreDetailsCard(props) {
         <>
             {loading || currentUser.seller.username === "" ? (
                 <>
-                <Card fluid>
-                    <Card.Content header='My Store' />
-                    <Card.Content extra>
-                        <Button fluid color="teal"name='user' as={Link} to="/editMyStoreDetailsCard">Activate My Store</Button> 
-                    </Card.Content>
-                </Card>
-                <br></br><br></br><br></br><br></br><br></br>
+                    <Card fluid>
+                        <Card.Content header='My Store' />
+                        <Card.Content extra>
+                            <Button fluid color="teal" name='user' as={Link} to="/editMyStoreDetailsCard">Activate My Store</Button>
+                        </Card.Content>
+                    </Card>
+                    <br></br><br></br><br></br><br></br><br></br>
                 </>
             ) : (
                     <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
@@ -46,6 +46,7 @@ function MyStoreDetailsCard(props) {
                                 <Grid.Column width={11}>
                                     <Form size='small' noValidate className={loading ? "loading" : ""}>
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             placeholder='Store Name'
                                             label='Store Name'
@@ -53,6 +54,7 @@ function MyStoreDetailsCard(props) {
                                             name="username"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             iconPosition='left'
                                             placeholder='Store Description'
@@ -61,7 +63,7 @@ function MyStoreDetailsCard(props) {
                                             value={currentUser.seller.description}
                                             name="description"
                                         />
-                                        <Button color='secondary' size='small' as={Link} to="/editMyStoreDetailsCard">
+                                        <Button color='teal' size='small' as={Link} to="/editMyStoreDetailsCard" floated="right">
                                             <Icon name="edit outline"></Icon>
                                             Edit
                                         </Button>

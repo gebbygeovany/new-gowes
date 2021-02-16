@@ -17,25 +17,15 @@ function ItemDetailCard({ item }) {
                 <Header as='h1'>Rp{item.price}</Header>
                 <Container>
                     <List>
-                    <List.Item>Kondisi: Baru</List.Item>
-                    <List.Item>Berat: 150 Gram</List.Item>
-                    <List.Item>Kategori: Soft Case Handphone</List.Item>
-                    <List.Item>Etalase: Semua Etalase</List.Item>
+                    <List.Item>Condition: {item.condition}</List.Item>
+                    <List.Item>Category: {item.category}</List.Item>
+                    <List.Item>Weight: {item.weight} Gram</List.Item>
                     </List>
                 </Container>
+                <br></br>
                 <Container>
-                    <p>
-                    Case Samsung Galaxy M51 Soft Case Transparent Matte Case Anti Knock dengan bahan yang bagus .
-                    <br/>
-                    <br/>
-                    Warna : List Hitam .
-                    <br/>
-                    List Biru .
-                    <br/>
-                    List Hijau .
-                    <br/>
-                    List Merah .
-                    </p>
+                    <h4>Description</h4>
+                    <p>{item.description}</p>
                 </Container>
                 <Divider />
                 <Container>

@@ -6,10 +6,8 @@ import { Link } from 'react-router-dom'
 
 function SidebarStore({contextRef}) {
 
-    const pathname = window.location.pathname
-    const path = pathname === '/' ? 'mystore' : pathname.substr(1)
 
-    const [activeItem, setActiveItem] = useState(path)
+    const [activeItem, setActiveItem] = useState("My Store")
 
     const handleItemClick = (e, { name }) => setActiveItem(name)
 

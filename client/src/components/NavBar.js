@@ -65,10 +65,10 @@ function NavBar(props) {
                             active={activeItem === 'bookmark'}
                             onClick={handleItemClick}
                             as={Link}
-                            to="/bookmark"
+                            to="/wishList"
                         >
-                            <MyPopup content="Bookmarks">
-                                <Icon name="bookmark" centered="true"></Icon>
+                            <MyPopup content="Wishlist">
+                                <Icon name="heart" centered="true"></Icon>
                             </MyPopup>
                         </Menu.Item>
 

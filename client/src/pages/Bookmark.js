@@ -15,15 +15,15 @@ function Home() {
   return (
     <Grid stackable columns={6}>
       <Grid.Column width={16}></Grid.Column>
-      <Grid.Column width={16}><h1>Bookmarked Items</h1></Grid.Column>
+      <Grid.Column width={16}><h1>My Wishlist</h1></Grid.Column>
       <Grid.Row>
         {loading || bookmarks==0? (
           <>
           <Message
             error
-            icon='bookmark'
-            header='You dont have any bookmarked items'
-            content='add bookmark on your favorite item'
+            icon='heart'
+            header='You dont have any wishlisted items'
+            content='add wishlist if want to mark the item'
             style={{marginBottom:109}}
           />
           <Grid></Grid>

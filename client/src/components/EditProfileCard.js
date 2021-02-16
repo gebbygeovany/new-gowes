@@ -217,7 +217,7 @@ function EditProfileCard(props) {
                                             control={TextArea}
 
                                         />
-                                        <Button color='teal' size='small'>
+                                        <Button color='teal' size='small' floated="right">
                                             Save
                                         </Button>
                                     </Form>

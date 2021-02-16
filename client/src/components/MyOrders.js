@@ -16,7 +16,7 @@ function MyOrders(props) {
     var contentToShow
 
     contentToShow = <CardMyOrders filter={activeItem}></CardMyOrders>
-    
+
     return (
         <>
             <Grid stackable>
@@ -107,8 +107,10 @@ function MyOrders(props) {
                     </Grid>
                 </Grid.Row>
                 <Grid.Row>
-                    {contentToShow}
-                    {contentToShow}
+                    <Grid.Column size={16}>
+                        {contentToShow}
+                        {contentToShow}
+                    </Grid.Column>
                 </Grid.Row>
             </Grid>
         </>

@@ -60,21 +60,21 @@ function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
     const bookmarkButton = user.user ? (
         bookmarked ? (
             <Button fluid color="teal">
-                <Icon name="bookmark outline" />
+                <Icon name="heart" />
             </Button>
         ) : (
                 <Button fluid color="teal" basic>
-                    <Icon color='#fff' name="bookmark" />
+                    <Icon name="heart" />
                 </Button>
             )
     ) : (
             <Button fluid as={Link} to="/login" color="teal" basic>
-                <Icon name="bookmark" />
+                <Icon name="heart" />
             </Button>
         );
     return (
 
-        <MyPopup content={bookmarked ? 'Remove Bookmark' : 'Bookmark'}>
+        <MyPopup content={bookmarked ? 'Remove Wishlist' : 'Add Wishlist'}>
             <div as='div' onClick={user ? bookmarkPost : ''}>
                 {bookmarkButton}
             </div>

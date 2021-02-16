@@ -55,7 +55,7 @@ class App extends Component {
             <Dimmer active={this.state.isDimmed} />
             <Route exact path='/' component={Home} />
             <Route exact path='/event' component={Event} />
-            <Route exact path='/bookmark' component={Bookmark} />
+            <Route exact path='/wishList' component={Bookmark} />
             <Route exact path='/cart' component={Cart} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />

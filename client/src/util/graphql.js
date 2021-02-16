@@ -59,6 +59,8 @@ export const FETCH_ITEM_QUERY = gql`
         weight
         createdAt
         description
+        condition
+        category
         images{
             id
             downloadUrl

@@ -141,9 +141,9 @@ function AddItem(props) {
                                     control='select'
                                     value={values.category}
                                 >
-                                    <option value='male'>Sparepart</option>
-                                    <option value='female'>Accessories</option>
-                                    <option value='male'>Apparel</option>
+                                    <option value='sparepart'>Sparepart</option>
+                                    <option value='accessories'>Accessories</option>
+                                    <option value='apparel'>Apparel</option>
                                 </Form.Field>
                                 <Form.Field
                                     fluid

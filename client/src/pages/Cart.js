@@ -18,7 +18,7 @@ function Cart() {
   let cartMarkup = (
     <>
       <br></br>
-      <Grid.Column width={16}><h1>Cart</h1></Grid.Column>
+      <Grid.Column width={16}><h1>My Cart</h1></Grid.Column>
       <>
         <Message
           error

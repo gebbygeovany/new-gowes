@@ -147,7 +147,7 @@ function EditMyStoreDetailsCard(props) {
                                             name="description"
                                             onChange={onChange}
                                         />
-                                        <Button color='primary' size='small'>
+                                        <Button color='teal' size='small' floated="right">
                                             <Icon name="check circle outline"></Icon>
                                             Save
                                         </Button>

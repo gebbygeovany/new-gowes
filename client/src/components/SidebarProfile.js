@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom'
 
 function SidebarProfile({ contextRef }) {
 
-    const pathname = window.location.pathname
-    const path = pathname === '/' ? 'profile' : pathname.substr(1)
-
-    const [activeItem, setActiveItem] = useState(path)
+    const [activeItem, setActiveItem] = useState('profile')
 
     const handleItemClick = (e, { name }) => setActiveItem(name)
 

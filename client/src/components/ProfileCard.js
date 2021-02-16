@@ -41,6 +41,7 @@ function ProfileCard(props) {
                                 <Grid.Column width={11}>
                                     <Form size='small' noValidate className={loading ? "loading" : ""}>
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             icon='user'
                                             iconPosition='left'
@@ -50,6 +51,7 @@ function ProfileCard(props) {
                                             name="name"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             icon='mail'
                                             iconPosition='left'
@@ -59,6 +61,7 @@ function ProfileCard(props) {
                                             name="email"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             icon='phone'
                                             iconPosition='left'
@@ -68,6 +71,7 @@ function ProfileCard(props) {
                                             name="phone"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             icon='calendar'
                                             iconPosition='left'
@@ -77,6 +81,7 @@ function ProfileCard(props) {
                                             value={currentUser.buyer.birthDate}
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             placeholder='City'
                                             label='Address'
@@ -84,18 +89,21 @@ function ProfileCard(props) {
                                             value="Bandung"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             placeholder='Districts'
                                             name="districts"
                                             value="Ujungberung"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             placeholder='Postal Code'
                                             name="postalCode"
                                             value="40617"
                                         />
                                         <Form.Input
+                                            readOnly
                                             fluid
                                             placeholder='Address Details'
                                             name="addressDetails"
@@ -103,7 +111,7 @@ function ProfileCard(props) {
                                             control={TextArea}
 
                                         />
-                                        <Button color='secondary' size='small' as={Link} to="/editProfileCard">
+                                        <Button floated="right" color='teal' size='small' as={Link} to="/editProfileCard">
                                             <Icon name="edit outline"></Icon>
                                             Edit
                                         </Button>
