@@ -5,6 +5,7 @@ import { Grid, Ref, Rail } from 'semantic-ui-react';
 
 
 import ItemTransactionCard from '../components/ItemTransactionCard'
+import ManageItemSticky from '../components/ManageItemSticky'
 import ItemDetailCard from '../components/ItemDetailCard'
 import ItemImagesCard from '../components/ItemImagesCard'
 import ItemReviewsCard from '../components/ItemReviewsCard'
@@ -23,7 +24,6 @@ function ItemDetail(props) {
   })
   const { getItem: item } = itemData ? itemData : []
   const { getItemReviews: reviews } = reviewData ? reviewData : []
-
 
   let postMarkup = (<p>Loading item..</p>);
   if (item) {
@@ -51,11 +51,11 @@ function ItemDetail(props) {
             </Grid.Row>
           </Grid.Column>
           <Grid.Column width={4}>
-            {context.user && context.user.id !== item.user.id ? (
+            {context.user ? (context.user.id !== item.user.id ? (
               <ItemTransactionCard contextRef={contextRef} item={item} />
             ) : (
-                <div></div>
-              )}
+                <ManageItemSticky contextRef={contextRef} item={item} />
+              )):(<div></div>)}
           </Grid.Column>
         </Grid>
       </Ref>

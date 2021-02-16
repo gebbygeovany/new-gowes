@@ -105,9 +105,8 @@ module.exports = {
 
         async deleteItem(_, { itemId }, context) {
             const user = checkAuth(context)
-
             try {
-                const item = await Post.findById(itemId)
+                const item = await Item.findById(itemId)
                 if (user.username === item.username) {
                     await item.delete()
                     return 'Item deleted'

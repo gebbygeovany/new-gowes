@@ -32,7 +32,7 @@ function AddItem(props) {
             setErrors({})
             props.history.push('/mystore/myItemsList')
             console.log("data", addItem)
-
+            window.location.href = '/myStore/myItemsList'
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -76,12 +76,6 @@ function AddItem(props) {
             return <div></div>
         }
     }
-
-    const options = [
-        { key: 'm', text: 'Male', value: 'male' },
-        { key: 'f', text: 'Female', value: 'female' },
-        { key: 'o', text: 'Other', value: 'other' },
-    ]
 
     return (
         <Grid centered stackable>
@@ -141,6 +135,7 @@ function AddItem(props) {
                                     control='select'
                                     value={values.category}
                                 >
+                                    <option value='-'>-</option>
                                     <option value='sparepart'>Sparepart</option>
                                     <option value='accessories'>Accessories</option>
                                     <option value='apparel'>Apparel</option>
@@ -154,6 +149,7 @@ function AddItem(props) {
                                     control='select'
                                     value={values.condition}
                                 >
+                                    <option value='-'>-</option>
                                     <option value='new'>New</option>
                                     <option value='used'>Used</option>
                                 </Form.Field>
