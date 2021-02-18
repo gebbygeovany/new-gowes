@@ -15,7 +15,7 @@ function PostCard({item: { id, name, price, user, bookmarkedBy }}) {
     console.log(userCache.user)
 
     return (
-        <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
+        <Card style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content style={{ padding: 0 }} as={Link} to={`/items/${id}`}>
                 <Image
                     size="large"

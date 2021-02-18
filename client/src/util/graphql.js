@@ -73,6 +73,7 @@ export const FETCH_ITEM_QUERY = gql`
         user{
             id
             seller{
+            id
             username
             }
         }

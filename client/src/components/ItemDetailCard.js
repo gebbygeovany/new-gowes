@@ -1,8 +1,11 @@
 import React from 'react';
 import { Container, Header, Icon, List, Image, Divider } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
 
 function ItemDetailCard({ item }) {
     let itemDetailMarkup = (<p>Loading item..</p>)
+    console.log(item.user.seller.id)
     if (item) {
         itemDetailMarkup = (
             <Container>
@@ -35,11 +38,12 @@ function ItemDetailCard({ item }) {
                         src='https://react.semantic-ui.com/images/wireframe/image-text.png'
                         as='a'
                         size='mini'
-                        href='http://google.com'
-                        target='_blank'/>
+                        as={Link} to={`/sellerProfile/${item.user.id}`}
+                        // target='_blank'
+                        />
                     </List.Item>
                     <List.Item>
-                        <Header as='h2'>{item.user.seller.username}</Header>
+                        <Header as='h3' style={{color:'black'}}  >{item.user.seller.username}</Header>
                     </List.Item>
                     <List.Item>
                         <Icon name='star' style={{ color: 'gold' }}/>
