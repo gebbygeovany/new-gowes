@@ -151,7 +151,7 @@ function ItemTransactionCard({ props, contextRef, item }) {
                                     </Button.Content>
                                     <Button.Content hidden style={{ borderRadius: 8 }}>
                                         Go to Chat?
-                            </Button.Content>
+                                    </Button.Content>
                                 </Button>
                             </div>
                         </Card.Content>

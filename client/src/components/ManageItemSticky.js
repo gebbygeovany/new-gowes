@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Button, Icon, List, Sticky, Header, Input, Message } from 'semantic-ui-react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag'
+import {useQuery } from '@apollo/react-hooks';
 import { FETCH_CART_QUERY } from '../util/graphql';
+import { Link } from 'react-router-dom';
+
 
 import DeleteItemButton from '../components/DeleteItemButton'
 
@@ -83,7 +84,7 @@ function ManageItemSticky({ props, contextRef, item }) {
                     </Card.Content>
                     <Card.Content extra>
                         <div className='ui two buttons'>
-                            <Button  animated='vertical' disabled={inCartAmount === item.stock}>
+                            <Button  animated='vertical' as={Link} to={`/editItem/${item.id}`}>
                                 <Button.Content visible>
                                     <Icon name="edit" /> Edit
                                 </Button.Content>

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, Grid, Image, Icon, Container, Button, Sticky} from 'semantic-ui-react';
+import { Card, Grid, Image, Icon, Container, Button, Sticky } from 'semantic-ui-react';
 
 function SideBarSellerProfile({ contextRef, user }) {
 
     return (
         <>
             <Sticky context={contextRef} offset={120}>
-                <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
+                <Card style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
                     <Card.Content>
                         <Grid stackable>
                             <Grid.Column width={7}>
@@ -33,7 +33,14 @@ function SideBarSellerProfile({ contextRef, user }) {
                         </Container>
                     </Card.Content>
                     <Card.Content extra>
-                        <Button fluid color="teal">Chat</Button>
+                        <Button animated fluid>
+                            <Button.Content visible>
+                                <Icon name="chat" />{" Chat"}
+                            </Button.Content>
+                            <Button.Content hidden style={{ borderRadius: 8 }}>
+                                Chat the seller?
+                            </Button.Content>
+                        </Button>
                     </Card.Content>
                 </Card>
             </Sticky>
