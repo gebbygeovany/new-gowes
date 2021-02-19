@@ -1,6 +1,6 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import { Card, Image, Grid, Button, Form, TextArea, Icon } from 'semantic-ui-react';
-import { useMutation, useQuery } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import { useForm } from '../util/hooks'
@@ -8,46 +8,26 @@ import { useForm } from '../util/hooks'
 function EditItem(props) {
 
     const itemId = props.match.params.itemId;
+    const itemData = props.location.item;
 
     const [errors, setErrors] = useState({})
 
     const [isSaved, setSave] = useState(false)
 
-    const { loading, data, refetch } = useQuery(FETCH_ITEM_QUERY, {
-        variables: {
-            itemId: itemId
-        }
-    })
-    const { getItem: item } = data ? data : []
-
-    Object.size = function (obj) {
-        var size = 0,
-            key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-    };
-
-    var size = Object.size(item)
-
-    console.log(itemId)
-    console.log(item)
-    console.log(data)
     let userObj
 
-    if (!loading) {
+    if (itemData) {
         userObj = {
-            name: item.name,
-            price: item.price,
-            stock: item.stock,
-            category: item.category,
-            condition: item.condition,
-            weight: item.weight,
-            description: item.description,
-            length: item.dimension.length,
-            width: item.dimension.width,
-            height: item.dimension.height,
+            name: itemData.name,
+            price: itemData.price,
+            stock: itemData.stock,
+            category: itemData.category,
+            condition: itemData.condition,
+            weight: itemData.weight,
+            description: itemData.description,
+            length: itemData.length,
+            width: itemData.width,
+            height: itemData.height,
             itemId: itemId
         }
     } else {
@@ -64,12 +44,9 @@ function EditItem(props) {
             height: 0,
             itemId: itemId
         }
-        // refetch()
     }
 
     let { onChange, onSubmit, values } = useForm(editItem, userObj)
-
-
 
     const [updateItem, { }] = useMutation(UPDATE_ITEM_MUTATION, {
         update(_, { data: { updateItem: updatedItem } }) {
@@ -122,10 +99,9 @@ function EditItem(props) {
         }
     }
 
-    return (
+    let postMarkup = (
         <Grid centered stackable>
             <Grid.Column width={12}>
-                <Button onClick={() => refetch()}>refetch</Button>
                 <Card fluid>
                     <Card.Content header='Item Image' />
                     <Card.Content>
@@ -162,7 +138,7 @@ function EditItem(props) {
                 <Card fluid>
                     <Card.Content header='Item Details' />
                     <Card.Content extra>
-                        <Form size='small' onSubmit={onSubmit} noValidate className={loading ? "loading" : ""} noValidate>
+                        <Form size='small' onSubmit={onSubmit} noValidate noValidate>
                             <Form.Input
                                 fluid
                                 placeholder='Item Name'
@@ -295,6 +271,8 @@ function EditItem(props) {
             </Grid.Column>
         </Grid>
     )
+
+    return postMarkup
 }
 
 const UPDATE_ITEM_MUTATION = gql`

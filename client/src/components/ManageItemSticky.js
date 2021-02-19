@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Icon, List, Sticky, Header, Input, Message } from 'semantic-ui-react';
-import {useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { FETCH_CART_QUERY } from '../util/graphql';
 import { Link } from 'react-router-dom';
 
@@ -84,7 +84,26 @@ function ManageItemSticky({ props, contextRef, item }) {
                     </Card.Content>
                     <Card.Content extra>
                         <div className='ui two buttons'>
-                            <Button  animated='vertical' as={Link} to={`/editItem/${item.id}`}>
+                            <Button
+                                animated='vertical'
+                                as={Link}
+                                // to={`/editItem/${item.id}`}
+                                to={{
+                                    pathname: `/editItem/${item.id}`,
+                                    item: {
+                                        name: item.name,
+                                        price: item.price,
+                                        stock: item.stock,
+                                        category: item.category,
+                                        condition: item.condition,
+                                        weight: item.weight,
+                                        description: item.description,
+                                        length: item.dimension.length,
+                                        width: item.dimension.width,
+                                        height: item.dimension.height,
+                                    }
+                                }}
+                            >
                                 <Button.Content visible>
                                     <Icon name="edit" /> Edit
                                 </Button.Content>
