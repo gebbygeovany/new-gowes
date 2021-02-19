@@ -39,7 +39,6 @@ module.exports = {
         async getBookmarks(_,{},context) {
             try {
                 const user = checkAuth(context)
-                console.log(user.username)
                 const items = await Item.find({ 
                     "bookmarkedBy": {
                         $elemMatch: {
@@ -55,7 +54,6 @@ module.exports = {
     Mutation: {
         async addItem(_, { addItemInput: { name, price, stock, category, condition, weight, description, dimension, images } }, context) {
             const user = checkAuth(context)
-            console.log(user)
 
             const { valid, errors } = validateAddItemInput(name, price, stock, category, condition, weight, description, dimension, images, description)
             if (!valid) {
@@ -81,7 +79,7 @@ module.exports = {
             return item
         },
         
-        async updateItem(_, { itemId, addItemInput: { name, price, description } }, context) {
+        async updateItem(_, { itemId, addItemInput: { name, price, stock, category, condition, weight, description, dimension, images } }, context) {
             const { valid, errors } = validateAddItemInput(name, description)
             if (!valid) {
                 throw new UserInputError('Errors', { errors })
@@ -92,7 +90,13 @@ module.exports = {
                 {
                     name: name,
                     price: price,
-                    description: description
+                    description: description,
+                    stock: stock,
+                    category: category,
+                    condition: condition,
+                    weight: weight,
+                    dimension: dimension,
+                    images: images,
                 },
                 { new: true }
             );

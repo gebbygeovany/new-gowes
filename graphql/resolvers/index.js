@@ -6,6 +6,7 @@ const reviewsResolvers = require('./reviews')
 const chatsResolvers = require('./chats')
 const messagesResolvers = require('./messages')
 const cartsResolvers = require('./carts')
+const ordersResolvers = require('./orders')
 
 
 module.exports={
@@ -23,7 +24,8 @@ module.exports={
         ...reviewsResolvers.Query,
         ...chatsResolvers.Query,
         ...messagesResolvers.Query,
-        ...cartsResolvers.Query
+        ...cartsResolvers.Query,
+        ...ordersResolvers.Query
     },
     Mutation:{
         ...usersResolvers.Mutation,
@@ -31,7 +33,8 @@ module.exports={
         ...itemsResolvers.Mutation,
         ...commentsResolvers.Mutation,
         ...messagesResolvers.Mutation,
-        ...cartsResolvers.Mutation
+        ...cartsResolvers.Mutation,
+        ...ordersResolvers.Mutation
     },
     Subscription:{
         ...postsResolvers.Subscription,

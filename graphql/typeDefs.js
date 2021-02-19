@@ -13,6 +13,21 @@ module.exports = gql`
         commentCount: Int!
     }
 
+    type Order {
+        id: ID!
+        items:[Item]!
+        user: User!
+        state: OrderState!
+        awbNumber: String!
+        shippingCost: Int!
+    }
+
+    type OrderState {
+        stateType: String!
+        createdAt: String!
+        deadline: String!
+    }
+
     type Item {
         id: ID!
         name:String!
@@ -39,8 +54,8 @@ module.exports = gql`
     }
 
     type Dimension {
-        length: Int!,
-        width: Int!,
+        length: Int!
+        width: Int!
         height: Int!
     }
 
@@ -141,14 +156,14 @@ module.exports = gql`
     }
    
     input AddItemInput {
-        name: String!,
-        price: Int!,
-        stock: Int!,
-        category: String!,
-        condition: String!,
-        weight: Int!,
-        description: String!,
-        dimension: DimensionInput!,
+        name: String!
+        price: Int!
+        stock: Int!
+        category: String!
+        condition: String!
+        weight: Int!
+        description: String!
+        dimension: DimensionInput!
         images: [ImageInput]!
     }
 
@@ -157,9 +172,20 @@ module.exports = gql`
     }
 
     input DimensionInput {
-        length: Int!,
-        width: Int!,
+        length: Int!
+        width: Int!
         height: Int!
+    }
+
+    input AddOrderInput {
+        itemIds: [ID]!
+        state: OrderStateInput!
+        awbNumber: String!
+        shippingCost: Int!
+    }
+
+    input OrderStateInput {
+        type: String!
     }
 
     type Query {
@@ -178,6 +204,8 @@ module.exports = gql`
         getMessages(chatId: ID!): [Message]
         getUserCartItems: [Cart]
         getUserCartItem(itemId: ID!): Cart
+        getUserOrders: [Order]
+        getUserOrderById(oderId: ID!): [Order]
     }
     type Mutation {
         register(registerInput: RegisterInput): User!
@@ -196,6 +224,8 @@ module.exports = gql`
         addMessage(chatId: ID, receiverUserId: ID!, content: String, images: [ImageInput]): Message
         addCartItem(itemId: ID!, note: String!, amountItem: Int!): Cart!
         deleteCartItem(cartId: ID!): String!
+        addOrder(addOrderInput: AddOrderInput!): Order!
+        updateOrder(oderId: ID!, addOrderInput: AddOrderInput!): Order!
     }
     type Subscription {
         newPost: Post!
