@@ -1,7 +1,7 @@
 import React from 'react';
-import { Icon, Grid, Segment, List, Item, Image, Card, Feed } from 'semantic-ui-react';
+import { Icon, Grid, Segment, List, Item, Button, Card, Feed, Form } from 'semantic-ui-react';
 
-function ChatFloatingCard() {
+function ChatFloatingCard(props) {
     const topLeftBar = {
         margin: 0,
         borderTopLeftRadius: 12,
@@ -11,6 +11,7 @@ function ChatFloatingCard() {
     }
 
     const topRightBar = {
+        margin: 0,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 12,
         borderBottomLeftRadius: 0,
@@ -26,6 +27,55 @@ function ChatFloatingCard() {
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 0
+    }
+    const rightContent = {
+        paddingTop: 16,
+        paddingBottom: 16,
+        paddingLeft: 0,
+        paddingRight: 0,
+        margin: 0,
+        overflow: 'auto',
+        maxHeight: 287,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0
+    }
+
+    const rightBottomContent = {
+        margin: 0, 
+        padding: 0,
+        height: 50,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 12
+    }
+    const messageItemLeft = {
+        marginTop: 4,
+        marginBottom: 4,
+        marginLeft: 14,
+        marginRight: 14,
+        padding: 10,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 16,
+        borderBottomLeftRadius: 16,
+        borderBottomRightRadius: 16
+    }
+    const messageItemRight = {
+        marginTop: 4,
+        marginBottom: 4,
+        marginLeft: 14,
+        padding: 10,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 16,
+        borderBottomRightRadius: 16
+    }
+    let obj = {id: 1}
+    let objs = []
+    for (var i = 0; i < 4; i++) {
+        objs.push(obj)
     }
 
     return (
@@ -163,29 +213,44 @@ function ChatFloatingCard() {
                     <List>
                         <List.Item>
                             <List.Content floated='right'>
-                                <Icon name="angle down" style={{ cursor:'pointer' }}/>
+                                <Icon size='large' name="angle down" onClick={props.onClose} style={{ cursor:'pointer' }}/>
                             </List.Content>
                         </List.Item>
                     </List>
                 </Segment>
-                <Item.Group>
-                    <Item>
-                        <Item.Image size='mini' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                        <Item.Content>
-                            <Item.Header>Header</Item.Header>
-                            <Item.Meta>Description</Item.Meta>
-                        </Item.Content>
-                    </Item> 
-                    <Item>
-                        <Item.Image circular size='mini' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                        <Item.Content>
-                            <Item.Header>Header</Item.Header>
-                            <Item.Meta>Description</Item.Meta>
-                        </Item.Content>
-                    </Item> 
-                </Item.Group>
+                <Segment style={rightContent}>
+                {objs.map((item) => (
+                    <Grid container>
+                        <Grid.Column style={{ padding: 0}}>
+                            <Segment compact floated='left' inverted color='green' style={messageItemLeft}>
+                                testing chat
+                            </Segment>
+                        </Grid.Column>
+                    </Grid>
+                ))}
+               {objs.map((item) => (
+                    <Grid container>
+                        <Grid.Column style={{ padding: 0}}>
+                            <Segment compact floated='right' inverted color='grey' style={messageItemRight}>
+                                testing chat
+                            </Segment>
+                        </Grid.Column>
+                    </Grid>
+                ))}
+                </Segment>
+                <Segment style={rightBottomContent}>
+                    <Form>
+                        <Form.Group style={{margin: 0, paddingTop: 4, paddingLeft: 8, paddingRight: 8}}>
+                            <Form.Input style={{ borderRadius: 12 }}
+                            width={14}
+                            placeholder='Tulis pesan...'
+                            name='message'
+                            />
+                            <Form.Button icon="send" circular color='green' style={{marginLEft: 8}}/>
+                        </Form.Group>
+                    </Form>
+                </Segment>
             </Grid.Column>
-       
         </Grid>
         );
 }

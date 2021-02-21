@@ -50,8 +50,8 @@ function ChatFloatingButton() {
                     </Segment>
                 </Transition>
                 <Transition visible={!visible} animation='scale' duration={500}>
-                    <Segment onClick={toggleVisibility} style={cardStyle}>
-                        <ChatFloatingCard />
+                    <Segment style={cardStyle}>
+                        <ChatFloatingCard onClose={toggleVisibility}/>
                     </Segment>
                 </Transition>
             </Container>
