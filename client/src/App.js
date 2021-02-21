@@ -29,7 +29,7 @@ import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
-import ChatFloatingButton from './components/ChatFloatingButton'
+import ChatFloatingButton from './components/chat/ChatFloatingButton'
 
 class App extends Component {
   constructor(props) {

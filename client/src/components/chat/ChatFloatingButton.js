@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Icon, Transition, Segment, Grid, Container } from 'semantic-ui-react';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../../context/auth';
 import ChatFloatingCard from './ChatFloatingCard';
 
 function ChatFloatingButton() {
