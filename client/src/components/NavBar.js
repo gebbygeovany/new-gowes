@@ -18,6 +18,10 @@ function NavBar(props) {
 
     const handleItemClick = (e, { name }) => {
         setActiveItem(name)
+        if(name==='cart'){
+            window.location.href = '/cart'
+        }
+        
     }
 
     const handleItemHover = () => {
@@ -35,8 +39,8 @@ function NavBar(props) {
                     <Menu.Item
                         active={activeItem === 'home'}
                         onClick={handleItemClick}
-                        as={Link}
-                        to="/"
+                        // as={Link}
+                        // to="/"
                     >
                         <IoMdBicycle color='rgb(206, 206, 206)' style={{ fontSize: 28, marginRight: 5 }}></IoMdBicycle>
                         <div className="logo">Gowes</div>
@@ -47,8 +51,8 @@ function NavBar(props) {
                         name='shop'
                         active={activeItem === 'shop'}
                         onClick={handleItemClick}
-                        as={Link}
-                        to="/"
+                        // as={Link}
+                        // to="/"
                     />
                     <Menu.Item
                         name='event'
@@ -76,8 +80,8 @@ function NavBar(props) {
                             name='cart'
                             active={activeItem === 'cart'}
                             onClick={handleItemClick}
-                            as={Link}
-                            to="/cart"
+                            // as={Link}
+                            // to="/cart"
                         >
                             <MyPopup content="Cart">
                                 <Icon name="cart" centered="true"></Icon>

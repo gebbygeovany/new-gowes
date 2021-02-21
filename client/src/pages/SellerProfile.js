@@ -5,8 +5,6 @@ import { useQuery } from '@apollo/react-hooks';
 
 import SideBarSellerProfile from '../components/SideBarSellerProfile';
 import ShopCard from '../components/ShopCard';
-import { compare } from 'bcryptjs';
-
 
 function SellerProfile(props) {
 
@@ -42,7 +40,7 @@ function SellerProfile(props) {
                     </Grid.Column>
                     <Grid.Column width={12}>
                         <br></br>
-                        <Grid stackable columns={4}>
+                        <Grid stackable columns={5}>
                             {items &&
                                 items.map((item) => (
                                     <Grid.Column key={item.id} style={{ marginBottom: 20 }}>

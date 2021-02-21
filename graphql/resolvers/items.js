@@ -36,15 +36,16 @@ module.exports = {
             }
         },
 
-        async getBookmarks(_,{},context) {
+        async getBookmarks(_, { }, context) {
             try {
                 const user = checkAuth(context)
-                const items = await Item.find({ 
+                const items = await Item.find({
                     "bookmarkedBy": {
                         $elemMatch: {
                             userId: user.id
                         }
-                }}).sort({ createdAt: -1 }).populate('user')
+                    }
+                }).sort({ createdAt: -1 }).populate('user')
                 return items
             } catch (err) {
                 throw new Error(err)
@@ -78,9 +79,10 @@ module.exports = {
 
             return item
         },
-        
+
         async updateItem(_, { itemId, addItemInput: { name, price, stock, category, condition, weight, description, dimension, images } }, context) {
-            const { valid, errors } = validateAddItemInput(name, description)
+            const user = checkAuth(context)
+            const { valid, errors } = validateAddItemInput(name, price, stock, category, condition, weight, description, dimension, images, description)
             if (!valid) {
                 throw new UserInputError('Errors', { errors })
             }
@@ -95,11 +97,12 @@ module.exports = {
                     category: category,
                     condition: condition,
                     weight: weight,
+                    user: user.id,
                     dimension: dimension,
                     images: images,
                 },
                 { new: true }
-            );
+            ).populate('user');
 
             return {
                 ...updatedItem._doc,
@@ -124,7 +127,7 @@ module.exports = {
 
         async bookmarkItem(_, { itemId }, context) {
             const { id } = checkAuth(context)
-            
+
             const item = await Item.findById(itemId)
 
             if (item) {

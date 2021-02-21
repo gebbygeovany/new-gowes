@@ -61,6 +61,11 @@ export const FETCH_ITEM_QUERY = gql`
         description
         condition
         category
+        dimension {
+          length
+          width
+          height
+        }
         images{
             id
             downloadUrl

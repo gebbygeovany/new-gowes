@@ -23,6 +23,7 @@ import MyStore from './pages/MyStore'
 import ItemDetail from './pages/ItemDetail'
 import AddItem from './pages/AddItem'
 import SellerProfile from './pages/SellerProfile'
+import EditItem from './pages/EditItem'
 
 import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
@@ -68,6 +69,7 @@ class App extends Component {
             <Route exact path="/items/:itemId" component={ItemDetail} />
             <Route exact path="/sellerProfile/:userId" component={SellerProfile} />
             <Route exact path="/addItem" component={AddItem} />
+            <Route exact path="/editItem/:itemId" component={EditItem} />
           </Container>
           <ChatFloatingButton />
           <Footer />

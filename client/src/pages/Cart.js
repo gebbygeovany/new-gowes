@@ -10,10 +10,21 @@ import { FETCH_USER_CART_QUERY } from '../util/graphql';
 function Cart() {
   const contextRef = React.createRef();
 
-  const { loading, data } = useQuery(FETCH_USER_CART_QUERY)
+  const { loading, data, refetch } = useQuery(FETCH_USER_CART_QUERY)
   let { getUserCartItems: cartItems } = data ? data : []
 
   console.log(cartItems)
+
+  Object.size = function (obj) {
+    var size = 0,
+      key;
+    for (key in obj) {
+      if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+  };
+
+  var size = Object.size(cartItems)
 
   let cartMarkup = (
     <>
@@ -31,7 +42,7 @@ function Cart() {
     </>
   )
   if (!loading) {
-    if (cartItems.length !== 0) {
+    if (size >0) {
       let group = cartItems.reduce((r, a) => {
         r[a.item.user.id] = [...r[a.item.user.id] || [], a];
         return r;
