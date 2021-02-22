@@ -53,7 +53,7 @@ function ItemCheckoutCard({ item }) {
                             <h4 style={{ color: 'teal' }}>Rp{item.item.price}</h4>
                         </Grid.Row>
                         <Grid.Row style={{ marginTop: 5 }}>
-                           <div> item (10gr) </div>
+                           <div>2 item (10gr) </div>
                         </Grid.Row>
                     </Grid.Column>
                 </Grid>

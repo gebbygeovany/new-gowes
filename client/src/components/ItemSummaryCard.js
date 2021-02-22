@@ -28,7 +28,7 @@ function ItemSummaryCard({ contextRef }) {
                     </List>
                 </Card.Content>
                 <Card.Content extra>
-                    <Button fluid color="teal" as={Link} to="/checkout">Pay</Button>
+                    <Button fluid color="teal" as={Link} to="/checkout">Checkout</Button>
                 </Card.Content>
             </Card>
         </Sticky>
