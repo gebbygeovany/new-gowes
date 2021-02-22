@@ -20,10 +20,14 @@ function NavBar(props) {
         setActiveItem(name)
         if(name==='cart'){
             window.location.href = '/cart'
+        }else if(name==='bookmark'){
+            window.location.href = '/wishList'
+        }else if(name==='login'){
+            window.location.href = '/login'
+        }else if(name==='home'||'shop'){
+            window.location.href = '/'
         }
-        
     }
-
     const handleItemHover = () => {
         // handleItemClick()
         props.onDimmed()
@@ -68,8 +72,8 @@ function NavBar(props) {
                             name='bookmark'
                             active={activeItem === 'bookmark'}
                             onClick={handleItemClick}
-                            as={Link}
-                            to="/wishList"
+                            // as={Link}
+                            // to="/wishList"
                         >
                             <MyPopup content="Wishlist">
                                 <Icon name="heart" centered="true"></Icon>
@@ -95,10 +99,10 @@ function NavBar(props) {
                             <Image circular src="https://react.semantic-ui.com/images/avatar/small/stevie.jpg" style={{ height: 30, marginRight: 0 }} verticalAlign='middle' />
                             <Dropdown item text={user.name} style={{ marginLeft: 0 }}>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item as={Link} to="/profile/profileCard">My Profile</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/myStore/myStoreDetailsCard">My Store</Dropdown.Item>
-                                    <Dropdown.Item>Transaksi</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/" name='logout' onClick={logout}>Logout</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/profile/profileCard"><Icon name="user"/>My Profile</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/myStore/myStoreDetailsCard"><Icon name="bicycle"/>My Store</Dropdown.Item>
+                                    {/* <Dropdown.Item>Transaksi</Dropdown.Item> */}
+                                    <Dropdown.Item as={Link} to="/" name='logout' onClick={logout}><Icon name="sign out" color="red" /> Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Menu.Item>

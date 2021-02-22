@@ -104,7 +104,7 @@ function ChatFloatingCard(props) {
                 <Segment style={rightBottomContent}>
                     <Form>
                         <Form.Group style={{margin: 0, paddingTop: 4, paddingLeft: 8, paddingRight: 8}}>
-                            <Form.Input style={{ borderRadius: 12 }}
+                            <Form.Input style={{ borderRadius: 50 }}
                             width={14}
                             placeholder='Tulis pesan...'
                             name='message'
