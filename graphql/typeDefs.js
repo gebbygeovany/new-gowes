@@ -129,6 +129,7 @@ module.exports = gql`
 
     type Message {
         id: ID!
+        user: User!
         content: String!
         images: [Image]
         sentAt: String!

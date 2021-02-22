@@ -21,11 +21,6 @@ function BookmarkButton({ user, item: { id, bookmarkedBy } }) {
 
     const [errors, setErrors] = useState({})
 
-    if (user.user) {
-        console.log(user.user.id)
-
-    }
-
     const [bookmarkPost] = useMutation(BOOKMARK_ITEM_MUTATION, {
         variables: { itemId: id },
         update(proxy, result) {

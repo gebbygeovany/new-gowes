@@ -196,3 +196,34 @@ export const FETCH_USER_CART_QUERY = gql`
   }
 }
 `;
+
+export const FETCH_CHATS_QUERY = gql`
+{
+  getChats {
+    id
+    users{
+      id
+      seller {
+        username
+      }
+    }
+    lastText
+  }
+}
+`;
+
+export const FETCH_CHAT_MESSAGES_QUERY = gql`
+query($chatId: ID!){
+    getMessages(chatId: $chatId){
+    	id
+    	content
+    	sentAt
+    	user{
+        id
+        seller{
+          username
+        }
+      }
+    }
+}
+`;

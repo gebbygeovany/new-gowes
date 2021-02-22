@@ -8,7 +8,7 @@ module.exports = {
     Query: {
         async getMessages(_, { chatId }) {
             try {
-                const messages = await Message.find({ chatId: chatId}).sort({ createdAt: -1 });
+                const messages = await Message.find({ chatId: chatId}).populate('user').sort({ createdAt: -1 });
                 return messages
             } catch (err) {
                 throw new Error(err)

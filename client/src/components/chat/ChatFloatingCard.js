@@ -1,7 +1,16 @@
-import React from 'react';
-import { Icon, Grid, Segment, List, Item, Button, Card, Feed, Form } from 'semantic-ui-react';
+import React, { useContext } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { Icon, Grid, Segment, List, Form } from 'semantic-ui-react';
+import ChatListCard from './ChatListCard';
+import MessageListCard from './MessageListCard';
+import { FETCH_CHATS_QUERY } from '../../util/graphql';
+import { AuthContext } from '../../context/auth';
 
 function ChatFloatingCard(props) {
+    const { user } = useContext(AuthContext);
+    const { loading, data } = useQuery(FETCH_CHATS_QUERY)
+    const { getChats: chats } = data ? data : []
+
     const topLeftBar = {
         margin: 0,
         borderTopLeftRadius: 12,
@@ -23,6 +32,7 @@ function ChatFloatingCard(props) {
         margin: 0,
         overflow: 'auto',
         maxHeight: 342,
+        height: 342,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 12,
@@ -36,6 +46,7 @@ function ChatFloatingCard(props) {
         margin: 0,
         overflow: 'auto',
         maxHeight: 287,
+        height: 287,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 0,
@@ -51,27 +62,7 @@ function ChatFloatingCard(props) {
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 12
     }
-    const messageItemLeft = {
-        marginTop: 4,
-        marginBottom: 4,
-        marginLeft: 14,
-        marginRight: 14,
-        padding: 10,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 16,
-        borderBottomLeftRadius: 16,
-        borderBottomRightRadius: 16
-    }
-    const messageItemRight = {
-        marginTop: 4,
-        marginBottom: 4,
-        marginLeft: 14,
-        padding: 10,
-        borderTopLeftRadius: 16,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 16,
-        borderBottomRightRadius: 16
-    }
+   
     let obj = {id: 1}
     let objs = []
     for (var i = 0; i < 4; i++) {
@@ -89,122 +80,9 @@ function ChatFloatingCard(props) {
                     </List>
                 </Segment>
                 <Segment style={leftContent}>
-                    <Item.Group>
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                       
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                        <Item style={{ margin: 0 }}>
-                            <Card onClick={() => {}} style={{ borderRadius: 0, margin: 0, paddingTop: 8, paddingBottom: 8, paddingLeft: 4, paddingRight: 4 }}>
-                                <Feed>
-                                    <Feed.Event>
-                                        <Feed.Label>
-                                            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                                        </Feed.Label>
-                                        <Feed.Content>
-                                            <Feed.Summary>
-                                                <Feed.User>Elliot Fu</Feed.User>
-                                            </Feed.Summary>
-                                        </Feed.Content>
-                                    </Feed.Event>
-                                </Feed>
-                            </Card>
-                        </Item> 
-                       
-                    </Item.Group>
+                {
+                    !loading ? (<ChatListCard chats={chats} user={user}/>) : (<h1>Loading chats..</h1>)
+                }
                 </Segment>
             </Grid.Column>
             <Grid.Column width={11} style={{ padding: 0}}>
@@ -219,24 +97,9 @@ function ChatFloatingCard(props) {
                     </List>
                 </Segment>
                 <Segment style={rightContent}>
-                {objs.map((item) => (
-                    <Grid container>
-                        <Grid.Column style={{ padding: 0}}>
-                            <Segment compact floated='left' inverted color='green' style={messageItemLeft}>
-                                testing chat
-                            </Segment>
-                        </Grid.Column>
-                    </Grid>
-                ))}
-               {objs.map((item) => (
-                    <Grid container>
-                        <Grid.Column style={{ padding: 0}}>
-                            <Segment compact floated='right' inverted color='grey' style={messageItemRight}>
-                                testing chat
-                            </Segment>
-                        </Grid.Column>
-                    </Grid>
-                ))}
+                {
+                    !loading ? (<MessageListCard user={user}/>) : (<h1>Loading messages..</h1>)
+                }
                 </Segment>
                 <Segment style={rightBottomContent}>
                     <Form>
