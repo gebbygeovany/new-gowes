@@ -24,6 +24,7 @@ import ItemDetail from './pages/ItemDetail'
 import AddItem from './pages/AddItem'
 import SellerProfile from './pages/SellerProfile'
 import EditItem from './pages/EditItem'
+import Checkout from './pages/Checkout'
 
 import EditMyStoreDetailsCard from './components/EditMyStoreDetailsCard'
 import EditProfileCard from './components/EditProfileCard'
@@ -70,6 +71,7 @@ class App extends Component {
             <Route exact path="/sellerProfile/:userId" component={SellerProfile} />
             <Route exact path="/addItem" component={AddItem} />
             <Route exact path="/editItem/:itemId" component={EditItem} />
+            <Route exact path="/checkout" component={Checkout} />
           </Container>
           <ChatFloatingButton />
           <Footer />

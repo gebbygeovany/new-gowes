@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Sticky, Grid, Divider, Button, List } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
+
 
 function ItemSummaryCard({ contextRef }) {
     return (
@@ -26,7 +28,7 @@ function ItemSummaryCard({ contextRef }) {
                     </List>
                 </Card.Content>
                 <Card.Content extra>
-                    <Button fluid color="teal">Pay</Button>
+                    <Button fluid color="teal" as={Link} to="/checkout">Pay</Button>
                 </Card.Content>
             </Card>
         </Sticky>
