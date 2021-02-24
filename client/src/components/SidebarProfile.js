@@ -32,7 +32,7 @@ function SidebarProfile({ contextRef }) {
                     active={activeItem === 'bookmarked'}
                     onClick={handleItemClick}
                     as={Link}
-                    to="/bookmark"
+                    to="/wishList"
                 />
             </Menu>
         </Sticky>

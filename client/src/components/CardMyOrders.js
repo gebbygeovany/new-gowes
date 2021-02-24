@@ -6,7 +6,7 @@ import ItemMyOrders from './ItemMyOrders'
 function CardMyOrders({ filter }) {
 
     return (
-        <Card fluid>
+        <Card fluid style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)' }}>
             <Card.Content><h5>27 Desember 2020</h5></Card.Content>
             <Card.Content>
                 <Grid stackable>

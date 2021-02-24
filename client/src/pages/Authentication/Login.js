@@ -4,8 +4,8 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 
 
-import { AuthContext } from '../context/auth'
-import { useForm } from '../util/hooks'
+import { AuthContext } from '../../context/auth'
+import { useForm } from '../../util/hooks'
 
 function Login(props) {
     const context = useContext(AuthContext)

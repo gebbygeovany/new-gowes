@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Grid } from 'semantic-ui-react';
 import { Link, useHistory } from 'react-router-dom'
-
 import CardMyOrders from './CardMyOrders'
 
 function MyOrders(props) {
 
     const [activeItem, setActiveItem] = useState("all")
-
 
     const handleItemClick = (e, { name }) => {
         setActiveItem(name)

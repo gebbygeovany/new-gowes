@@ -3,8 +3,8 @@ import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 
-import { AuthContext } from '../context/auth'
-import { useForm } from '../util/hooks'
+import { AuthContext } from '../../context/auth'
+import { useForm } from '../../util/hooks'
 
 function Register(props) {
     const context = useContext(AuthContext)
