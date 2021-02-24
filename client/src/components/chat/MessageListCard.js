@@ -1,79 +1,145 @@
-import React from 'react';
-import {Grid, Segment, Feed } from 'semantic-ui-react';
-import { FETCH_CHAT_MESSAGES_QUERY } from '../../util/graphql';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useEffect, useRef } from "react";
+import { Grid, Segment } from "semantic-ui-react";
+import {
+  FETCH_CHAT_MESSAGES_QUERY,
+  MESSAGES_SUBSCRIPTION,
+} from "../../util/graphql";
+import { useQuery, useSubscription } from "@apollo/react-hooks";
 
-function MessageListCard({ user }) {
-    const { loading, data } = useQuery(FETCH_CHAT_MESSAGES_QUERY, {
-        variables: {
-            chatId: "601e8c13db7451278cb98753"
+function MessageListCard({ user, chatId }) {
+  const { loading, data, subscribeToMore, refetch } = useQuery(
+    FETCH_CHAT_MESSAGES_QUERY,
+    {
+      variables: {
+        chatId: chatId,
+      },
+    }
+  );
+  const { getMessages: messages } = data ? data : [];
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  let count = 0;
+  if (!loading) {
+    subscribeToMore({
+      document: MESSAGES_SUBSCRIPTION,
+      variables: { chatId: chatId },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          console.log(
+            `onMessagesSub@updateQuery: not update ${prev.getMessages[0].content}`
+          );
+          return prev;
         }
-    })
-    const { getMessages: messages } = data ? data : []
-    
-    const getMessageComp = (message) => {
-        let messageItemMarkUp 
-        if (message.user.id != user.id) {
-            // left message item comp
-            messageItemMarkUp = (<Grid container>
-                <Grid.Column style={{ padding: 0}}>
-                    <Segment compact floated='left' inverted color='green' style={messageItemLeft}>
-                        {message.content}
-                    </Segment>
-                </Grid.Column>
-            </Grid>)
-        } else {
-            // right message item comp
-            messageItemMarkUp = (<Grid container>
-                <Grid.Column style={{ padding: 0}}>
-                    <Segment compact floated='right' inverted color='grey' style={messageItemRight}>
-                        {message.content}
-                    </Segment>
-                </Grid.Column>
-            </Grid>)
-        }
-        return messageItemMarkUp
+        count++
+        const newMessageItem = subscriptionData.data.newMessage;
+        console.log(`newMessageItem: ${newMessageItem.content}`);
+        const messages = prev.getMessages.concat(newMessageItem);
+        console.log(`count: ${count}`)
+        return {
+          getMessages: messages,
+        };
+      },
+      onError: (err) => console.error(err),
+    });
+  }
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
+  let lastMessageId = "";
+  const getMessageComp = (message, index) => {
+    let messageItemMarkUp;
+    // fixing duplication message problem
+    if (message.id !== lastMessageId) {
+      lastMessageId = message.id;
+      if (message.user != user.id) {
+        // left message item comp
+        messageItemMarkUp = (
+          <Grid container key={message.id}>
+            <Grid.Column style={{ padding: 0 }}>
+              <Segment
+                compact
+                floated="left"
+                inverted
+                color="green"
+                style={messageItemLeft}
+              >
+                {message.content}
+              </Segment>
+            </Grid.Column>
+          </Grid>
+        );
+      } else {
+        // right message item comp
+        messageItemMarkUp = (
+          <Grid container key={message.id}>
+            <Grid.Column style={{ padding: 0 }}>
+              <Segment
+                compact
+                floated="right"
+                inverted
+                color="grey"
+                style={messageItemRight}
+              >
+                {message.content}
+              </Segment>
+            </Grid.Column>
+          </Grid>
+        );
+      }
     }
-    
-    const messageItemLeft = {
-        marginTop: 4,
-        marginBottom: 4,
-        marginLeft: 14,
-        marginRight: 14,
-        padding: 10,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 16,
-        borderBottomLeftRadius: 16,
-        borderBottomRightRadius: 16
-    }
-    const messageItemRight = {
-        marginTop: 4,
-        marginBottom: 4,
-        marginLeft: 14,
-        padding: 10,
-        borderTopLeftRadius: 16,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 16,
-        borderBottomRightRadius: 16
-    }
+    return messageItemMarkUp;
+  };
 
-    let messageListMarkup
-    if (!loading) {
-        messageListMarkup = (
-            <>
-            {
-                messages.map((message) => (
-                   getMessageComp(message)
-                ))
-            }
-            </>
-            )
+  const messageItemLeft = {
+    marginTop: 4,
+    marginBottom: 4,
+    marginLeft: 14,
+    marginRight: 14,
+    padding: 10,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+  };
+  const messageItemRight = {
+    marginTop: 4,
+    marginBottom: 4,
+    marginLeft: 14,
+    padding: 10,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+  };
+  const rightContent = {
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingLeft: 0,
+    paddingRight: 0,
+    margin: 0,
+    overflow: "auto",
+    maxHeight: 275,
+    height: 275,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  };
+  let messageListMarkup;
+  if (!loading) {
+    messageListMarkup = (
+      <Segment style={rightContent}>
+        {messages.map((message, index) => getMessageComp(message, index))}
+        <div ref={messagesEndRef} />
+      </Segment>
+    );
+  } else {
+    messageListMarkup = <h4>Loading messages..</h4>;
+  }
 
-    } else {
-        messageListMarkup = (<h1>Loading messages..</h1>)
-    }
-
-    return messageListMarkup;
-        
+  return messageListMarkup;
 }
-export default MessageListCard
+export default MessageListCard;

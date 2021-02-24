@@ -129,7 +129,7 @@ module.exports = gql`
 
     type Message {
         id: ID!
-        user: User!
+        user: ID!
         content: String!
         images: [Image]
         sentAt: String!
@@ -230,6 +230,6 @@ module.exports = gql`
     }
     type Subscription {
         newPost: Post!
-        newMessage: Message!
+        newMessage(chatId: ID!): Message
     }
 `

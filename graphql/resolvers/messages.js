@@ -8,7 +8,7 @@ module.exports = {
     Query: {
         async getMessages(_, { chatId }) {
             try {
-                const messages = await Message.find({ chatId: chatId}).populate('user').sort({ createdAt: -1 });
+                const messages = await Message.find({ chatId: chatId}).sort({ createdAt: -1 });
                 return messages
             } catch (err) {
                 throw new Error(err)
@@ -63,11 +63,12 @@ module.exports = {
                     if (!user) throw new AuthenticationError('Unauthenticated')
                     return pubsub.asyncIterator('NEW_MESSAGE')
                   },
-              ({ newMessage }, _, { user }) => {
-                  console.log("new message user id: ",typeof(newMessage.user.toString()))
-                  console.log("current user id: ",typeof(user.id))
-                  console.log("is id same: ", (newMessage.user.toString() === user.id))
-                if (newMessage.user.toString() === user.id) {
+              ({ newMessage }, {chatId}, { user}) => {
+                //   console.log("new message user id: ",typeof(newMessage.user.toString()))
+                //   console.log("current user id: ",typeof(user.id))
+                //   console.log("is id same: ", (newMessage.user.toString() === user.id))
+                //   console.log("chatId: ", chatId)
+                if (newMessage.chatId.toString() === chatId) {
                     console.log("there's new chat")
                     return true
                 }

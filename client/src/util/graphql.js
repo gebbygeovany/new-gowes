@@ -218,12 +218,18 @@ query($chatId: ID!){
     	id
     	content
     	sentAt
-    	user{
-        id
-        seller{
-          username
-        }
-      }
+    	user
     }
 }
+`;
+
+export const MESSAGES_SUBSCRIPTION = gql`
+  subscription($chatId: ID!) {
+    newMessage(chatId: $chatId) {
+      id
+    	content
+    	sentAt
+    	user
+    }
+  }
 `;
