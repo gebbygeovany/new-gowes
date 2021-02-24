@@ -108,38 +108,15 @@ function ChatFloatingCard(props) {
                 <List> </List>
               )}
             </Grid.Column>
-            <Grid.Column width={11} style={{ padding: 0}}>
-                <Segment style={topRightBar} >
-                    {/* <Icon name='angle down' style={{ padding: 8, float: 'right', cursor:'pointer' }}/> */}
-                    <List>
-                        <List.Item>
-                            <List.Content floated='right'>
-                                <Icon size='large' name="angle down" onClick={props.onClose} style={{ cursor:'pointer' }}/>
-                            </List.Content>
-                        </List.Item>
-                    </List>
-                </Segment>
-                <Segment style={rightContent}>
-                {
-                    !loading ? (<MessageListCard user={user}/>) : (<h1>Loading messages..</h1>)
-                }
-                </Segment>
-                <Segment style={rightBottomContent}>
-                    <Form>
-                        <Form.Group style={{margin: 0, paddingTop: 4, paddingLeft: 8, paddingRight: 8}}>
-                            {/* <Form.Input style={{ borderRadius: 50 }}
-                            width={14}
-                            placeholder='Tulis pesan...'
-                            name='message'
-                            /> */}
-                            <input placeholder='Tulis pesan...' style={{ borderRadius: 50 }}></input>
-                            <Form.Button icon="send" circular color='green' style={{marginLEft: 8}}/>
-                        </Form.Group>
-                    </Form>
-                </Segment>
-            </Grid.Column>
+            <Grid.Column width={2}>
+              <Icon
+                size="large"
+                name="angle down"
+                onClick={props.onClose}
+                style={{ cursor: "pointer" }}
+              />
+              </Grid.Column>
           </Grid>
-          {/* <Icon name='angle down' style={{ padding: 8, float: 'right', cursor:'pointer' }}/> */}
         </Segment>
         {currentChat.id != "" ? (
           <MessageListCard user={user} chatId={currentChat.id} />
