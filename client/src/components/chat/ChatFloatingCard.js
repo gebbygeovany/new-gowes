@@ -169,7 +169,7 @@ function ChatFloatingCard(props) {
                 paddingRight: 8,
               }}
             >
-              <Form.Input
+              <input
                 style={{ borderRadius: 50 }}
                 width={14}
                 placeholder="Write Messages..."
