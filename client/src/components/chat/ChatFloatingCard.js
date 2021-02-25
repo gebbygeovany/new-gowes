@@ -19,7 +19,7 @@ function ChatFloatingCard(props) {
     id: "",
     users: [{ seller: { username: "" } }],
   });
-  const[content,setContent] = useState('')
+  const [content, setContent] = useState('')
 
   const setChat = (chat) => setCurrentChat(chat);
 
@@ -66,7 +66,7 @@ function ChatFloatingCard(props) {
   }
 
   console.log(currentChat.id)
-  
+
 
   const { onChange, onSubmit, values } = useForm(sendMessage, {
     content: ''
@@ -84,9 +84,9 @@ function ChatFloatingCard(props) {
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
       console.log('error')
-      
+
     },
-    variables: {chatId: currentChat.id, receiverUserId: '', content: values.content}
+    variables: { chatId: currentChat.id, receiverUserId: '', content: values.content }
   })
 
   function sendMessage() {
@@ -155,7 +155,8 @@ function ChatFloatingCard(props) {
           </Grid>
         </Segment>
         {currentChat.id != "" ? (
-          <MessageListCard user={user} chatId={currentChat.id} />
+            <MessageListCard user={user} chatId={currentChat.id} />
+
         ) : (
             <Segment style={{ height: 286, margin: 0 }}></Segment>
           )}
@@ -180,7 +181,7 @@ function ChatFloatingCard(props) {
               <Button
                 icon="send"
                 circular
-                color="green"
+                color="teal"
                 style={{ marginLeft: 8 }}
               />
             </Form.Group>

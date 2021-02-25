@@ -5,6 +5,8 @@ import {
   MESSAGES_SUBSCRIPTION,
 } from "../../util/graphql";
 import { useQuery, useSubscription } from "@apollo/react-hooks";
+import ItemAttachedOnChat from "./ItemAttachedOnChat";
+
 
 function MessageListCard({ user, chatId }) {
   const { loading, data, subscribeToMore, refetch } = useQuery(
@@ -62,8 +64,8 @@ function MessageListCard({ user, chatId }) {
               <Segment
                 compact
                 floated="left"
-                inverted
-                color="green"
+                // inverted
+                // color="green"
                 style={messageItemLeft}
               >
                 {message.content}
@@ -103,6 +105,7 @@ function MessageListCard({ user, chatId }) {
     borderTopRightRadius: 16,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'
   };
   const messageItemRight = {
     marginTop: 4,
@@ -113,6 +116,7 @@ function MessageListCard({ user, chatId }) {
     borderTopRightRadius: 0,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'
   };
   const rightContent = {
     paddingTop: 16,
@@ -133,6 +137,7 @@ function MessageListCard({ user, chatId }) {
     messageListMarkup = (
       <Segment style={rightContent}>
         {messages.map((message, index) => getMessageComp(message, index))}
+        <ItemAttachedOnChat></ItemAttachedOnChat>
         <div ref={messagesEndRef} />
       </Segment>
     );
