@@ -50,46 +50,40 @@ function MessageListCard({ user, chatId }) {
   useEffect(() => {
     scrollToBottom()
   }, [messages]);
+
+  const getMessageItem = (message, position, style) => (
+    <Grid container key={message.id}>
+      <Grid.Column style={{ padding: 0 }}>
+        <Segment
+          compact
+          floated={position}
+          // inverted
+          // color="green"
+          style={style}
+        >
+          {message.content}
+        </Segment>
+      </Grid.Column>
+    </Grid>
+  );
+
   let lastMessageId = "";
   const getMessageComp = (message, index) => {
     let messageItemMarkUp;
     // fixing duplication message problem
     if (message.id !== lastMessageId) {
       lastMessageId = message.id;
+      
+      if (message.item) {
+        
+      }
+
       if (message.user != user.id) {
         // left message item comp
-        messageItemMarkUp = (
-          <Grid container key={message.id}>
-            <Grid.Column style={{ padding: 0 }}>
-              <Segment
-                compact
-                floated="left"
-                // inverted
-                // color="green"
-                style={messageItemLeft}
-              >
-                {message.content}
-              </Segment>
-            </Grid.Column>
-          </Grid>
-        );
+        messageItemMarkUp = getMessageItem(message, "left", messageItemLeft)
       } else {
         // right message item comp
-        messageItemMarkUp = (
-          <Grid container key={message.id}>
-            <Grid.Column style={{ padding: 0 }}>
-              <Segment
-                compact
-                floated="right"
-                inverted
-                color="teal"
-                style={messageItemRight}
-              >
-                {message.content}
-              </Segment>
-            </Grid.Column>
-          </Grid>
-        );
+        messageItemMarkUp = getMessageItem(message, "right", messageItemRight)
       }
     }
     return messageItemMarkUp;
@@ -139,7 +133,7 @@ function MessageListCard({ user, chatId }) {
     messageListMarkup = (
       <Segment style={rightContent}>
         {messages.map((message, index) => getMessageComp(message, index))}
-        <ItemAttachedOnChat></ItemAttachedOnChat>
+        {/* <ItemAttachedOnChat></ItemAttachedOnChat> */}
         <div ref={messagesEndRef} />
       </Segment>
     );

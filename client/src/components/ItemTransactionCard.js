@@ -8,7 +8,7 @@ import { FETCH_CART_QUERY } from '../util/graphql';
 import { FETCH_USER_CART_QUERY } from '../util/graphql';
 
 
-function ItemTransactionCard({ props, contextRef, item }) {
+function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
 
     const [amountItem, setAmountItem] = useState(1)
     const [visible, setVisible] = useState(false)
@@ -145,7 +145,7 @@ function ItemTransactionCard({ props, contextRef, item }) {
                                 </Button>
                             </div>
                             <div className='ui two buttons' style={{ marginTop: 8, marginLeft: 2 }}>
-                                <Button animated>
+                                <Button animated onClick={() => onChatVisible()}>
                                     <Button.Content visible>
                                         <Icon name="chat" />{" Chat"}
                                     </Button.Content>

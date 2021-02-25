@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Segment, Image, Button } from "semantic-ui-react";
 
-function ItemAttachedOnChat() {
+function ItemAttachedOnChat({item, position}) {
 
     const messageItemLeft = {
         marginTop: 4,
@@ -36,6 +36,8 @@ function ItemAttachedOnChat() {
         paddingRight: 0,
         paddingBottom: 0
     };
+
+    // const getItemMessage = () =>
 
     let messageItemMarkUp = (
         <>

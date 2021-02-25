@@ -5,6 +5,12 @@ const messageScehma = new Schema({
         type: Schema.Types.ObjectId
     },
     user: { type: Schema.Types.ObjectId, ref:'User' },
+    item: {
+        id: { type: Schema.Types.ObjectId },
+        name: String,
+        price: Number,
+        image: String
+    },
     content: String,
     images: [
         {

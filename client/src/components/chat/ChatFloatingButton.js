@@ -3,9 +3,10 @@ import { Icon, Transition, Segment, Grid, Container } from 'semantic-ui-react';
 import { AuthContext } from '../../context/auth';
 import ChatFloatingCard from './ChatFloatingCard';
 
-function ChatFloatingButton() {
+function ChatFloatingButton({ isChatVisible, onChatVisible }) {
     const [ visible, setVisible ] = useState(true)
-    const toggleVisibility = () => {setVisible(!visible)}
+    // const toggleVisibility = () => {setVisible(!visible)}
+    const toggleVisibility = () => {onChatVisible()}
     const { user } = useContext(AuthContext);
     
     const style = {
@@ -43,13 +44,13 @@ function ChatFloatingButton() {
     if (user !== null) {
         chatFloatingMarkup = ( 
             <Container>
-                <Transition visible={visible} animation='scale' duration={500}>
+                <Transition visible={!isChatVisible} animation='scale' duration={500}>
                     <Segment onClick={toggleVisibility} floated="right" raised="true" style={style}>
                         <Icon color="teal" size="large" name="discussions"/>
                         <span style={spanStyle}>Chat</span>
                     </Segment>
                 </Transition>
-                <Transition visible={!visible} animation='scale' duration={500}>
+                <Transition visible={isChatVisible} animation='scale' duration={500}>
                     <Segment style={cardStyle}>
                         <ChatFloatingCard onClose={toggleVisibility}/>
                     </Segment>

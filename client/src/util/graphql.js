@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const FETCH_POSTS_QUERY = gql`
   {
@@ -24,71 +24,71 @@ export const FETCH_POSTS_QUERY = gql`
 
 export const FETCH_ITEMS_QUERY = gql`
   {
-    getItems{
+    getItems {
       id
       name
       price
       createdAt
       description
-      
-      images{
+
+      images {
         id
         downloadUrl
       }
-      bookmarkedBy{
+      bookmarkedBy {
         id
         userId
         createdAt
       }
-      user{
-        seller{
+      user {
+        seller {
           username
         }
       }
+    }
   }
-}
 `;
 
 export const FETCH_ITEM_QUERY = gql`
   query($itemId: ID!) {
     getItem(itemId: $itemId) {
+      id
+      name
+      price
+      stock
+      weight
+      createdAt
+      description
+      condition
+      category
+      dimension {
+        length
+        width
+        height
+      }
+      images {
         id
-        name
-        price
-        stock
-        weight
+        downloadUrl
+      }
+      bookmarkedBy {
+        id
+        userId
         createdAt
-        description
-        condition
-        category
-        dimension {
-          length
-          width
-          height
+      }
+      user {
+        id
+        seller {
+          id
+          username
         }
-        images{
-            id
-            downloadUrl
-        }
-        bookmarkedBy{
-            id
-            userId
-            createdAt
-        }
-        user{
-            id
-            seller{
-            id
-            username
-            }
-        }
+      }
     }
 
-    getItemReviews(itemId:$itemId){
+    getItemReviews(itemId: $itemId) {
       id
       score
       body
-      user{
+      user {
         id
         email
         buyer {
@@ -99,137 +99,148 @@ export const FETCH_ITEM_QUERY = gql`
         id
         name
       }
-      images{
+      images {
         downloadUrl
       }
       createdAt
     }
 
-  #   getUserCartItem(itemId: $itemId) {
-  #   id
-  #   createdAt
-  #   amountItem
-  #   item{
-  #     user{
-  #       seller {
-  #         username
-  #       }
-  #     }
-  #   }
-  # }
-  
+    #   getUserCartItem(itemId: $itemId) {
+    #   id
+    #   createdAt
+    #   amountItem
+    #   item{
+    #     user{
+    #       seller {
+    #         username
+    #       }
+    #     }
+    #   }
+    # }
   }
 `;
 
 export const FETCH_CART_QUERY = gql`
-  query($itemId: ID!){
+  query($itemId: ID!) {
     getUserCartItem(itemId: $itemId) {
-    id
-    createdAt
-    amountItem
-    item{
-      user{
+      id
+      createdAt
+      amountItem
+      item {
+        user {
+          seller {
+            username
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const FETCH_BOOKMARKS_QUERY = gql`
+  {
+    getBookmarks {
+      id
+      name
+      price
+      createdAt
+      description
+
+      images {
+        id
+        downloadUrl
+      }
+      bookmarkedBy {
+        id
+        userId
+        createdAt
+      }
+      user {
         seller {
           username
         }
       }
     }
   }
-}
-`;
-
-export const FETCH_BOOKMARKS_QUERY = gql`
-  {
-    getBookmarks{
-      id
-      name
-      price
-      createdAt
-      description
-      
-      images{
-        id
-        downloadUrl
-      }
-      bookmarkedBy{
-        id
-        userId
-        createdAt
-      }
-      user{
-        seller{
-          username
-        }
-      }
-  }
-}
 `;
 
 export const FETCH_USER_CART_QUERY = gql`
   {
     getUserCartItems {
-    id
-    item {
       id
-      name
-      price
-      stock
-      user{
+      item {
         id
-        seller{
+        name
+        price
+        stock
+        user {
+          id
+          seller {
+            username
+          }
+        }
+      }
+      user {
+        id
+        buyer {
+          name
+        }
+        seller {
           username
         }
       }
+      note
+      amountItem
+      createdAt
     }
-    user {
-      id
-      buyer {
-        name
-      }
-      seller{
-        username
-      }
-    }
-    note
-    amountItem
-    createdAt
   }
-}
 `;
 
 export const FETCH_CHATS_QUERY = gql`
-{
-  getChats {
-    id
-    users{
+  {
+    getChats {
       id
-      seller {
-        username
+      users {
+        id
+        seller {
+          username
+        }
       }
+      lastText
     }
-    lastText
   }
-}
 `;
 
 export const FETCH_CHAT_MESSAGES_QUERY = gql`
-query($chatId: ID!){
-    getMessages(chatId: $chatId){
-    	id
-    	content
-    	sentAt
-    	user
+  query($chatId: ID!) {
+    getMessages(chatId: $chatId) {
+      id
+      content
+      sentAt
+      user
+      item {
+        id
+        name
+        price
+        image
+      }
     }
-}
+  }
 `;
 
 export const MESSAGES_SUBSCRIPTION = gql`
   subscription($chatId: ID!) {
     newMessage(chatId: $chatId) {
       id
-    	content
-    	sentAt
-    	user
+      content
+      sentAt
+      user
+      item {
+        id
+        name
+        price
+        image
+      }
     }
   }
 `;

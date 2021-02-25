@@ -13,7 +13,8 @@ import ReviewSummaryCard from '../components/ReviewSummaryCard'
 import { AuthContext } from '../context/auth';
 
 function ItemDetail(props) {
-  const itemId = props.match.params.itemId;
+  console.log(props)
+  const itemId = props.props.match.params.itemId;
   const context = useContext(AuthContext);
   const contextRef = React.createRef();
   const imageContextRef = React.createRef();
@@ -52,7 +53,7 @@ function ItemDetail(props) {
           </Grid.Column>
           <Grid.Column width={4}>
             {context.user ? (context.user.id !== item.user.id ? (
-              <ItemTransactionCard contextRef={contextRef} item={item} />
+              <ItemTransactionCard contextRef={contextRef} item={item} onChatVisible={props.onChatVisible}/>
             ) : (
                 <ManageItemSticky contextRef={contextRef} item={item} />
               )):(<div></div>)}

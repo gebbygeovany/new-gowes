@@ -36,9 +36,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDimmed: false
+      isDimmed: false,
+      isChatVisible: false
     };
     // this.handleDimmed = this.handleDimmed.bind(this);
+  }
+
+  handleChatVisibility() {
+    console.log("isChatVisible on App was employed")
+    this.setState({ isChatVisible: !this.state.isChatVisible })
   }
 
   handleDimmed() {
@@ -67,13 +73,13 @@ class App extends Component {
             <Route exact path="/myStore/:position" component={MyStore} />
             <Route exact path="/editMyStoreDetailsCard" component={EditMyStoreDetailsCard} />
             <Route exact path="/editProfileCard" component={EditProfileCard} />
-            <Route exact path="/items/:itemId" component={ItemDetail} />
+            <Route exact path="/items/:itemId" component={(props) => <ItemDetail onChatVisible={() => this.handleChatVisibility()} props={props}/>} />
             <Route exact path="/sellerProfile/:userId" component={SellerProfile} />
             <Route exact path="/addItem" component={AddItem} />
             <Route exact path="/editItem/:itemId" component={EditItem} />
             <Route exact path="/checkout" component={Checkout} />
           </Container>
-          <ChatFloatingButton />
+          <ChatFloatingButton isChatVisible={this.state.isChatVisible} onChatVisible={() => this.handleChatVisibility()} />
           <Footer />
         </Router>
       </AuthProvider>
