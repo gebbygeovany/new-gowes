@@ -82,7 +82,7 @@ function MessageListCard({ user, chatId }) {
                 compact
                 floated="right"
                 inverted
-                color="grey"
+                color="teal"
                 style={messageItemRight}
               >
                 {message.content}
@@ -97,6 +97,7 @@ function MessageListCard({ user, chatId }) {
 
   const messageItemLeft = {
     marginTop: 4,
+    border: 0,
     marginBottom: 4,
     marginLeft: 14,
     marginRight: 14,
@@ -109,6 +110,7 @@ function MessageListCard({ user, chatId }) {
   };
   const messageItemRight = {
     marginTop: 4,
+    border: 0,
     marginBottom: 4,
     marginLeft: 14,
     padding: 10,
