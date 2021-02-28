@@ -142,6 +142,15 @@ module.exports = gql`
     image: String
   }
 
+  type City {
+    city_id: String
+    province_id: String
+    province: String
+    type: String
+    city_name: String
+    postal_code: String
+  }
+
   input RegisterInput {
     name: String!
     password: String!
@@ -229,6 +238,7 @@ module.exports = gql`
     getUserCartItem(itemId: ID!): Cart
     getUserOrders: [Order]
     getUserOrderById(oderId: ID!): [Order]
+    getCities: [City]
   }
   type Mutation {
     register(registerInput: RegisterInput): User!

@@ -7,6 +7,7 @@ const chatsResolvers = require('./chats')
 const messagesResolvers = require('./messages')
 const cartsResolvers = require('./carts')
 const ordersResolvers = require('./orders')
+const citiesResolvers = require('./cities')
 
 
 module.exports={
@@ -25,7 +26,8 @@ module.exports={
         ...chatsResolvers.Query,
         ...messagesResolvers.Query,
         ...cartsResolvers.Query,
-        ...ordersResolvers.Query
+        ...ordersResolvers.Query,
+        ...citiesResolvers.Query
     },
     Mutation:{
         ...usersResolvers.Mutation,
