@@ -14,6 +14,16 @@ class RajaOngkirApi extends RESTDataSource {
     const data = await this.get(`city`);
     return data.rajaongkir.results;
   }
+
+  async getCosts(costInput) {
+    const data = await this.post(`cost`, {
+      origin: costInput.origin,
+      destination: costInput.destination,
+      weight: costInput.weight,
+      courier: costInput.courier,
+    });
+    return data.rajaongkir.results;
+  }
 }
 
 module.exports = {
