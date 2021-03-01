@@ -42,9 +42,9 @@ function NavBar(props) {
                     <Menu.Item></Menu.Item>
                     <Menu.Item
                         active={activeItem === 'home'}
-                        onClick={handleItemClick}
-                        // as={Link}
-                        // to="/"
+                        // onClick={handleItemClick}
+                        as={Link}
+                        to="/"
                     >
                         <IoMdBicycle color='rgb(206, 206, 206)' style={{ fontSize: 28, marginRight: 5 }}></IoMdBicycle>
                         <div className="logo">Gowes</div>
@@ -54,14 +54,14 @@ function NavBar(props) {
                         // onMouseLeave={handleItemHover}
                         name='shop'
                         active={activeItem === 'shop'}
-                        onClick={handleItemClick}
-                        // as={Link}
-                        // to="/"
+                        // onClick={handleItemClick}
+                        as={Link}
+                        to="/"
                     />
                     <Menu.Item
                         name='event'
                         active={activeItem === 'event'}
-                        onClick={handleItemClick}
+                        // onClick={handleItemClick}
                         as={Link}
                         to="/event"
                     />
@@ -71,9 +71,9 @@ function NavBar(props) {
                         <Menu.Item
                             name='bookmark'
                             active={activeItem === 'bookmark'}
-                            onClick={handleItemClick}
-                            // as={Link}
-                            // to="/wishList"
+                            // onClick={handleItemClick}
+                            as={Link}
+                            to="/wishList"
                         >
                             <MyPopup content="Wishlist">
                                 <Icon name="heart" centered="true"></Icon>
@@ -83,9 +83,9 @@ function NavBar(props) {
                         <Menu.Item
                             name='cart'
                             active={activeItem === 'cart'}
-                            onClick={handleItemClick}
-                            // as={Link}
-                            // to="/cart"
+                            // onClick={handleItemClick}
+                            as={Link}
+                            to="/cart"
                         >
                             <MyPopup content="Cart">
                                 <Icon name="cart" centered="true"></Icon>

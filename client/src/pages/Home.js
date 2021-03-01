@@ -9,7 +9,7 @@ import { FETCH_ITEMS_QUERY } from '../util/graphql';
 
 function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY,)
+  const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY)
   const { getItems: items } = data ? data : []
 
 

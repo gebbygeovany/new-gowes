@@ -238,7 +238,7 @@ module.exports = gql`
     getUserCartItem(itemId: ID!): Cart
     getUserOrders: [Order]
     getUserOrderById(oderId: ID!): [Order]
-    getCities: [City]
+    getCities: [City] @cacheControl(maxAge: 1000)
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
