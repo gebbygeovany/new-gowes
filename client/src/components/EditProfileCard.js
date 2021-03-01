@@ -18,26 +18,55 @@ function EditProfileCard(props) {
     const context = useContext(AuthContext);
     const [errors, setErrors] = useState({})
 
+    const [kota, setKota] = useState('')
+
     const [isSaved, setSave] = useState(false)
 
-    const { loading, data } = useQuery(FETCH_USER_QUERY, {
+    const { loading, data: userData, data: cityData } = useQuery(FETCH_USER_QUERY, {
         variables: {
             userId: context.user.id
         }
     })
-    const { getUser: currentUser } = data ? data : []
+    const { getUser: currentUser } = userData ? userData : []
+    const { getCities: cities } = cityData ? cityData : []
+
+    // console.log(cities)
+
+    const options = [
+        { key: 'bandung', text: 'Bandung', value: 'bandung' },
+        { key: 'jakarta', text: 'Jakarta', value: 'jakarta' },
+        { key: 'Malang', text: 'Malang', value: 'Malang' },
+    ]
+
+    const handleChange = (event) => {
+        setKota({ ...kota, [event.target.name]: event.target.value })
+    }
+
+    console.log(kota)
 
     let userObj = {
         avatar: '',
-        name: currentUser.buyer.name,
-        email: currentUser.email,
-        phone: currentUser.phone,
-        birthDate: currentUser.buyer.name
+        name: '',
+        email: '',
+        phone: '',
+        birthDate: '',
+        city: ''
+    }
+
+    if (currentUser) {
+        userObj = {
+            avatar: '',
+            name: currentUser.buyer.name,
+            email: currentUser.email,
+            phone: currentUser.phone,
+            birthDate: currentUser.buyer.name,
+            city: kota
+        }
     }
 
     let { onChange, onSubmit, values } = useForm(updateUserProfile, userObj)
 
-    // console.log("user data", currentUser)
+    console.log(values)
 
     const fileInputRef = React.createRef();
     const [avatar, setAvatar] = useState('https://react.semantic-ui.com/images/avatar/large/molly.png');
@@ -62,7 +91,7 @@ function EditProfileCard(props) {
                 });
         }
     };
-    console.log("File chosen --->", avatar);
+    // console.log("File chosen --->", avatar);
 
     const [updateProfile, { }] = useMutation(UPDATE_PROFILE_MUTATION, {
         update(_, { data: { updateUserProfile: userData } }) {
@@ -109,11 +138,7 @@ function EditProfileCard(props) {
         }
     }
 
-    const options = [
-        { key: 'bandung', text: 'Bandung', value: 'bandung' },
-        { key: 'jakarta', text: 'Jakarta', value: 'jakarta' },
-        { key: 'Malang', text: 'Malang', value: 'Malang' },
-    ]
+
     return (
         <>
             {loading ? (
@@ -188,16 +213,36 @@ function EditProfileCard(props) {
                                             placeholder='City'
                                             label='Address'
                                             name="city"
-                                            value={values.address}
-                                            onChange={onChange}
+                                            // value={values.city}
+                                            onChange={handleChange}
                                             options={options}
+                                            search selection
                                         />
+                                        <Form.Select
+                                            fluid
+                                            placeholder='City'
+                                            label='City'
+                                            onChange={onChange}
+                                            name="city"
+                                            control='select'
+                                            value={values.city}
+                                            search selection
+                                        >
+                                            <option>-</option>
+                                            {cities &&
+                                                cities.map((city) => (
+                                                    <>
+                                                        <option value={city.city_id}>{city.city_name + " " + city.type}</option>
+                                                    </>
+                                                ))}
+                                        </Form.Select>
                                         <Form.Input
                                             fluid
                                             placeholder='Districts'
                                             name="districts"
                                             value={values.address}
                                             onChange={onChange}
+                                            search selection
 
                                         />
                                         <Form.Input
@@ -233,7 +278,7 @@ function EditProfileCard(props) {
     )
 }
 const FETCH_USER_QUERY = gql`
-    query getUser($userId: ID!) {
+    query($userId: ID!) {
         getUser(userId: $userId) {
             id
             email
@@ -245,6 +290,14 @@ const FETCH_USER_QUERY = gql`
                 birthDate
                 avatar
             }
+        },
+        getCities{
+            city_id
+            province_id
+            province
+            type
+            city_name
+            postal_code
         }
     }
 `
@@ -280,5 +333,18 @@ const UPDATE_PROFILE_MUTATION = gql`
     }
     }
 `
+
+const FETCH_CITIES_QUERY = gql`
+    {
+        getCities{
+            city_id
+            province_id
+            province
+            type
+            city_name
+            postal_code
+        }
+    }
+`;
 
 export default withRouter(EditProfileCard)
