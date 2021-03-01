@@ -11,11 +11,11 @@ import {
 } from "semantic-ui-react";
 import ChatListCard from "./ChatListCard";
 import MessageListCard from "./MessageListCard";
-import { FETCH_CHATS_QUERY } from "../../util/graphql";
+import { FETCH_CHATS_QUERY, ADD_MESSAGE } from "../../util/graphql";
 import { AuthContext } from "../../context/auth";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { useForm } from "../../util/hooks";
+import { IoMdBicycle } from 'react-icons/io';
 
 function ChatFloatingCard(props) {
   const { user } = useContext(AuthContext);
@@ -65,14 +65,6 @@ function ChatFloatingCard(props) {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 12,
   };
-
-  let obj = { id: 1 };
-  let objs = [];
-  for (var i = 0; i < 4; i++) {
-    objs.push(obj);
-  }
-
-  console.log(currentChat.id);
 
   const { onChange, onSubmit, values } = useForm(sendMessage, {
     content: "",
@@ -165,60 +157,42 @@ function ChatFloatingCard(props) {
           </Grid>
         </Segment>
         {currentChat.id != "" ? (
-          <MessageListCard user={user} chatId={currentChat.id} />
+          <>
+            <MessageListCard user={user} chatId={currentChat.id} />
+            <Segment style={rightBottomContent}>
+              <Form onSubmit={onSubmit}>
+                <Form.Group
+                  style={{
+                    margin: 0,
+                    paddingTop: 4,
+                    paddingLeft: 8,
+                    paddingRight: 8,
+                  }}
+                >
+                  <input
+                    style={{ borderRadius: 50 }}
+                    width={14}
+                    placeholder="Write Messages..."
+                    name="content"
+                    onChange={onChange}
+                    value={values.content}
+                  />
+                  <Button
+                    icon="send"
+                    circular
+                    color="teal"
+                    style={{ marginLeft: 8 }}
+                  />
+                </Form.Group>
+              </Form>
+            </Segment>
+          </>
         ) : (
-          <Segment style={{ height: 286, margin: 0 }}></Segment>
+          <><IoMdBicycle color='rgb(206, 206, 206)' style={{ fontSize: 28, marginRight: 5 }}></IoMdBicycle></>
         )}
-        <Segment style={rightBottomContent}>
-          <Form onSubmit={onSubmit}>
-            <Form.Group
-              style={{
-                margin: 0,
-                paddingTop: 4,
-                paddingLeft: 8,
-                paddingRight: 8,
-              }}
-            >
-              <input
-                style={{ borderRadius: 50 }}
-                width={14}
-                placeholder="Write Messages..."
-                name="content"
-                onChange={onChange}
-                value={values.content}
-              />
-              <Button
-                icon="send"
-                circular
-                color="teal"
-                style={{ marginLeft: 8 }}
-              />
-            </Form.Group>
-          </Form>
-        </Segment>
       </Grid.Column>
     </Grid>
   );
 }
 
-const ADD_MESSAGE = gql`
-  mutation addMessage($chatId: ID!, $receiverUserId: ID!, $content: String!) {
-    addMessage(
-      messageInput: {
-        chatId: $chatId
-        receiverUserId: $receiverUserId
-        content: $content
-      }
-    ) {
-      id
-      user
-      content
-      images {
-        id
-        downloadUrl
-      }
-      sentAt
-    }
-  }
-`;
 export default ChatFloatingCard;

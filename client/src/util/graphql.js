@@ -244,3 +244,24 @@ export const MESSAGES_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const ADD_MESSAGE = gql`
+  mutation addMessage($chatId: ID!, $receiverUserId: ID!, $content: String!) {
+    addMessage(
+      messageInput: {
+        chatId: $chatId
+        receiverUserId: $receiverUserId
+        content: $content
+      }
+    ) {
+      id
+      user
+      content
+      images {
+        id
+        downloadUrl
+      }
+      sentAt
+    }
+  }
+`;

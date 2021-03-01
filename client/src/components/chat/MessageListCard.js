@@ -7,7 +7,6 @@ import {
 import { useQuery, useSubscription } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
-
 function MessageListCard({ user, chatId }) {
   const { loading, data, subscribeToMore, refetch } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
@@ -20,8 +19,8 @@ function MessageListCard({ user, chatId }) {
   const { getMessages: messages } = data ? data : [];
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   let count = 0;
   if (!loading) {
@@ -35,11 +34,11 @@ function MessageListCard({ user, chatId }) {
           );
           return prev;
         }
-        count++
+        count++;
         const newMessageItem = subscriptionData.data.newMessage;
         console.log(`newMessageItem: ${newMessageItem.content}`);
         const messages = prev.getMessages.concat(newMessageItem);
-        console.log(`count: ${count}`)
+        console.log(`count: ${count}`);
         return {
           getMessages: messages,
         };
@@ -48,7 +47,7 @@ function MessageListCard({ user, chatId }) {
     });
   }
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom();
   }, [messages]);
 
   const getMessageItem = (message, position, style) => (
@@ -73,17 +72,29 @@ function MessageListCard({ user, chatId }) {
     // fixing duplication message problem
     if (message.id !== lastMessageId) {
       lastMessageId = message.id;
-      
-      if (message.item) {
-        
-      }
+      let position = "right";
 
       if (message.user != user.id) {
         // left message item comp
-        messageItemMarkUp = getMessageItem(message, "left", messageItemLeft)
+        position = "left";
+      }
+
+      if (message.item.id) {
+        messageItemMarkUp = <ItemAttachedOnChat position={position}></ItemAttachedOnChat>;
       } else {
-        // right message item comp
-        messageItemMarkUp = getMessageItem(message, "right", messageItemRight)
+        if (position == "right") {
+          messageItemMarkUp = getMessageItem(
+            message,
+            position,
+            messageItemRight
+          );
+        } else {
+          messageItemMarkUp = getMessageItem(
+            message,
+            position,
+            messageItemLeft
+          );
+        }
       }
     }
     return messageItemMarkUp;
@@ -100,7 +111,7 @@ function MessageListCard({ user, chatId }) {
     borderTopRightRadius: 16,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'
+    boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
   };
   const messageItemRight = {
     marginTop: 4,
@@ -112,7 +123,7 @@ function MessageListCard({ user, chatId }) {
     borderTopRightRadius: 0,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)'
+    boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)",
   };
   const rightContent = {
     paddingTop: 16,
@@ -133,7 +144,6 @@ function MessageListCard({ user, chatId }) {
     messageListMarkup = (
       <Segment style={rightContent}>
         {messages.map((message, index) => getMessageComp(message, index))}
-        {/* <ItemAttachedOnChat></ItemAttachedOnChat> */}
         <div ref={messagesEndRef} />
       </Segment>
     );
