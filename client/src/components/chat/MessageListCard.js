@@ -7,7 +7,7 @@ import {
 import { useQuery, useSubscription } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
-function MessageListCard({ user, chatId }) {
+function MessageListCard({ user, chatId, selectedMessage }) {
   const { loading, data, subscribeToMore, refetch } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
     {
@@ -141,12 +141,21 @@ function MessageListCard({ user, chatId }) {
   };
   let messageListMarkup;
   if (!loading) {
-    messageListMarkup = (
-      <Segment style={rightContent}>
-        {messages.map((message, index) => getMessageComp(message, index))}
-        <div ref={messagesEndRef} />
-      </Segment>
-    );
+    if (chatId != "new") {
+      messageListMarkup = (
+        <Segment style={rightContent}>
+          {messages.map((message, index) => getMessageComp(message, index))}
+          <div ref={messagesEndRef} />
+        </Segment>
+      );
+    } else {
+      messageListMarkup = (
+        <Segment style={rightContent}>
+          {getMessageComp(selectedMessage, 0)}
+          <div ref={messagesEndRef} />
+        </Segment>
+      );
+    }
   } else {
     messageListMarkup = <h4>Loading messages..</h4>;
   }
