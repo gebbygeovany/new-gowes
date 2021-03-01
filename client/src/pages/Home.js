@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Grid, Transition } from 'semantic-ui-react';
+import gql from 'graphql-tag'
 
 import { AuthContext } from '../context/auth';
 import ShopCard from '../components/ShopCard';
@@ -11,6 +12,11 @@ function Home() {
   const { user } = useContext(AuthContext);
   const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY)
   const { getItems: items } = data ? data : []
+
+  const { dataCities } = useQuery(FETCH_CITIES_QUERY,)
+  const { getCities: cities } = dataCities ? dataCities : []
+
+  console.log(cities)
 
 
   console.log(items)
@@ -38,5 +44,19 @@ function Home() {
     </Grid>
   );
 }
+
+const FETCH_CITIES_QUERY = gql`
+    {
+        getCities{
+            city_id
+            province_id
+            province
+            type
+            city_name
+            postal_code
+        }
+    }
+`;
+
 
 export default Home;
