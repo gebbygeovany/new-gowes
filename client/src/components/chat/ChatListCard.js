@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { List, Image, Segment } from "semantic-ui-react";
 
 function ChatListCard({ chats, user, setChat, selectedChat }) {
-  if (selectedChat.users) {
+  if (selectedChat.users && selectedChat.id == "new") {
     chats = [...chats, selectedChat]
   }
   console.log(selectedChat)

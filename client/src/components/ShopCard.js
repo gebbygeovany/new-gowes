@@ -8,10 +8,13 @@ import BookmarkButton from "./BookmarkButton";
 
 function PostCard({ item: { id, name, price, user, bookmarkedBy, images } }) {
   const userCache = useContext(AuthContext);
-
+  const to = { 
+    pathname: `/items/${id}`, 
+    itemUserId: user.id
+  };
   return (
     <Card style={{ boxShadow: "0px 3px 5px rgba(0, 0, 0, 0.2)" }}>
-      <Card.Content style={{ padding: 0 }} as={Link} to={`/items/${id}`}>
+      <Card.Content style={{ padding: 0 }} as={Link} to={to}>
         <Image
           size="large"
           src={

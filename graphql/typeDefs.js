@@ -261,7 +261,10 @@ module.exports = gql`
     price: Int!
     image: String!
   }
-
+  type chatExists {
+    _id: ID
+    lastText: String
+  }
   type Query {
     getUser(userId: ID!): User!
     getSeller(sellerId: ID!): User
@@ -275,6 +278,7 @@ module.exports = gql`
     getUserReviews(userId: ID!): [Review]
     getBookmarks: [Item]
     getChats: [Chat]
+    isChatExists(itemUserId: ID!): [chatExists]
     getMessages(chatId: ID!): [Message]
     getUserCartItems: [Cart]
     getUserCartItem(itemId: ID!): Cart

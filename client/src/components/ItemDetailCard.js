@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 function ItemDetailCard({ item }) {
     let itemDetailMarkup = (<p>Loading item..</p>)
-    console.log(item.user.seller.id)
     if (item) {
         itemDetailMarkup = (
             <Container>
