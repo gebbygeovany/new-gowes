@@ -30,7 +30,6 @@ export const FETCH_ITEMS_QUERY = gql`
       price
       createdAt
       description
-
       images {
         id
         downloadUrl
@@ -174,6 +173,9 @@ export const FETCH_USER_CART_QUERY = gql`
         name
         price
         stock
+        images {
+          downloadUrl
+        }
         user {
           id
           seller {

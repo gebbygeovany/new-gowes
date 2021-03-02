@@ -4,11 +4,11 @@ import {
   FETCH_CHAT_MESSAGES_QUERY,
   MESSAGES_SUBSCRIPTION,
 } from "../../util/graphql";
-import { useQuery, useSubscription } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
 function MessageListCard({ user, chatId, selectedMessage }) {
-  const { loading, data, subscribeToMore, refetch } = useQuery(
+  const { loading, data, subscribeToMore } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
     {
       variables: {
@@ -80,7 +80,7 @@ function MessageListCard({ user, chatId, selectedMessage }) {
       }
 
       if (message.item.id) {
-        messageItemMarkUp = <ItemAttachedOnChat position={position}></ItemAttachedOnChat>;
+        messageItemMarkUp = <ItemAttachedOnChat item={message.item} position={position}></ItemAttachedOnChat>;
       } else {
         if (position == "right") {
           messageItemMarkUp = getMessageItem(

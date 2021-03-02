@@ -1,7 +1,9 @@
 import React from "react";
 import { Grid, Segment, Image, Button } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
 
 function ItemAttachedOnChat({ item, position }) {
+  console.log(`item: ${item}`)
   const messageItemLeft = {
     marginTop: 4,
     border: 0,
@@ -37,6 +39,7 @@ function ItemAttachedOnChat({ item, position }) {
   };
 
   // const getItemMessage = () =>
+  let image = item && item.image == "" ? item.image : "https://react.semantic-ui.com/images/avatar/large/molly.png"
 
   let messageItemMarkUp = (
     <>
@@ -49,20 +52,20 @@ function ItemAttachedOnChat({ item, position }) {
                   fluid
                   centered
                   rounded
-                  src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+                  src={image}
                 />
               </Grid.Column>
               <Grid.Column width={11} style={{ paddingBottom: 0 }}>
                 <Grid.Row>
-                  <h4>Stang Sepeda BMX</h4>
+                  <h4>{item.name}</h4>
                 </Grid.Row>
                 <Grid.Row style={{ marginBottom: 5 }}>
                   <span style={{ color: "teal", fontWeight: "bold" }}>
-                    Rp200.000
+                    Rp{item.price}
                   </span>
                 </Grid.Row>
                 <Grid.Row>
-                  <Button compact fluid size="mini" color="teal">
+                  <Button compact fluid size="mini" color="teal" as={Link} to={`/items/${item.id}`}>
                     See Item
                   </Button>
                 </Grid.Row>
@@ -85,20 +88,20 @@ function ItemAttachedOnChat({ item, position }) {
                   fluid
                   centered
                   rounded
-                  src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+                  src={image}
                 />
               </Grid.Column>
               <Grid.Column width={11} style={{ paddingBottom: 0 }}>
                 <Grid.Row>
-                  <h4>Stang Sepeda BMX</h4>
+                  <h4>{item.name}</h4>
                 </Grid.Row>
                 <Grid.Row style={{ marginBottom: 5 }}>
                   <span style={{ color: "teal", fontWeight: "bold" }}>
-                    Rp200.000
+                    Rp{item.price}
                   </span>
                 </Grid.Row>
                 <Grid.Row>
-                  <Button compact fluid size="mini" color="teal">
+                  <Button compact fluid size="mini" color="teal" as={Link} to={`/items/${item.id}`}>
                     See Item
                   </Button>
                 </Grid.Row>
