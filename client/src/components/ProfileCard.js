@@ -102,29 +102,29 @@ function ProfileCard(props) {
                     placeholder="City"
                     label="Address"
                     name="city"
-                    value="Bandung"
+                    value={currentUser.address.cityName}
                   />
                   <Form.Input
                     readOnly
                     fluid
                     placeholder="Districts"
                     name="districts"
-                    value="Ujungberung"
+                    value={currentUser.address.district}
                   />
                   <Form.Input
                     readOnly
                     fluid
                     placeholder="Postal Code"
                     name="postalCode"
-                    value="40617"
+                    value={currentUser.address.postalCode}
                   />
                   <Form.Input
                     readOnly
                     fluid
                     placeholder="Address Details"
                     name="addressDetails"
-                    value="Komplek Pasanggrahan Indah Blok 17 no. 8"
                     control={TextArea}
+                    value={currentUser.address.detail}
                   />
                   <Button
                     floated="right"
