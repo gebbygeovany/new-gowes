@@ -13,7 +13,7 @@ import { AuthContext } from "../context/auth";
 
 function ItemDetail(props) {
   const itemId = props.props.match.params.itemId;
-  const itemUserId = props.props.location.itemUserId;
+  const itemUserId = props.props.match.params.itemUserId;
   const context = useContext(AuthContext);
   const contextRef = React.createRef();
   const imageContextRef = React.createRef();
@@ -33,7 +33,7 @@ function ItemDetail(props) {
   const { isChatExists } = chatData ? chatData : [];
 
   let postMarkup = <p>Loading item..</p>;
-  if (!loading) {
+  if (!loading && item) {
     postMarkup = (
       <Ref innerRef={contextRef}>
         <Grid>

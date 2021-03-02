@@ -7,7 +7,7 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
-function MessageListCard({ user, chatId, selectedMessage }) {
+function MessageListCard({ user, chatId, selectedMessage, selectedChat }) {
   console.log(`chatId: ${chatId}`)
   const { loading, data, subscribeToMore } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
@@ -17,7 +17,7 @@ function MessageListCard({ user, chatId, selectedMessage }) {
       },
     }
   );
-  const { getMessages: messages } = data ? data : [];
+  let { getMessages: messages } = data ? data : [];
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -143,6 +143,9 @@ function MessageListCard({ user, chatId, selectedMessage }) {
   let messageListMarkup;
   if (!loading) {
     if (chatId != "new") {
+      if (chatId == selectedMessage.chatId) {
+        messages = [...messages, selectedMessage]
+      }
       messageListMarkup = (
         <Segment style={rightContent}>
           {messages.map((message, index) => getMessageComp(message, index))}

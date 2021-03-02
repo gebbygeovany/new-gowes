@@ -53,7 +53,9 @@ function ChatListCard({ chats, user, setChat, selectedChat }) {
         {chats.map((chat, index) => (
           <List.Item
             key={index}
-            onClick={() => setChat(chat)}
+            onClick={() => {
+              console.log(`chat: ${chat.id} index:${index}`)
+              setChat(chat)}}
             onMouseEnter={() => handleItemHovered(index, true)}
             onMouseLeave={() => handleItemHovered(index, false)}
             style={

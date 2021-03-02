@@ -26,7 +26,19 @@ function ChatFloatingCard(props) {
     id: "",
     users: [{ seller: { username: "" } }],
   });
-  const setChat = (chat) => setCurrentChat(chat);
+  const [isChange, setIsChange] = useState(false);
+
+  const setChat = (chat) => {
+    setCurrentChat(chat);
+    setIsChange(true);
+  };
+  if (
+    props.selectedChat.id &&
+    currentChat.id != props.selectedChat.id &&
+    !isChange
+  ) {
+    setCurrentChat(props.selectedChat);
+  }
 
   const receiver = (users) => {
     let userReceiver;
@@ -77,7 +89,6 @@ function ChatFloatingCard(props) {
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
-      console.log("error");
     },
     variables: {
       chatId: currentChat.id,
@@ -116,7 +127,7 @@ function ChatFloatingCard(props) {
         <Segment style={topRightBar}>
           <Grid>
             <Grid.Column width={14}>
-              {currentChat.id != "" || props.selectedChat.id ? (
+              {currentChat.id != "" ? (
                 <List horizontal>
                   <List.Item>
                     <Image
@@ -125,9 +136,7 @@ function ChatFloatingCard(props) {
                     />
                   </List.Item>
                   <List.Item>
-                    {props.selectedChat.id
-                      ? receiver(props.selectedChat.users).seller.username
-                      : receiver(currentChat.users).seller.username}
+                    {receiver(currentChat.users).seller.username}
                   </List.Item>
                   <List.Item>
                     <span
@@ -163,10 +172,9 @@ function ChatFloatingCard(props) {
           <>
             <MessageListCard
               user={user}
-              chatId={
-                props.selectedChat.id ? props.selectedChat.id : currentChat.id
-              }
+              chatId={currentChat.id}
               selectedMessage={props.selectedMessage}
+              selectedChat={props.selectedChat}
             />
             <Segment style={rightBottomContent}>
               <Form onSubmit={onSubmit}>
