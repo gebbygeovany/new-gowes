@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+import React, { useContext, useState } from 'react';
+import { Card, Image, Grid, Button, Form, TextArea } from 'semantic-ui-react';
+import gql from 'graphql-tag'
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { storage } from '../firebase';
+import { useForm } from '../util/hooks'
+import { withRouter } from 'react-router-dom';
+
+import { AuthContext } from '../context/auth';
+=======
 import React, { useContext, useState } from "react";
 import { Card, Image, Grid, Button, Form, TextArea } from "semantic-ui-react";
 import gql from "graphql-tag";
@@ -7,21 +18,72 @@ import { useForm } from "../util/hooks";
 import { withRouter } from "react-router-dom";
 
 import { AuthContext } from "../context/auth";
+>>>>>>> 524214b6d3671cce7bce6544f0a03c2378a5124f
 
 function EditProfileCard(props) {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
+<<<<<<< HEAD
+    const context = useContext(AuthContext);
+    const [errors, setErrors] = useState({})
+
+    const [kota, setKota] = useState('')
+
+    const [isSaved, setSave] = useState(false)
+
+    const { loading, data: userData, data: cityData } = useQuery(FETCH_USER_QUERY, {
+        variables: {
+            userId: context.user.id
+        }
+    })
+    const { getUser: currentUser } = userData ? userData : []
+    const { getCities: cities } = cityData ? cityData : []
+
+    // console.log(cities)
+
+    const options = [
+        { key: 'bandung', text: 'Bandung', value: 'bandung' },
+        { key: 'jakarta', text: 'Jakarta', value: 'jakarta' },
+        { key: 'Malang', text: 'Malang', value: 'Malang' },
+    ]
+
+    const handleChange = (event) => {
+        setKota(event.target.value)
+    }
+=======
   const [kota, setKota] = useState("");
+>>>>>>> 524214b6d3671cce7bce6544f0a03c2378a5124f
 
   const [isSaved, setSave] = useState(false);
 
+<<<<<<< HEAD
+    let userObj = {
+        avatar: '',
+        name: '',
+        email: '',
+        phone: '',
+        birthDate: '',
+        city: kota
+    }
+
+    if (currentUser) {
+        userObj = {
+            avatar: '',
+            name: currentUser.buyer.name,
+            email: currentUser.email,
+            phone: currentUser.phone,
+            birthDate: currentUser.buyer.name,
+            city: kota
+        }
+=======
   const { loading, data: userData, data: cityData } = useQuery(
     FETCH_USER_QUERY,
     {
       variables: {
         userId: context.user.id,
       },
+>>>>>>> 524214b6d3671cce7bce6544f0a03c2378a5124f
     }
   );
   const { getUser: currentUser } = userData ? userData : [];
@@ -80,6 +142,47 @@ function EditProfileCard(props) {
         (error) => {
           console.log(error);
         },
+<<<<<<< HEAD
+        variables: {
+            avatar: '',
+            name: values.name,
+            email: values.email,
+            phone: values.phone,
+            birthDate: values.name,
+            city: kota
+        }
+    })
+
+
+    function updateUserProfile() {
+        values.avatar = avatar
+        // updateProfile()
+        console.log("values",values)
+        console.log("kota", kota)
+    }
+
+    const showMessage = () => {
+        if (isSaved) {
+            console.log(errors)
+            if (Object.keys(errors).length > 0) {
+                return (<div className='ui error message'>
+                    <ul className="list">
+                        {Object.values(errors).map(value => (<li key={value}>{value}</li>))}
+                    </ul>
+                </div>)
+            } else {
+                return (
+                    <div className='ui positive message'>
+                        <ul className="list">
+                            Updated
+                        </ul>
+                    </div>
+                )
+            }
+
+        } else {
+            return <div></div>
+=======
         () => {
           storage
             .ref("images")
@@ -89,6 +192,7 @@ function EditProfileCard(props) {
               setAvatar(url);
               console.log(url);
             });
+>>>>>>> 524214b6d3671cce7bce6544f0a03c2378a5124f
         }
       );
     }
