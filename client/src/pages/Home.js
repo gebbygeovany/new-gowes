@@ -1,25 +1,16 @@
-import React, { useContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { Grid, Transition } from 'semantic-ui-react';
-import gql from 'graphql-tag'
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { Grid, Transition } from "semantic-ui-react";
+import gql from "graphql-tag";
 
-import { AuthContext } from '../context/auth';
-import ShopCard from '../components/ShopCard';
-import FilterBar from '../components/FilterBar';
-import { FETCH_ITEMS_QUERY } from '../util/graphql';
+import ShopCard from "../components/ShopCard";
+import FilterBar from "../components/FilterBar";
+import { FETCH_ITEMS_QUERY } from "../util/graphql";
 
 function Home() {
-  const { user } = useContext(AuthContext);
-  const { loading, data, refetch } = useQuery(FETCH_ITEMS_QUERY)
-  const { getItems: items } = data ? data : []
+  const { loading, data } = useQuery(FETCH_ITEMS_QUERY);
+  const { getItems: items } = data ? data : [];
 
-  const { dataCities } = useQuery(FETCH_CITIES_QUERY,)
-  const { getCities: cities } = dataCities ? dataCities : []
-
-  console.log(cities)
-
-
-  console.log(items)
   return (
     <Grid stackable columns={6}>
       <Grid.Row className="page-title">
@@ -38,25 +29,24 @@ function Home() {
             </Transition.Group>
           </>
         ) : (
-            <h1>Loading posts..</h1>
-          )}
+          <h1>Loading posts..</h1>
+        )}
       </Grid.Row>
     </Grid>
   );
 }
 
 const FETCH_CITIES_QUERY = gql`
-    {
-        getCities{
-            city_id
-            province_id
-            province
-            type
-            city_name
-            postal_code
-        }
+  {
+    getCities {
+      city_id
+      province_id
+      province
+      type
+      city_name
+      postal_code
     }
+  }
 `;
-
 
 export default Home;
