@@ -6,12 +6,7 @@ import { storage } from '../firebase';
 import { useForm } from '../util/hooks'
 import { withRouter } from 'react-router-dom';
 
-
-
-
 import { AuthContext } from '../context/auth';
-
-
 
 function EditProfileCard(props) {
 
@@ -39,7 +34,7 @@ function EditProfileCard(props) {
     ]
 
     const handleChange = (event) => {
-        setKota({ ...kota, [event.target.name]: event.target.value })
+        setKota(event.target.value)
     }
 
     console.log(kota)
@@ -50,7 +45,7 @@ function EditProfileCard(props) {
         email: '',
         phone: '',
         birthDate: '',
-        city: ''
+        city: kota
     }
 
     if (currentUser) {
@@ -105,13 +100,22 @@ function EditProfileCard(props) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
             setSave(true)
         },
-        variables: values
+        variables: {
+            avatar: '',
+            name: values.name,
+            email: values.email,
+            phone: values.phone,
+            birthDate: values.name,
+            city: kota
+        }
     })
 
 
     function updateUserProfile() {
         values.avatar = avatar
-        updateProfile()
+        // updateProfile()
+        console.log("values",values)
+        console.log("kota", kota)
     }
 
     const showMessage = () => {
