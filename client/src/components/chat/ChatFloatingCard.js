@@ -26,8 +26,6 @@ function ChatFloatingCard(props) {
     id: "",
     users: [{ seller: { username: "" } }],
   });
-  const [content, setContent] = useState("");
-
   const setChat = (chat) => setCurrentChat(chat);
 
   const receiver = (users) => {
@@ -70,8 +68,6 @@ function ChatFloatingCard(props) {
     content: "",
   });
 
-  console.log(values);
-
   const [addMessage] = useMutation(ADD_MESSAGE, {
     update(_, { data: { addMessage: message } }) {
       // context.login(userData)
@@ -106,7 +102,7 @@ function ChatFloatingCard(props) {
           </List>
         </Segment>
         {!loading ? (
-          <ChatListCard chats={chats} user={user} setChat={setChat} />
+          <ChatListCard chats={chats} user={user} setChat={setChat} selectedChat={props.selectedChat}/>
         ) : (
           <h1>Loading chats..</h1>
         )}
@@ -156,9 +152,9 @@ function ChatFloatingCard(props) {
             </Grid.Column>
           </Grid>
         </Segment>
-        {currentChat.id != "" ? (
+        {currentChat.id != "" || props.selectedChat.id ? (
           <>
-            <MessageListCard user={user} chatId={currentChat.id} />
+            <MessageListCard user={user} chatId={props.selectedChat.id ? props.selectedChat.id : currentChat.id} selectedMessage={props.selectedMessage} />
             <Segment style={rightBottomContent}>
               <Form onSubmit={onSubmit}>
                 <Form.Group

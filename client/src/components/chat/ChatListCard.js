@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { List, Image, Segment } from "semantic-ui-react";
 
-function ChatListCard({ chats, user, setChat }) {
-  let obj = { id: 1 };
-  let objs = [];
-  for (var i = 0; i < 10; i++) {
-    objs.push(obj);
+function ChatListCard({ chats, user, setChat, selectedChat }) {
+  if (selectedChat.users) {
+    chats = [...chats, selectedChat]
   }
+  console.log(selectedChat)
   const [isItemHovered, setItemHovered] = useState({
     state: false,
     id: -1,

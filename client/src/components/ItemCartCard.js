@@ -44,7 +44,11 @@ function ItemCartCard({ item }) {
                             fluid
                             centered
                             rounded
-                            src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                            src={
+                                item.item.images.length > 0
+                                  ? item.item.images[0].downloadUrl
+                                  : "https://react.semantic-ui.com/images/avatar/large/molly.png"
+                              }
                             size='small'
                             as={Link} to={`/items/${item.item.id}`}
                         />

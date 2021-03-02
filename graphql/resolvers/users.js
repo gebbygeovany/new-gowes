@@ -132,7 +132,7 @@ module.exports = {
             }
         },
 
-        async updateUserProfile(_, { userProfileInput: { name, email, phone, birthDate, avatar } }, context) {
+        async updateUserProfile(_, { userProfileInput: { name, email, phone, birthDate, avatar, address} }, context) {
             const userCache = checkAuth(context)
 
             const user = await User.findOne({ email })
@@ -154,6 +154,7 @@ module.exports = {
                 {
                     email: email,
                     phone: phone,
+                    address: address,
                     "buyer.name": name,
                     "buyer.birthDate": birthDate,
                     "buyer.avatar": avatar

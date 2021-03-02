@@ -92,11 +92,19 @@ module.exports = gql`
     createdAt: String!
   }
 
+  type Address {
+    cityName: String!
+    cityId: String!
+    district: String!
+    postalCode: String!
+    detail: String!
+  }
+
   type User {
     id: ID!
     email: String!
     phone: String!
-    address: String!
+    address: Address!
     balance: Int!
     token: String!
     buyer: Buyer!
@@ -151,6 +159,31 @@ module.exports = gql`
     postal_code: String
   }
 
+  type Cost {
+    value: Int
+    etd: String
+    note: String
+  }
+
+  type Costs {
+    service: String
+    description: String
+    cost: [Cost]
+  }
+
+  type Results {
+    code: String
+    name: String
+    costs: [Costs]
+  }
+
+  input CostInput {
+    origin: String!
+    destination: String!
+    weight: Int!
+    courier: String!
+  }
+
   input RegisterInput {
     name: String!
     password: String!
@@ -164,6 +197,15 @@ module.exports = gql`
     email: String!
     phone: String!
     birthDate: String!
+    address: AddressInput!
+  }
+  
+  input AddressInput {
+    cityName: String!
+    cityId: String!
+    district: String!
+    postalCode: String!
+    detail: String!
   }
 
   input SellerProfileInput {
@@ -239,6 +281,7 @@ module.exports = gql`
     getUserOrders: [Order]
     getUserOrderById(oderId: ID!): [Order]
     getCities: [City] @cacheControl(maxAge: 1000)
+    getCosts(costInput: CostInput): [Results]
   }
   type Mutation {
     register(registerInput: RegisterInput): User!

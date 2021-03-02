@@ -4,11 +4,11 @@ import {
   FETCH_CHAT_MESSAGES_QUERY,
   MESSAGES_SUBSCRIPTION,
 } from "../../util/graphql";
-import { useQuery, useSubscription } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
-function MessageListCard({ user, chatId }) {
-  const { loading, data, subscribeToMore, refetch } = useQuery(
+function MessageListCard({ user, chatId, selectedMessage }) {
+  const { loading, data, subscribeToMore } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
     {
       variables: {
@@ -80,7 +80,7 @@ function MessageListCard({ user, chatId }) {
       }
 
       if (message.item.id) {
-        messageItemMarkUp = <ItemAttachedOnChat position={position}></ItemAttachedOnChat>;
+        messageItemMarkUp = <ItemAttachedOnChat item={message.item} position={position}></ItemAttachedOnChat>;
       } else {
         if (position == "right") {
           messageItemMarkUp = getMessageItem(
@@ -141,12 +141,21 @@ function MessageListCard({ user, chatId }) {
   };
   let messageListMarkup;
   if (!loading) {
-    messageListMarkup = (
-      <Segment style={rightContent}>
-        {messages.map((message, index) => getMessageComp(message, index))}
-        <div ref={messagesEndRef} />
-      </Segment>
-    );
+    if (chatId != "new") {
+      messageListMarkup = (
+        <Segment style={rightContent}>
+          {messages.map((message, index) => getMessageComp(message, index))}
+          <div ref={messagesEndRef} />
+        </Segment>
+      );
+    } else {
+      messageListMarkup = (
+        <Segment style={rightContent}>
+          {getMessageComp(selectedMessage, 0)}
+          <div ref={messagesEndRef} />
+        </Segment>
+      );
+    }
   } else {
     messageListMarkup = <h4>Loading messages..</h4>;
   }
