@@ -50,9 +50,8 @@ function ItemTransactionCard({
       price: item.price,
       image: "",
     },
+    chatId: isChatExists.length > 0 ? isChatExists[0]._id : "new"
   };
-
-  console.log("@itemTransaction_chatId: ",chat.id)
 
   const handleDismiss = () => {
     setVisible(false);

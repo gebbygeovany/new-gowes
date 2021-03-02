@@ -83,7 +83,7 @@ class App extends Component {
             <Route exact path="/editProfileCard" component={EditProfileCard} />
             <Route
               exact
-              path="/items/:itemId"
+              path="/items/:itemId/:itemUserId"
               component={(props) => (
                 <ItemDetail
                   onChatVisible={(chat, message) => this.handleChatVisibility(chat, message)}
