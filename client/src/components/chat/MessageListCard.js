@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/react-hooks";
 import ItemAttachedOnChat from "./ItemAttachedOnChat";
 
 function MessageListCard({ user, chatId, selectedMessage }) {
+  console.log(`chatId: ${chatId}`)
   const { loading, data, subscribeToMore } = useQuery(
     FETCH_CHAT_MESSAGES_QUERY,
     {

@@ -44,14 +44,10 @@ class App extends Component {
 
   handleChatVisibility(chat, message) {
     if (chat && message) {
-      console.log(
-        `@handleChatVisibility: chat: ${chat.users} message: ${message.name}`
-      );
       this.setState({ selectedChat: chat,
         selectedMessage: message
        });
     }
-    console.log("isChatVisible on App was employed");
     this.setState({ isChatVisible: !this.state.isChatVisible });
   }
 

@@ -15,13 +15,18 @@ import { FETCH_CART_QUERY } from "../util/graphql";
 import { AuthContext } from "../context/auth";
 import { FETCH_USER_CART_QUERY } from "../util/graphql";
 
-function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
+function ItemTransactionCard({
+  contextRef,
+  item,
+  onChatVisible,
+  isChatExists,
+}) {
   const context = useContext(AuthContext);
   const [amountItem, setAmountItem] = useState(1);
   const [visible, setVisible] = useState(false);
   const [errors, setErrors] = useState({});
   const chat = {
-    id: "new",
+    id: isChatExists.length > 0 ? isChatExists[0]._id : "new",
     users: [
       {
         id: context.user.id,
@@ -36,17 +41,18 @@ function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
         },
       },
     ],
-  }
+  };
   const message = {
     user: context.user.id,
     item: {
       id: item.id,
       name: item.name,
       price: item.price,
-      image: ""
-    }
-  }
+      image: "",
+    },
+  };
 
+  console.log("@itemTransaction_chatId: ",chat.id)
 
   const handleDismiss = () => {
     setVisible(false);
@@ -78,7 +84,6 @@ function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
-      console.log(err.graphQLErrors[0]);
     },
   });
 
@@ -93,8 +98,6 @@ function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
   if (cartItem) {
     inCartAmount = cartItem.amountItem;
   }
-
-  console.log(visible);
 
   function addItemToCart() {
     // refetch()
@@ -201,12 +204,7 @@ function ItemTransactionCard({ props, contextRef, item, onChatVisible }) {
                 className="ui two buttons"
                 style={{ marginTop: 8, marginLeft: 2 }}
               >
-                <Button
-                  animated
-                  onClick={() =>
-                    onChatVisible(chat, message)
-                  }
-                >
+                <Button animated onClick={() => onChatVisible(chat, message)}>
                   <Button.Content visible>
                     <Icon name="chat" />
                     {" Chat"}

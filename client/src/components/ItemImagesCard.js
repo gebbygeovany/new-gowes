@@ -11,8 +11,7 @@ function ItemImagesCard({ contextRef, images }) {
         <Swiper
           spaceBetween={6}
           slidesPerView={4}
-          onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}>
+          onSlideChange={() => console.log('slide change')}>
             {images.map((image, index) => (
               <SwiperSlide key={index} virtualIndex={index}>
                 <Image href={`#image/${image.id}`} onClick={() => {setSelectedImage(image.downloadUrl)}} src={ image.downloadUrl } style={{ width: 60, height: 60 }}/>

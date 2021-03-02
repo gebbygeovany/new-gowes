@@ -15,7 +15,7 @@ import { FETCH_CHATS_QUERY, ADD_MESSAGE } from "../../util/graphql";
 import { AuthContext } from "../../context/auth";
 import { useMutation } from "@apollo/react-hooks";
 import { useForm } from "../../util/hooks";
-import { IoMdBicycle } from 'react-icons/io';
+import { IoMdBicycle } from "react-icons/io";
 
 function ChatFloatingCard(props) {
   const { user } = useContext(AuthContext);
@@ -102,7 +102,12 @@ function ChatFloatingCard(props) {
           </List>
         </Segment>
         {!loading ? (
-          <ChatListCard chats={chats} user={user} setChat={setChat} selectedChat={props.selectedChat}/>
+          <ChatListCard
+            chats={chats}
+            user={user}
+            setChat={setChat}
+            selectedChat={props.selectedChat}
+          />
         ) : (
           <h1>Loading chats..</h1>
         )}
@@ -111,7 +116,7 @@ function ChatFloatingCard(props) {
         <Segment style={topRightBar}>
           <Grid>
             <Grid.Column width={14}>
-              {currentChat.id != "" ? (
+              {currentChat.id != "" || props.selectedChat.id ? (
                 <List horizontal>
                   <List.Item>
                     <Image
@@ -120,7 +125,9 @@ function ChatFloatingCard(props) {
                     />
                   </List.Item>
                   <List.Item>
-                    {receiver(currentChat.users).seller.username}
+                    {props.selectedChat.id
+                      ? receiver(props.selectedChat.users).seller.username
+                      : receiver(currentChat.users).seller.username}
                   </List.Item>
                   <List.Item>
                     <span
@@ -154,7 +161,13 @@ function ChatFloatingCard(props) {
         </Segment>
         {currentChat.id != "" || props.selectedChat.id ? (
           <>
-            <MessageListCard user={user} chatId={props.selectedChat.id ? props.selectedChat.id : currentChat.id} selectedMessage={props.selectedMessage} />
+            <MessageListCard
+              user={user}
+              chatId={
+                props.selectedChat.id ? props.selectedChat.id : currentChat.id
+              }
+              selectedMessage={props.selectedMessage}
+            />
             <Segment style={rightBottomContent}>
               <Form onSubmit={onSubmit}>
                 <Form.Group
@@ -184,7 +197,12 @@ function ChatFloatingCard(props) {
             </Segment>
           </>
         ) : (
-          <><IoMdBicycle color='rgb(206, 206, 206)' style={{ fontSize: 28, marginRight: 5 }}></IoMdBicycle></>
+          <>
+            <IoMdBicycle
+              color="rgb(206, 206, 206)"
+              style={{ fontSize: 28, marginRight: 5 }}
+            ></IoMdBicycle>
+          </>
         )}
       </Grid.Column>
     </Grid>

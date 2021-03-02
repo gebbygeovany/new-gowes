@@ -50,7 +50,7 @@ export const FETCH_ITEMS_QUERY = gql`
 `;
 
 export const FETCH_ITEM_QUERY = gql`
-  query($itemId: ID!) {
+  query($itemId: ID!, $itemUserId: ID!) {
     getItem(itemId: $itemId) {
       id
       name
@@ -105,18 +105,10 @@ export const FETCH_ITEM_QUERY = gql`
       createdAt
     }
 
-    #   getUserCartItem(itemId: $itemId) {
-    #   id
-    #   createdAt
-    #   amountItem
-    #   item{
-    #     user{
-    #       seller {
-    #         username
-    #       }
-    #     }
-    #   }
-    # }
+    isChatExists(itemUserId: $itemUserId) {
+      _id
+      lastText
+    }
   }
 `;
 
