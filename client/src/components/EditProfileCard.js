@@ -12,7 +12,10 @@ function EditProfileCard(props) {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
-  const [kota, setKota] = useState("");
+  // const [kota, setKota] = useState({});
+  const [kotaName, setKotaName] = useState("");
+  const [kotaId, setKotaId] = useState("");
+  const [isKotaSet, setIsKota] = useState(false);
 
   const [isSaved, setSave] = useState(false);
 
@@ -29,6 +32,16 @@ function EditProfileCard(props) {
 
   // console.log(cities)
 
+  if (!loading && !isKotaSet) {
+    setKotaName(currentUser.address.cityName)
+    setKotaId(currentUser.address.cityId)
+    // setKota({
+    //   cityName: currentUser.address.cityName,
+    //   cityId: currentUser.address.cityId
+    // })
+    setIsKota(true)
+  }
+
   const options = [
     { key: "bandung", text: "Bandung", value: "bandung" },
     { key: "jakarta", text: "Jakarta", value: "jakarta" },
@@ -36,15 +49,15 @@ function EditProfileCard(props) {
   ];
 
   const handleChange = (event) => {
-    setKota(event.target.value);
+
+    // let cityValue = event.target.value.split("-")
+    // setKota({
+    //   cityName: cityValue[0],
+    //   cityId: cityValue[1]
+    // })
+    setKotaName(event.target.value.split("-")[0]);
+    setKotaId(event.target.value.split("-")[1]);
   };
-
-  console.log(kota);
-
-  let cityValue = kota.split(" - ")
-
-  console.log(cityValue[1]);
-
 
   let userObj = {
     avatar: "",
@@ -57,13 +70,12 @@ function EditProfileCard(props) {
 
   if (currentUser) {
     userObj = {
-      avatar: "",
+      // avatar: "",
       name: currentUser.buyer.name,
       email: currentUser.email,
       phone: currentUser.phone,
-      birthDate: currentUser.buyer.name,
-      cityName: currentUser.address.cityName,
-      cityId: cityValue[1],
+      birthDate: currentUser.buyer.birthDate,
+      // cityName: currentUser.address.cityName,
       district: currentUser.address.district,
       postalCode: currentUser.address.postalCode,
       detail: currentUser.address.detail,
@@ -117,13 +129,21 @@ function EditProfileCard(props) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
       setSave(true);
     },
-    variables: values,
+    variables: {
+      ...values,
+      cityName: kotaName,
+      cityId: kotaId,
+      avatar: avatar
+    }
   });
 
   console.log(values)
 
   function updateUserProfile() {
-    values.avatar = avatar;
+    // values.avatar = avatar;
+    // let cityValue = kotaName.split("-")
+    // setKotaName(cityValue[0])
+    // setKotaId(cityValue[1])
     updateProfile();
   }
 
@@ -259,7 +279,7 @@ function EditProfileCard(props) {
                       onChange={handleChange}
                       name="city"
                       control="select"
-                      value={values.cityName}
+                      value={`${kotaName}-${kotaId}`}
                       search
                       selection
                     >
@@ -267,7 +287,7 @@ function EditProfileCard(props) {
                       {cities &&
                         cities.map((city) => (
                           <>
-                            <option value={city.type + " " + city.city_name + " - " + city.city_id}>
+                            <option value={city.type + " " + city.city_name + "-" + city.city_id}>
                               {city.city_name + " " + city.type}
                             </option>
                           </>
@@ -347,6 +367,11 @@ const UPDATE_PROFILE_MUTATION = gql`
     $email: String!
     $phone: String!
     $birthDate: String!
+    $cityName: String!
+    $cityId: String!
+    $district: String!
+    $postalCode: String!
+    $detail: String!
   ) {
     updateUserProfile(
       userProfileInput: {
@@ -356,11 +381,11 @@ const UPDATE_PROFILE_MUTATION = gql`
         phone: $phone
         birthDate: $birthDate
         address: {
-          cityName:"Kota Bandung - 23"
-          cityId:"23"
-          district:"Cimahi"
-          postalCode:"40111"
-          detail:"Jl. Persekutan Dunia Akhirat"
+          cityName: $cityName
+          cityId:$cityId
+          district:$district
+          postalCode:$postalCode
+          detail:$detail
     }
       }
     ) {

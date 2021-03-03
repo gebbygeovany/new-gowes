@@ -44,7 +44,7 @@ function SellerProfile(props) {
                             {items &&
                                 items.map((item) => (
                                     <Grid.Column key={item.id} style={{ marginBottom: 20 }}>
-                                        <ShopCard item={item} />
+                                        <ShopCard item={item}  />
                                     </Grid.Column>
                                 ))}
                         </Grid>
@@ -87,6 +87,7 @@ const FETCH_SELLER_PROFILE_QUERY = gql`
                 createdAt
             }
             user{
+                id
                 seller{
                     username
                 }
